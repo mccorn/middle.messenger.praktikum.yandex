@@ -1,0 +1,1 @@
+export default `<button onclick='console.log(11)'>{{label}}</button>`

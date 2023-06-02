@@ -1,0 +1,1 @@
+export default `Hello app {{username}} {{> button label="Click me!" }}`

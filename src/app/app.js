@@ -1,10 +1,29 @@
-import {compile} from "handlebars"
+import Handlebars, {compile} from "handlebars"
+import buttonTmpl from "./partials/button.tmpl";
+import greetingTmpl from "./templates/greeting.tmpl";
 
-function App() {
-    const data = {title: 'a1a'};
-    const template = compile(document.querySelector("#template-app").innerHTML);
+Handlebars.registerPartial('button', buttonTmpl)
 
-    document.querySelector("#app").innerHTML = template(data);
+// function App() {
+//     const data = {title: 'a1a'};
+//     const template = compile(document.querySelector("#template-app").innerHTML);
+//     // const template = compile(`{{>button label="Click"}}`);
+
+//     document.querySelector("#app").innerHTML = template(data);
+// }
+
+// App();
+
+const renderApp = () => {
+    const data = {
+        username: 'Andrew',
+    };
+    const root = document.querySelector("#app");
+    // const template = compile(document.querySelector("#template-app").innerHTML);
+    const template = compile(greetingTmpl);
+    const result = template(data);
+
+    root.innerHTML = result;
 }
 
-App();
+document.addEventListener('DOMContentLoaded', renderApp)
