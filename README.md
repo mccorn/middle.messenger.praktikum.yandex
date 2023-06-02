@@ -7,7 +7,7 @@
 
 ### Также не забудьте проверить, что репозиторий публичный.
 ---
-[link]: http://google.com/        "Google"
+[link]: https://www.figma.com/file/3oruxhqroItRQ1XNqL4pjb/YANDEX.MESSENGER?type=design&node-id=0-1&t=YyiqCxkpjt8Wxhrs-0        "Figma maket"
 ### Прототип в Figma: [link]
 
 ---
