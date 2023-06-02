@@ -7,9 +7,8 @@
 
 ### Также не забудьте проверить, что репозиторий публичный.
 ---
-
-### Прототип в Figma:
-https://www.figma.com/file/3oruxhqroItRQ1XNqL4pjb/YANDEX.MESSENGER?type=design&node-id=0-1&t=YyiqCxkpjt8Wxhrs-0
+[link]: http://google.com/        "Google"
+### Прототип в Figma: [link]
 
 ---
 
