@@ -1,0 +1,1 @@
+export default `<input value={{value}} placeholder={{placeholder}}></input>`

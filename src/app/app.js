@@ -1,29 +1,58 @@
-import Handlebars, {compile} from "handlebars"
-import buttonTmpl from "./partials/button.tmpl";
+import {compile} from "handlebars"
+
 import greetingTmpl from "./templates/greeting.tmpl";
 
-Handlebars.registerPartial('button', buttonTmpl)
+import HomePage from "./pages/Home";
+import LoginPage from "./pages/Login";
+import RegisterPage from "./pages/Register";
+import ProfilePage from "./pages/Profile";
+import Error404Page from "./pages/Error404";
+import Error500Page from "./pages/Error500";
 
-// function App() {
-//     const data = {title: 'a1a'};
-//     const template = compile(document.querySelector("#template-app").innerHTML);
-//     // const template = compile(`{{>button label="Click"}}`);
+import registerUI from "./ui";
 
-//     document.querySelector("#app").innerHTML = template(data);
-// }
-
-// App();
-
-const renderApp = () => {
-    const data = {
-        username: 'Andrew',
-    };
-    const root = document.querySelector("#app");
-    // const template = compile(document.querySelector("#template-app").innerHTML);
-    const template = compile(greetingTmpl);
-    const result = template(data);
-
-    root.innerHTML = result;
+const env = {
+    devMode: false,
 }
 
-document.addEventListener('DOMContentLoaded', renderApp)
+const INIT_DATA = {
+    login: {},
+    register: {},
+    profile: {},
+    userData: {
+        username: 'Andrew',
+        authorize: false,
+    },
+    error: {},
+}
+
+export const innerTemplate = (selector = "#app", templateFunc = greetingTmpl, data = {}) => {
+    const root = document.querySelector(selector);
+    const template = compile(templateFunc);
+
+    root.innerHTML = template(data);
+}
+
+registerUI();
+
+const renderApp = (data = INIT_DATA) => {
+    const {pathname} = window.location;
+
+    switch (pathname) {
+        case '/login': innerTemplate("#app", LoginPage, data.login); break;
+        case '/register': innerTemplate("#app", RegisterPage, data.register); break;
+        case '/profile': innerTemplate("#app", ProfilePage, data.profile); break;
+        case '/home': innerTemplate("#app", HomePage, data.userData); break;
+        case '/error404': innerTemplate("#app", Error404Page, data.error); break;
+        case '/error500': innerTemplate("#app", Error500Page, data.error); break;
+
+        case '/nav': {
+            env.devMode ? innerTemplate("#app", greetingTmpl, INIT_DATA) : window.location.replace("/home");
+            break;
+        }
+        
+        default: window.location.replace(env.devMode ?  "/nav" : "/home");
+    }  
+}
+
+document.addEventListener('DOMContentLoaded', () => renderApp())
