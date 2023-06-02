@@ -8,7 +8,6 @@
 
 ---
 ## Команды
-<code>
-    -npm start
-</code>
+<code>-npm start</code>
+    
 для старта vite на <a>http://localhost:5173/</a>
