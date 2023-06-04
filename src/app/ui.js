@@ -1,9 +1,9 @@
 
 import Handlebars from "handlebars"
 
-import buttonTmpl from "./partials/button.tmpl";
-import inputTextTmpl from "./partials/inputText.tmpl";
-import inputTextWithLabelTmpl from "./partials/inputTextWithLabel.tmpl";
+import buttonTmpl from "./partials/button/button.tmpl";
+import inputTextTmpl from "./partials/inputText/inputText.tmpl";
+import inputTextWithLabelTmpl from "./partials/inputText/inputTextWithLabel.tmpl";
 
 const UI = {
     button: buttonTmpl,
