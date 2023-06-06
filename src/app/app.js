@@ -52,7 +52,7 @@ const renderApp = (data = INIT_DATA) => {
 			break;
 		}
 
-		default: window.location.replace(env.devMode ?  "/nav" : "/home");
+		default: window.location.replace(env.devMode ? "/nav" : "/home");
 	}
 }
 
