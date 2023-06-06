@@ -10,7 +10,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "vite"
+    "start": "vite build && node server"
   },
   "devDependencies": {
     "vite": "^4.3.9"

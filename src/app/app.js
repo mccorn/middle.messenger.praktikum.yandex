@@ -1,4 +1,4 @@
-import {compile} from "handlebars"
+import { compile } from "handlebars"
 
 import greetingTmpl from "./templates/greeting.tmpl";
 
@@ -12,47 +12,52 @@ import Error500Page from "./pages/Error500";
 import registerUI from "./ui";
 
 const env = {
-    devMode: false,
+	devMode: true,
 }
 
 const INIT_DATA = {
-    login: {},
-    register: {},
-    profile: {},
-    userData: {
-        username: 'Andrew',
-        authorize: false,
-    },
-    error: {},
+	login: {},
+	register: {},
+	profile: {},
+	userData: {
+		username: 'Andrew',
+		authorize: false,
+	},
+	error: {},
 }
 
 export const innerTemplate = (selector = "#app", templateFunc = greetingTmpl, data = {}) => {
-    const root = document.querySelector(selector);
-    const template = compile(templateFunc);
+	const root = document.querySelector(selector);
+	const template = compile(templateFunc);
 
-    root.innerHTML = template(data);
+	root.innerHTML = template(data);
 }
 
 registerUI();
 
 const renderApp = (data = INIT_DATA) => {
-    const {pathname} = window.location;
+	const { pathname } = window.location;
 
-    switch (pathname) {
-        case '/login': innerTemplate("#app", LoginPage, data.login); break;
-        case '/register': innerTemplate("#app", RegisterPage, data.register); break;
-        case '/profile': innerTemplate("#app", ProfilePage, data.profile); break;
-        case '/home': innerTemplate("#app", HomePage, data.userData); break;
-        case '/error404': innerTemplate("#app", Error404Page, data.error); break;
-        case '/error500': innerTemplate("#app", Error500Page, data.error); break;
+	console.log('pathname', pathname)
+	switch (pathname) {
+		case '/login': innerTemplate("#app", LoginPage, data.login); break;
+		case '/register': innerTemplate("#app", RegisterPage, data.register); break;
+		case '/profile': innerTemplate("#app", ProfilePage, data.profile); break;
+		case '/home': innerTemplate("#app", HomePage, data.userData); break;
+		case '/': innerTemplate("#app", HomePage, data.userData); break;
+		case '/error404': innerTemplate("#app", Error404Page, data.error); break;
+		case '/error500': innerTemplate("#app", Error500Page, data.error); break;
 
-        case '/nav': {
-            env.devMode ? innerTemplate("#app", greetingTmpl, INIT_DATA) : window.location.replace("/home");
-            break;
-        }
-        
-        default: window.location.replace(env.devMode ?  "/nav" : "/home");
-    }  
+		case '/nav': {
+			env.devMode ? innerTemplate("#app", greetingTmpl, INIT_DATA) : window.location.replace("/home");
+			break;
+		}
+
+		// default: window.location.replace(env.devMode ?  "/nav" : "/home");
+		default: window.location.replace(env.devMode ? "/nav" : "/");
+	}
+
+	// innerTemplate("#app", Error500Page, data.error);
 }
 
 document.addEventListener('DOMContentLoaded', () => renderApp())
