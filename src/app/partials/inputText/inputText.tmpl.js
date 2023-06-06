@@ -1,1 +1,1 @@
-export default `<input value="{{value}}" class="input {{className}}" placeholder={{placeholder}}></input>`
+export default `<input value="{{value}}" class="input {{className}}" placeholder={{placeholder}} name={{name}}></input>`

@@ -6,8 +6,8 @@ const template = `
 
 			<form>
 				<div class="column withGap" >
-					{{>inputTextWithLabel label="Login" placeholder="login" className="" }}
-					{{>inputTextWithLabel label="Password" placeholder="password" className="" }}
+					{{>inputTextWithLabel label="Login" placeholder="login" name="login" className="" }}
+					{{>inputTextWithLabel label="Password" placeholder="password" name="password" className="" }}
 
 					<div class="column column_align_center">
 						{{>button label="Sign in"}}

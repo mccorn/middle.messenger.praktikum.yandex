@@ -6,12 +6,12 @@ const template = `
 
         <form>
           <div class="column withGap" >
-            {{>inputTextWithLabel label="Login" value="" placeholder="login"}}
-            {{>inputTextWithLabel label="Password" value="" placeholder="password"}}
-            {{>inputTextWithLabel label="First_name" value="" placeholder="first_name"}}
-            {{>inputTextWithLabel label="Second_name" value="" placeholder="second_name"}}
-            {{>inputTextWithLabel label="Email" value="" placeholder="email"}}
-            {{>inputTextWithLabel label="Phone" value="" placeholder="phone"}}
+            {{>inputTextWithLabel label="Login" value="" name="login" placeholder="login"}}
+            {{>inputTextWithLabel label="Password" value="" name="password" placeholder="password"}}
+            {{>inputTextWithLabel label="First_name" value="" name="first_name" placeholder="first_name"}}
+            {{>inputTextWithLabel label="Second_name" value="" name="second_name" placeholder="second_name"}}
+            {{>inputTextWithLabel label="Email" value="" name="email" placeholder="email"}}
+            {{>inputTextWithLabel label="Phone" value="" name="phone" placeholder="phone"}}
 
             <div class="column column_align_center">
               {{>button label="Register"}}

@@ -33,7 +33,8 @@
 
 ---
 ## Команды
-<code>-npm start</code>  ==> для старта vite на <a>http://localhost:5173/</a>    
+<code>-npm run build</code>  ==> сборка (build)
+<code>-npm run start</code>  ==> сборка (build) и запуск express-сервера на <a>http://localhost:3000/</a>    
 
 ---
 ### Локальные ссылки

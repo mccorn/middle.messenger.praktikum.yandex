@@ -38,7 +38,6 @@ registerUI();
 const renderApp = (data = INIT_DATA) => {
 	const { pathname } = window.location;
 
-	console.log('pathname', pathname)
 	switch (pathname) {
 		case '/login': innerTemplate("#app", LoginPage, data.login); break;
 		case '/register': innerTemplate("#app", RegisterPage, data.register); break;
@@ -53,11 +52,8 @@ const renderApp = (data = INIT_DATA) => {
 			break;
 		}
 
-		// default: window.location.replace(env.devMode ?  "/nav" : "/home");
-		default: window.location.replace(env.devMode ? "/nav" : "/");
+		default: window.location.replace(env.devMode ?  "/nav" : "/home");
 	}
-
-	// innerTemplate("#app", Error500Page, data.error);
 }
 
 document.addEventListener('DOMContentLoaded', () => renderApp())

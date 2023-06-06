@@ -8,18 +8,18 @@ const template = `
 					<h5>Display Name</h5>
 				</div>
 				<div class="col4">
-					{Avatar edit}
+					{{>inputTextWithLabel label="Password" value="" name="login" placeholder="password"}}
 				</div>
 			</div>
 
 			<div class="column withGap article" >
 
-				{{>inputTextWithLabel label="Login" value="1" placeholder="login"}}
-				{{>inputTextWithLabel label="Password" placeholder="password"}}
-				{{>inputTextWithLabel label="Password" placeholder="password"}}
-				{{>inputTextWithLabel label="Password" placeholder="password"}}
-				{{>inputTextWithLabel label="Password" placeholder="password"}}
-				{{>inputTextWithLabel label="Password" placeholder="password"}}
+				{{>inputTextWithLabel label="Login" value="" name="login" placeholder="login"}}
+				{{>inputTextWithLabel label="Display_name" value="" name="display_name" placeholder="display_name"}}
+				{{>inputTextWithLabel label="First_name" value="" name="first_name" placeholder="first_name"}}
+				{{>inputTextWithLabel label="Second_name" value="" name="second_name" placeholder="second_name"}}
+				{{>inputTextWithLabel label="Email" value="" name="email" placeholder="email"}}
+				{{>inputTextWithLabel label="Phone" value="" name="phone" placeholder="phone"}}
 
 			</div>
 
@@ -27,8 +27,8 @@ const template = `
 			<div class="column withGap article" >
 				<h2>Password</h2>
 
-				{{>inputTextWithLabel label="Password" placeholder="password"}}
-				{{>inputTextWithLabel label="Password" placeholder="password"}}
+				{{>inputTextWithLabel label="Old Password" value="" name="oldPassword" placeholder="oldPassword"}}
+				{{>inputTextWithLabel label="New Password" value="" name="newPassword" placeholder="newPassword"}}
 
 				
 			</div>
