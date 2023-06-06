@@ -1,12 +1,12 @@
 const template = `
 <div class='page'>
-  <div class="error404">
+  <main class="error404">
     <div class="buttonContainer">
       <a href="/home">
         {{>button label="To home"}}
       </a>
     </div>
-  </div>
+  </main>
 </div>
 `
 

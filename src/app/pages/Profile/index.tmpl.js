@@ -1,7 +1,7 @@
 const template = `
 <div class='page'>
 	<div class="wrapper wrapper_theme_default shadowed" >
-		<div class="box" >
+		<main class="box" >
 			<div class="row article">
 				<div class="col8">
 					<h2>Profile Page</h2>
@@ -36,7 +36,7 @@ const template = `
 			<div class="column">
 				{{>button label="Sign in"}}
 			</div>
-		</div>
+		</main>
 	</div>
 </div>
 `

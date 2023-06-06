@@ -1,6 +1,8 @@
 const template = `
 <div class='page'>
-	HomePage, username: {{username}}
+	<main>
+		HomePage, username: {{username}}
+	</main>
 </div>
 `
 
