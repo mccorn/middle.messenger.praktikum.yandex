@@ -10,10 +10,18 @@ import Error404Page from "./pages/Error404";
 import Error500Page from "./pages/Error500";
 
 import registerUI from "./ui";
+import { utils } from "../utils";
 
 const env = {
 	devMode: true,
 }
+
+
+
+console.log(
+	
+)
+
 
 const INIT_DATA = {
 	login: {},
@@ -22,6 +30,8 @@ const INIT_DATA = {
 	userData: {
 		username: 'Andrew',
 		authorize: false,
+		chats: utils.GEN.getDataArrayChats(5),
+		messages: utils.GEN.getArray(100, utils.GEN.getDataMessage)
 	},
 	error: {},
 }
