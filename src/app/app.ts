@@ -31,7 +31,7 @@ const INIT_DATA = {
 		username: 'Andrew',
 		authorize: false,
 		chats: utils.GEN.getDataArrayChats(5),
-		messages: utils.GEN.getArray(100, utils.GEN.getDataMessage)
+		messages: utils.GEN.getArray(100, () => utils.GEN.getDataMessage(0))
 	},
 	error: {},
 }
@@ -40,7 +40,7 @@ export const innerTemplate = (selector = "#app", templateFunc = greetingTmpl, da
 	const root = document.querySelector(selector);
 	const template = compile(templateFunc);
 
-	root.innerHTML = template(data);
+	if (root) root.innerHTML = template(data);
 }
 
 registerUI();
