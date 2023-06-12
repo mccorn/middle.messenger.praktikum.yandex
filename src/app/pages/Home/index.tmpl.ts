@@ -18,7 +18,7 @@ const template = `
 				{{/each}}
 			</div>
 			<div>
-				{{>inputArea }}
+				{{>inputArea value="" placeholder="Type message..." name="message" className="active" }}
 			</div>
 		</main>
 	</div>

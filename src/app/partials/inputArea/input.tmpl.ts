@@ -1,3 +1,4 @@
 import "./style.less";
 
-export default `<div>inputArea</div>`
+export default `<input value="{{value}}" class="input {{className}}" placeholder="{{placeholder}}" name="{{name}}" type="text"></input>`
+
