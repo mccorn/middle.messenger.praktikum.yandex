@@ -18,7 +18,7 @@ class Block {
 		 *
 		 * @returns {void}
 		 */
-	constructor(tagName = "div", props = {}) {
+	constructor(props = {}, tagName = "div", ) {
 		const eventBus = new EventBus();
 		this._meta = {
 			tagName,
@@ -104,7 +104,7 @@ class Block {
 	}
 
 	// Может переопределять пользователь, необязательно трогать
-	// render() { }
+	render() { }
 
 	getContent() {
 		return this.element;

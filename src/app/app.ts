@@ -11,20 +11,19 @@ import Error500Page from "./pages/Error500";
 
 import registerUI from "./ui";
 import { utils } from "../utils";
+import App from "./blocks/App";
 
 const env = {
 	devMode: true,
 }
 
-
-
-console.log(
-	
-)
-
-
 const INIT_DATA = {
-	login: {},
+	text: 'asdas',
+	test: '123132',
+	login: {
+		login: 'login2',
+		password: 'password',
+	},
 	register: {},
 	profile: {},
 	userData: {
@@ -45,25 +44,18 @@ export const innerTemplate = (selector = "#app", templateFunc = greetingTmpl, da
 
 registerUI();
 
-const renderApp = (data = INIT_DATA) => {
-	const { pathname } = window.location;
+const state = INIT_DATA
+const app = new App(Object.assign(state, env))
 
-	switch (pathname) {
-		case '/login': innerTemplate("#app", LoginPage, data.login); break;
-		case '/register': innerTemplate("#app", RegisterPage, data.register); break;
-		case '/profile': innerTemplate("#app", ProfilePage, data.profile); break;
-		case '/home': innerTemplate("#app", HomePage, data.userData); break;
-		case '/': innerTemplate("#app", HomePage, data.userData); break;
-		case '/error404': innerTemplate("#app", Error404Page, data.error); break;
-		case '/error500': innerTemplate("#app", Error500Page, data.error); break;
+document.addEventListener('DOMContentLoaded', () => utils.render("#app", app))
+// document.addEventListener('DOMContentLoaded', () => innerTemplate("#app", app.render(state), state))
 
-		case '/nav': {
-			env.devMode ? innerTemplate("#app", greetingTmpl, INIT_DATA) : window.location.replace("/home");
-			break;
-		}
+setTimeout(() => {
+	
+	// app.setProps({
+  //   text: 'Click me, please',
+  //   login: 'Click me, please',
+  // });
 
-		default: window.location.replace(env.devMode ? "/nav" : "/home");
-	}
-}
-
-document.addEventListener('DOMContentLoaded', () => renderApp())
+	// console.log('setTimeout', app.props)
+}, 3000);
