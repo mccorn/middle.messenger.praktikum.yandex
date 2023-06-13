@@ -1,3 +1,4 @@
+import Button from "../../components/Button";
 import InputWithLabel from "../../components/InputWithLabel";
 
 const template = ({data = {password: String, login: String}}) => `
@@ -13,7 +14,7 @@ const template = ({data = {password: String, login: String}}) => `
 
 					<div class="column column_align_center">
 						<div class="line">
-							{{>button label="Sign in"}}
+							${(new Button({label: "Sign in"})).render()}
 						</div>
 						
 						<div>

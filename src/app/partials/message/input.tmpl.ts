@@ -1,4 +1,4 @@
-import "./style.less";
+import "./styles.less";
 
 export default `<div class="messageWrapper">
 	{{#with data}}

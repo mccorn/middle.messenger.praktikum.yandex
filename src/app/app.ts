@@ -2,12 +2,12 @@ import { compile } from "handlebars"
 
 import greetingTmpl from "./templates/greeting.tmpl";
 
-import HomePage from "./pages/Home";
-import LoginPage from "./pages/Login";
-import RegisterPage from "./pages/Register";
-import ProfilePage from "./pages/Profile";
-import Error404Page from "./pages/Error404";
-import Error500Page from "./pages/Error500";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import ProfilePage from "./pages/ProfilePage";
+import Error404Page from "./pages/Error404Page";
+import Error500Page from "./pages/Error500Page";
 
 import registerUI from "./ui";
 import { utils } from "../utils";
@@ -22,7 +22,7 @@ const INIT_DATA = {
 	test: '123132',
 	login: {
 		login: 'login2',
-		password: 'password',
+		// password: 'password',
 	},
 	register: {},
 	profile: {},
@@ -53,9 +53,21 @@ document.addEventListener('DOMContentLoaded', () => utils.render("#app", app))
 setTimeout(() => {
 	
 	// app.setProps({
-  //   text: 'Click me, please',
-  //   login: 'Click me, please',
+  //   login: {
+	// 		login: 'Click me, please',
+	// 	}
   // });
 
 	// console.log('setTimeout', app.props)
 }, 3000);
+
+setTimeout(() => {
+	
+	// app.setProps({
+  //   login: {
+	// 		password: 'Click me, please, too',
+	// 	}
+  // });
+
+}, 5000);
+
