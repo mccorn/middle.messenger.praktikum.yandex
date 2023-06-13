@@ -1,3 +1,5 @@
+import EventBus from "./EventBus.js";
+
 class Block {
 	static EVENTS = {
 		INIT: "init",
@@ -102,7 +104,7 @@ class Block {
 	}
 
 	// Может переопределять пользователь, необязательно трогать
-	render() { }
+	// render() { }
 
 	getContent() {
 		return this.element;
@@ -151,3 +153,5 @@ class Block {
 		this.getContent().style.display = 'none';
 	}
 }
+
+export default Block;
