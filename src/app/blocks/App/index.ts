@@ -26,6 +26,6 @@ export default class App extends Block {
 			default: window.location.replace("/error404");
 		}
 
-		return component.render(this.props);
+		return component.render();
 	}
 }

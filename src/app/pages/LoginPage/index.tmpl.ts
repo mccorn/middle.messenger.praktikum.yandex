@@ -37,10 +37,12 @@ const template = `
 			<form>
 				<div class="column withGap" >
 				
+					{{{ inputLogin }}}
+					{{{ inputPassword }}}
 
 					<div class="column column_align_center">
 						<div class="line">
-						
+							{{{ button }}}
 						</div>
 						
 						<div>
