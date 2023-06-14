@@ -1,73 +1,125 @@
-import { compile } from "handlebars"
+import Handlebars, { compile } from "handlebars"
+import Block from "../utils/Block.js";
+// import { utils } from "../utils";
+// import App from "./blocks/App";
 
-import greetingTmpl from "./templates/greeting.tmpl";
+// const env = {
+// 	devMode: true,
+// }
 
-import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import ProfilePage from "./pages/ProfilePage";
-import Error404Page from "./pages/Error404Page";
-import Error500Page from "./pages/Error500Page";
+// const INIT_DATA = {
+// 	text: 'asdas',
+// 	test: '123132',
+// 	login: {
+// 		login: 'login2',
+// 		password: 'password',
+// 	},
+// 	register: {},
+// 	profile: {},
+// 	userData: {
+// 		username: 'Andrew',
+// 		authorize: false,
+// 		chats: utils.GEN.getDataArrayChats(5),
+// 		messages: utils.GEN.getArray(100, () => utils.GEN.getDataMessage(0))
+// 	},
+// 	error: {},
+// }
 
-import registerUI from "./ui";
-import { utils } from "../utils";
-import App from "./blocks/App";
+// registerUI();
 
-const env = {
-	devMode: true,
-}
+// const state = INIT_DATA
+// const app = new App(Object.assign(state, env))
 
-const INIT_DATA = {
-	text: 'asdas',
-	test: '123132',
-	login: {
-		login: 'login2',
-		// password: 'password',
-	},
-	register: {},
-	profile: {},
-	userData: {
-		username: 'Andrew',
-		authorize: false,
-		chats: utils.GEN.getDataArrayChats(5),
-		messages: utils.GEN.getArray(100, () => utils.GEN.getDataMessage(0))
-	},
-	error: {},
-}
-
-export const innerTemplate = (selector = "#app", templateFunc = greetingTmpl, data = {}) => {
-	const root = document.querySelector(selector);
-	const template = compile(templateFunc);
-
-	if (root) root.innerHTML = template(data);
-}
-
-registerUI();
-
-const state = INIT_DATA
-const app = new App(Object.assign(state, env))
-
-document.addEventListener('DOMContentLoaded', () => utils.render("#app", app))
+// document.addEventListener('DOMContentLoaded', () => utils.render("#app", app))
 // document.addEventListener('DOMContentLoaded', () => innerTemplate("#app", app.render(state), state))
 
-setTimeout(() => {
-	
-	// app.setProps({
-  //   login: {
-	// 		login: 'Click me, please',
-	// 	}
-  // });
+const template = `
+<div class="{{className}}">
+	{{child}}
+</div>
+`;
 
-	// console.log('setTimeout', app.props)
-}, 3000);
+const profileTemplate1 = `
+<div class="templateProfile {{className}}">
+	{{child}}
+	{{child1}}
+	{{child2}}
+</div>
+`;
 
-setTimeout(() => {
-	
-	// app.setProps({
-  //   login: {
-	// 		password: 'Click me, please, too',
-	// 	}
-  // });
+const profileTemplate = `
+<div class="templateProfile {{className}}">
+	{{child}}
+</div>
+`;
 
-}, 5000);
+function render(query, block) {
+	const root = document.querySelector(query);
 
+	// Можно завязаться на реализации вашего класса Block
+	root.appendChild(block.getContent());
+
+	block.dispatchComponentDidMount();
+
+	return root;
+}
+
+class Button extends Block {
+	constructor(props) {
+		// Создаём враппер DOM-элемент button
+		super("button", props);
+	}
+
+	render() {
+		// В данном случае render возвращает строкой разметку из шаблонизатора
+		// return 'btn';
+		return compile(template)(this.props);
+	}
+}
+
+class Profile extends Block {
+	constructor(props) {
+		// Создаём враппер DOM-элемент button
+		super("div", props);
+	}
+
+	old_render() {
+		return compile(template)(this.props);
+
+		// return this.compile(profileTemplate, { userName: this.props.userName });
+	}
+
+	render() {
+		// return this.compile(profileTemplate, { userName: this.props.userName });
+	}
+}
+
+let i = 0;
+
+const button = new Button({
+	className: 'my-class1',
+	child: 'Click me1',
+	settings: { withInternalID: true },
+	events: {
+		click: () => console.log(i++)
+	}
+});
+
+const button2 = new Button({
+	className: 'my-class2',
+	child: 'Click me2',
+	events: {
+		click: () => console.log(i++)
+	}
+});
+
+const profile = new Profile({
+	className: 'my-class2',
+	child: 'child',
+	child1: button,
+	child2: button2,
+});
+
+render(".app", button);
+// render(".app", button2);
+// render(".app", profile);

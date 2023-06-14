@@ -1,5 +1,8 @@
-import EventBus from "./EventBus.js";
+import Handlebars, { compile } from "handlebars"
+import EventBus from "./EventBus";
+import { v4 as makeUUID } from 'uuid';
 
+// Нельзя создавать экземпляр данного класса
 class Block {
 	static EVENTS = {
 		INIT: "init",
@@ -10,16 +13,16 @@ class Block {
 
 	_element = null;
 	_meta = null;
-	_isMounted = null;
 
 	/** JSDoc
-		 * @param {string} tagName
-		 * @param {Object} props
-		 *
-		 * @returns {void}
-		 */
-	constructor(props = {}, tagName = "div", ) {
+	 * @param {string} tagName
+	 * @param {Object} props
+	 *
+	 * @returns {void}
+	 */
+	constructor(tagName = "div", props = {}) {
 		const eventBus = new EventBus();
+
 		this._meta = {
 			tagName,
 			props
@@ -31,10 +34,6 @@ class Block {
 
 		this._registerEvents(eventBus);
 		eventBus.emit(Block.EVENTS.INIT);
-	}
-
-	emit(event, ...args) {
-		this.eventBus().emit(event, ...args);
 	}
 
 	_registerEvents(eventBus) {
@@ -51,24 +50,17 @@ class Block {
 
 	init() {
 		this._createResources();
-
-		this.dispatchComponentDidMount();
-
-		if (!this._isMounted) {
-			this.emit(Block.EVENTS.FLOW_RENDER);
-			this._isMounted = true;
-		}
+		this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
 	}
 
 	_componentDidMount() {
 		this.componentDidMount();
 	}
 
-	// Может переопределять пользователь, необязательно трогать
 	componentDidMount(oldProps) { }
 
 	dispatchComponentDidMount() {
-		this.emit(Block.EVENTS.FLOW_CDM);
+		this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 	}
 
 	_componentDidUpdate(oldProps, newProps) {
@@ -77,12 +69,11 @@ class Block {
 		if (response) this.emit(Block.EVENTS.FLOW_RENDER);
 	}
 
-	// Может переопределять пользователь, необязательно трогать
 	componentDidUpdate(oldProps, newProps) {
 		return true;
 	}
 
-	setProps(nextProps) {
+	setProps = nextProps => {
 		if (!nextProps) {
 			return;
 		}
@@ -96,23 +87,29 @@ class Block {
 
 	_render() {
 		const block = this.render();
-		// Этот небезопасный метод для упрощения логики
+		// Это небезопасный метод для упрощения логики
 		// Используйте шаблонизатор из npm или напишите свой безопасный
-		// Нужно не в строку компилировать (или делать это правильно),
-		// либо сразу в DOM-элементы возвращать из compile DOM-ноду
+		// Нужно компилировать не в строку (или делать это правильно),
+		// либо сразу превращать в DOM-элементы и возвращать из compile DOM-ноду
+		this._removeEvents();
 		this._element.innerHTML = block;
+
+		this._addEvents();
 	}
 
-	// Может переопределять пользователь, необязательно трогать
+	// Переопределяется пользователем. Необходимо вернуть разметку
 	render() { }
 
 	getContent() {
 		return this.element;
 	}
 
+	emit(event, ...args) {
+		this.eventBus().emit(event, ...args);
+	}
+
 	_makePropsProxy(props) {
-		// Можно и так передать this
-		// Такой способ больше не применяется с приходом ES6+
+		// Ещё один способ передачи this, но он больше не применяется с приходом ES6+
 		const self = this;
 
 		return new Proxy(props, {
@@ -145,12 +142,28 @@ class Block {
 		return document.createElement(tagName);
 	}
 
+	_addEvents() {
+    const {events = {}} = this.props;
+
+    Object.keys(events).forEach(eventName => {
+      this._element.addEventListener(eventName, events[eventName]);
+    });
+  }
+
+	_removeEvents() {
+    const {events = {}} = this.props;
+
+    Object.keys(events).forEach(eventName => {
+      this._element.removeEventListener(eventName, events[eventName]);
+    });
+  }
+
 	show() {
-		this.getContent().style.display = 'block';
+		this.getContent().style.display = "block";
 	}
 
 	hide() {
-		this.getContent().style.display = 'none';
+		this.getContent().style.display = "none";
 	}
 }
 
