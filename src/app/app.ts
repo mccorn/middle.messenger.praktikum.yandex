@@ -48,10 +48,13 @@ const profileTemplate1 = `
 `;
 
 const profileTemplate = `
-<div class="templateProfile {{className}}">
-	{{child}}
-</div>
+	<div>
+		{{ userName }}
+		{{{ button }}}
+	</div>
 `;
+
+const source = "<div>{{text}}  {{ button }}</div>";
 
 function render(query, block) {
 	const root = document.querySelector(query);
@@ -80,17 +83,15 @@ class Button extends Block {
 class Profile extends Block {
 	constructor(props) {
 		// Создаём враппер DOM-элемент button
-		super("div", props);
-	}
-
-	old_render() {
-		return compile(template)(this.props);
-
-		// return this.compile(profileTemplate, { userName: this.props.userName });
+		super("section", props);
 	}
 
 	render() {
-		// return this.compile(profileTemplate, { userName: this.props.userName });
+		return this.compile(profileTemplate, { userName: this.props.userName });
+		// return compile(profileTemplate)({
+		// 	userName: this.props.userName,
+		// 	button: this.props.button,
+		// });
 	}
 }
 
@@ -114,12 +115,14 @@ const button2 = new Button({
 });
 
 const profile = new Profile({
+	userName: 'profile',
 	className: 'my-class2',
-	child: 'child',
-	child1: button,
-	child2: button2,
+	button: button,
+	// child: 'child',
+	// child1: button,
+	// child2: button2,
 });
 
-render(".app", button);
+// render(".app", button);
 // render(".app", button2);
-// render(".app", profile);
+render(".app", profile);

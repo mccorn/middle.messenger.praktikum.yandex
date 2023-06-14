@@ -13,6 +13,8 @@ class Block {
 
 	_element = null;
 	_meta = null;
+	_id = null;
+	_isMounted = false;
 
 	/** JSDoc
 	 * @param {string} tagName
@@ -20,7 +22,11 @@ class Block {
 	 *
 	 * @returns {void}
 	 */
-	constructor(tagName = "div", props = {}) {
+	constructor(tagName = "div", propsAndChildren = {}) {
+		const { children, props } = this._getChildren(propsAndChildren);
+
+		this.children = children;
+
 		const eventBus = new EventBus();
 
 		this._meta = {
@@ -28,12 +34,71 @@ class Block {
 			props
 		};
 
-		this.props = this._makePropsProxy(props);
+		// Генерируем уникальный UUID V4
+		this._id = makeUUID();
+
+		// Добавляем этот ID в актуальные this.props компонента, чтобы можно было получить доступ к id везде
+		this.props = this._makePropsProxy({ ...props, __id: this._id });
 
 		this.eventBus = () => eventBus;
 
 		this._registerEvents(eventBus);
 		eventBus.emit(Block.EVENTS.INIT);
+	}
+
+	_getChildren(propsAndChildren) {
+		const children = {};
+		const props = {};
+
+		Object.entries(propsAndChildren).forEach(([key, value]) => {
+			if (value instanceof Block) {
+				children[key] = value;
+			} else {
+				props[key] = value;
+			}
+		});
+
+		return { children, props };
+	}
+
+	compile(template, props) {
+		const propsAndStubs = { ...props };
+		const self = this;
+
+		Object.entries(this.children).forEach(([key, child]) => {
+
+			const div = document.createElement('div');
+			div.setAttribute('data-id', child._id)
+
+			propsAndStubs[key] = `<div data-id="${child._id}"></div>`
+			// console.log(key, child, this._element)
+
+			// self._element.appendChild(div);
+		});
+
+		console.log(propsAndStubs)
+
+		return Handlebars.compile(template)(propsAndStubs);
+	}
+
+	__compile(template, props) {
+		const propsAndStubs = { ...props };
+
+		Object.entries(this.children).forEach(([key, child]) => {
+			propsAndStubs[key] = `<div data-id="${child.id}"></div>`
+		});
+
+		const fragment = this._createDocumentElement('template');
+
+		fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
+
+		Object.values(this.children).forEach(child => {
+			const stub = fragment.content.querySelector(`[data-id="${child.id}"]`);
+
+			stub.replaceWith(child.getContent());
+		});
+
+		return fragment.content;
 	}
 
 	_registerEvents(eventBus) {
@@ -50,11 +115,21 @@ class Block {
 
 	init() {
 		this._createResources();
-		this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+
+		this.dispatchComponentDidMount();
+
+		if (!this._isMounted) {
+			this.emit(Block.EVENTS.FLOW_RENDER);
+			this._isMounted = true;
+		}
 	}
 
 	_componentDidMount() {
 		this.componentDidMount();
+
+		Object.values(this.children).forEach(child => {
+			child.dispatchComponentDidMount();
+		});
 	}
 
 	componentDidMount(oldProps) { }
@@ -139,24 +214,26 @@ class Block {
 
 	_createDocumentElement(tagName) {
 		// Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
-		return document.createElement(tagName);
+		const element = document.createElement(tagName);
+		element.setAttribute('data-id', this._id);
+		return element;
 	}
 
 	_addEvents() {
-    const {events = {}} = this.props;
+		const { events = {} } = this.props;
 
-    Object.keys(events).forEach(eventName => {
-      this._element.addEventListener(eventName, events[eventName]);
-    });
-  }
+		Object.keys(events).forEach(eventName => {
+			this._element.addEventListener(eventName, events[eventName]);
+		});
+	}
 
 	_removeEvents() {
-    const {events = {}} = this.props;
+		const { events = {} } = this.props;
 
-    Object.keys(events).forEach(eventName => {
-      this._element.removeEventListener(eventName, events[eventName]);
-    });
-  }
+		Object.keys(events).forEach(eventName => {
+			this._element.removeEventListener(eventName, events[eventName]);
+		});
+	}
 
 	show() {
 		this.getContent().style.display = "block";
