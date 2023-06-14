@@ -61,7 +61,7 @@ class Block {
 		return { children, props };
 	}
 
-	compile(template, props) {
+	__compile(template, props) {
 		const propsAndStubs = { ...props };
 		const self = this;
 
@@ -81,7 +81,7 @@ class Block {
 		return Handlebars.compile(template)(propsAndStubs);
 	}
 
-	__compile(template, props) {
+	compile(template, props) {
 		const propsAndStubs = { ...props };
 
 		Object.entries(this.children).forEach(([key, child]) => {
@@ -160,7 +160,7 @@ class Block {
 		return this._element;
 	}
 
-	_render() {
+	o_render() {
 		const block = this.render();
 		// Это небезопасный метод для упрощения логики
 		// Используйте шаблонизатор из npm или напишите свой безопасный
@@ -168,6 +168,21 @@ class Block {
 		// либо сразу превращать в DOM-элементы и возвращать из compile DOM-ноду
 		this._removeEvents();
 		this._element.innerHTML = block;
+
+		this._addEvents();
+	}
+
+	_render() {
+		const block = this.render(); // render теперь возвращает DocumentFragment
+
+		this._removeEvents();
+		this._element.innerHTML = ''; // удаляем предыдущее содержимое
+
+		try {
+			this._element.appendChild(block);
+		} catch {
+			console.log(block)
+		}
 
 		this._addEvents();
 	}
