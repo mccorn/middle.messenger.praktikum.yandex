@@ -1,5 +1,7 @@
 import Handlebars, { compile } from "handlebars"
 import Block from "../utils/Block.js";
+import App from "./blocks/App/index.js";
+import LoginPage from "./pages/LoginPage/index.js";
 // import { utils } from "../utils";
 // import App from "./blocks/App";
 
@@ -127,4 +129,16 @@ const profile = new Profile({
 
 // render(".app", button);
 // render(".app", button2);
-render(".app", profile);
+// render(".app", profile);
+
+
+const loginPage = new LoginPage('article', {})
+
+const app = new App('section', {
+	userName: 'profile',
+	button: button,
+	loginPage: loginPage,
+})
+
+
+render("#app", app);

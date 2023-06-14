@@ -1,7 +1,7 @@
 import Button from "../../components/Button";
 import InputWithLabel from "../../components/InputWithLabel";
 
-const template = ({data = {password: String, login: String}}) => `
+const __template = ({data = {password: String, login: String}}) => `
 <div class="page" >
 	<div class="wrapper wrapper_theme_default wrapper_crop_bottom shadowed" >
 		<main class="box" >
@@ -15,6 +15,32 @@ const template = ({data = {password: String, login: String}}) => `
 					<div class="column column_align_center">
 						<div class="line">
 							${(new Button({label: "Sign in"})).render()}
+						</div>
+						
+						<div>
+							<a href="/register">Нет профиля?</a>
+						</div>
+					</div>
+				</div>
+			</form>
+		</main>
+	</div>
+</div>
+`
+
+const template = `
+<div class="page" >
+	<div class="wrapper wrapper_theme_default wrapper_crop_bottom shadowed" >
+		<main class="box" >
+			<h1 class="text_center" >Login Page</h1>
+
+			<form>
+				<div class="column withGap" >
+				
+
+					<div class="column column_align_center">
+						<div class="line">
+						
 						</div>
 						
 						<div>

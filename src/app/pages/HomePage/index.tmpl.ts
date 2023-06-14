@@ -18,11 +18,13 @@ const template = `
 				{{/each}}
 			</div>
 			<div>
-				{{>inputArea value="" placeholder="Type message..." name="message" className="active" }}
+				
 			</div>
 		</main>
 	</div>
 </div>
 `
+
+// {{>inputArea value="" placeholder="Type message..." name="message" className="active" }}
 
 export default template;

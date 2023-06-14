@@ -13,7 +13,41 @@ type ProfilePropsData = {
 	}
 }
 
-const template = (props: ProfilePropsData): string => {
+const template = `
+<div class='page'>
+	<div class="wrapper wrapper_theme_default shadowed" >
+		<main class="box" >
+			<form>
+				<div class="row article">
+					<div class="col8">
+						<h2>Profile Page</h2>
+						<h5>{data.display_name}</h5>
+					</div>
+					<div class="col4">
+					
+					</div>
+				</div>
+
+				<div class="column withGap article" >
+			
+				</div>
+
+				<div class="column withGap article" >
+					<h2>Password</h2>
+
+			
+				</div>
+
+				<div class="column column_align_center">
+				
+				</div>
+			</form>
+		</main>
+	</div>
+</div>
+`
+
+const __template = (props: ProfilePropsData): string => {
 	const {data} = props;
 	return (
 		`

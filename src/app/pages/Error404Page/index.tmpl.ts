@@ -6,12 +6,14 @@ const template = `
     <div class="buttonContainer">
       <a href="/home">
 				<div class="column column_align_center">
-					${(new Button({ label: "To home" })).render()}
+					
 				</div>
       </a>
     </div>
   </main>
 </div>
 `
+
+// ${(new Button({ label: "To home" })).render()}
 
 export default template;
