@@ -1,4 +1,4 @@
-import Handlebars, { compile } from "handlebars"
+import Handlebars from "handlebars"
 import EventBus from "./EventBus";
 import { v4 as makeUUID } from 'uuid';
 

@@ -51,6 +51,7 @@ const profileTemplate = `
 	<div>
 		{{ userName }}
 		{{{ button }}}
+		{{{ child2 }}}
 	</div>
 `;
 
@@ -76,7 +77,7 @@ class Button extends Block {
 	render() {
 		// В данном случае render возвращает строкой разметку из шаблонизатора
 		// return 'btn';
-		return compile(template)(this.props);
+		return this.compile(template, this.props);
 	}
 }
 
@@ -87,7 +88,7 @@ class Profile extends Block {
 	}
 
 	render() {
-		return this.compile(profileTemplate, { userName: this.props.userName });
+		return this.compile(profileTemplate, this.props);
 		// return compile(profileTemplate)({
 		// 	userName: this.props.userName,
 		// 	button: this.props.button,
@@ -96,6 +97,7 @@ class Profile extends Block {
 }
 
 let i = 0;
+let j = 0;
 
 const button = new Button({
 	className: 'my-class1',
@@ -110,7 +112,7 @@ const button2 = new Button({
 	className: 'my-class2',
 	child: 'Click me2',
 	events: {
-		click: () => console.log(i++)
+		click: () => console.log(j++)
 	}
 });
 
@@ -120,7 +122,7 @@ const profile = new Profile({
 	button: button,
 	// child: 'child',
 	// child1: button,
-	// child2: button2,
+	child2: button2,
 });
 
 // render(".app", button);
