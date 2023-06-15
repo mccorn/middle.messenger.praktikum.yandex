@@ -22,6 +22,26 @@ export default class HomePage extends Block {
 			return node;
 		})
 
+		function findParentBySelector(target, selector = '', count = 10) {
+			let i = 0;
+
+			while (i < count) {
+				if (target.matches(selector)) {
+					return target;
+				} else {
+					target = target.parentNode;
+					i += 1;
+				}
+			}
+		}
+
+		const handleChatsClick = (event) => {
+			let parentNode = findParentBySelector(event.target, '.chatInfo', 10);
+
+			console.log(parentNode)
+			
+		}
+
 		const handleSubmit = (event) => {
 			event.preventDefault();
 			console.log(this.state);
@@ -35,7 +55,7 @@ export default class HomePage extends Block {
 			click: (event) => handleSubmit(event, self),
 		}
 
-		const chatsList = new ChatsList('section', {chats});
+		const chatsList = new ChatsList('section', {chats, events: {click: handleChatsClick}});
 		const input = new Input('div', { value: "", name: "message", events: inputEvents });
 		const button = new Button('div', { label: "send", events: buttonEvents });
 
