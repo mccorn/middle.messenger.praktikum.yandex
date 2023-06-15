@@ -7,7 +7,7 @@ const TEXTS = {
 export const GENERATORS = {
 	getArrayString: (length = 3) => Object.keys(new Array(length).fill(1)),
 	getArrayNumbers: (length = 3) => GENERATORS.getArray(length, (a: any): number => Number.parseFloat(a)),
-	getArray: (length = 3, callback: (a: any) => any) => GENERATORS.getArrayString(length).map(callback),
+	getArray: (length = 3, callback: (a: any, b: number) => any) => GENERATORS.getArrayString(length).map(callback),
 	getDataMessage: (i: any, idx?: number) => ({
 		"text": Math.random() > 0.5 ? TEXTS[0] : `text_${i}_${idx}`,
 		"date": (new Date()).toLocaleTimeString('ru-Ru', { hour: "2-digit", minute: "2-digit" }),
@@ -16,6 +16,7 @@ export const GENERATORS = {
 		"isRead": Math.random() > 0.5,
 	}),
 	getDataChat: (i: any, idx: number) => ({
+		"id": "Chat_" + idx,
 		"avatarUrl": "https://n1s2.hsmedia.ru/6a/46/ae/6a46aeed947a183d67d1bc48211151bf/480x496_0xac120003_4430520541578509619.jpg",
 		"name": "Chat Name " + idx,
 		"messages": [
@@ -30,5 +31,5 @@ export const GENERATORS = {
 		},
 		noreadMessagesCounter: Math.round(Math.random() * 5)
 	}),
-	getDataArrayChats: (length: number) => GENERATORS.getArray(length, () => GENERATORS.getDataChat(0, 0))
+	getDataArrayChats: (length: number) => GENERATORS.getArray(length, GENERATORS.getDataChat)
 }
