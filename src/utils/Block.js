@@ -63,20 +63,10 @@ class Block {
 
 	__compile(template, props) {
 		const propsAndStubs = { ...props };
-		const self = this;
-
+	
 		Object.entries(this.children).forEach(([key, child]) => {
-
-			const div = document.createElement('div');
-			div.setAttribute('data-id', child._id)
-
 			propsAndStubs[key] = `<div data-id="${child._id}"></div>`
-			// console.log(key, child, this._element)
-
-			// self._element.appendChild(div);
 		});
-
-		console.log(propsAndStubs)
 
 		return Handlebars.compile(template)(propsAndStubs);
 	}

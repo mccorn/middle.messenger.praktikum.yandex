@@ -27,7 +27,7 @@ const __template = ({data = {password: String, login: String}}) => `
 	</div>
 </div>
 `
-
+// onsubmit="return false;"
 const template = `
 <div class="page" >
 	<div class="wrapper wrapper_theme_default wrapper_crop_bottom shadowed" >
