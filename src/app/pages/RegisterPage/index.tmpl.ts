@@ -8,10 +8,17 @@ const template = `
         <h1 class="text_center">Register form</h1>
 				<form>
 					<div class="column withGap" >	
+
+						{{{ inputLogin }}}
+						{{{ inputPassword }}}
+						{{{ inputFirstName }}}
+						{{{ inputSecondName }}}
+						{{{ inputEmail }}}
+						{{{ inputPhone }}}
 						
 						<div class="column column_align_center">
 							<div class="line">
-							
+								{{{ button }}}
 							</div>
 						</div>
 					</div>

@@ -15,19 +15,16 @@ export default class LoginPage extends Block {
 			event.preventDefault();
 			console.log(this.state);
 		}
-
-		const inputLoginEvents = {
-			focusout: (event) => this.state.login = event.target.value,
+		const handleFocusOut = (event) => {
+			this.state[event.target.name] = event.target.value
 		}
-		const inputPasswordEvents = {
-			focusout: (event) => this.state.password = event.target.value,
-		}
+		const inputEvents = { focusout: handleFocusOut };
 		const buttonEvents = {
 			click: (event) => handleSubmit(event, self),
 		}
 
-		const inputLogin = new InputWithLabel('div', { value: "", placeholder: "login", label: "login", inputEvents: inputLoginEvents });
-		const inputPassword = new InputWithLabel('div', { value: "", placeholder: "password", label: "password", inputEvents: inputPasswordEvents });
+		const inputLogin = new InputWithLabel('div', { value: "", name: "login", placeholder: "login", label: "login", inputEvents: inputEvents });
+		const inputPassword = new InputWithLabel('div', { value: "", name: "password", placeholder: "password", label: "password", inputEvents: inputEvents });
 		const button = new Button('div', { label: "Sign in", events: buttonEvents });
 
 		this.children.inputLogin = inputLogin;
