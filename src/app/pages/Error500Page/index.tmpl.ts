@@ -6,7 +6,7 @@ const template = `
     <div class="buttonContainer">
 			<a href="/home">
 				<div class="column column_align_center">
-					
+					{{{ button }}}
 				</div>
 			</a>
     </div>
