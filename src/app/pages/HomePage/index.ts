@@ -5,6 +5,8 @@ import Block from "../../../utils/Block.js";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import ChatsList from "../../blocks/ChatsList";
+import Message from "../../components/Message";
+import { utils } from "../../../utils";
 
 export default class HomePage extends Block {
 	componentDidMount() {
@@ -36,10 +38,20 @@ export default class HomePage extends Block {
 		}
 
 		const handleChatsClick = (event) => {
-			let parentNode = findParentBySelector(event.target, '.chatInfo', 10);
-
-			console.log(parentNode)
+			const messagesNode = document.querySelector("#messages");
+			const parentNode = findParentBySelector(event.target, '.chatInfo', 10);
 			
+			const id = parentNode.getAttribute("data-id");
+
+			const chatData = chats.find(node => node.id === id)
+
+			utils.clear(messagesNode)
+			
+			chatData.messages.forEach(node => {
+				const block = new Message('div', node).getContent();
+
+				messagesNode?.appendChild(block)
+			})
 		}
 
 		const handleSubmit = (event) => {

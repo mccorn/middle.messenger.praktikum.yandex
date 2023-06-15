@@ -139,6 +139,7 @@ class Block {
 	}
 
 	setProps = nextProps => {
+		console.log(nextProps)
 		if (!nextProps) {
 			return;
 		}
