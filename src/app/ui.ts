@@ -7,14 +7,14 @@ import inputTextWithLabelTmpl from "./partials/inputText/inputTextWithLabel.tmpl
 
 import chatInfo from "./partials/chatInfo/index.tmpl";
 import inputArea from "./partials/inputArea/input.tmpl";
-import message from "./partials/message/input.tmpl";
+import message from "./partials/message/index.tmpl";
 
 const UI = {
-	button: buttonTmpl,
-	inputText: inputTextTmpl,
-	inputTextWithLabel: inputTextWithLabelTmpl,
+	// button: buttonTmpl,
+	// inputText: inputTextTmpl,
+	// inputTextWithLabel: inputTextWithLabelTmpl,
 	chatInfo: chatInfo,
-	inputArea: inputArea,
+	// inputArea: inputArea,
 	message: message,
 }
 

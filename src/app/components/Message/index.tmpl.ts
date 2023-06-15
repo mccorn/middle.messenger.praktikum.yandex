@@ -1,6 +1,4 @@
-import "./styles.less";
-
-export default `<div class="messageWrapper">
+const __template = `<div class="messageWrapper">
 	{{#with data}}
 		<div class="message {{../className}}" >
 			<div class="message__body">
@@ -17,3 +15,9 @@ export default `<div class="messageWrapper">
 		</div>
 	{{/with}}
 </div>`
+
+const template = `<div class="messageWrapper">
+messageWrapper
+</div>`
+
+export default template;

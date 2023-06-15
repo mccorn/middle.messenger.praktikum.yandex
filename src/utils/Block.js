@@ -85,7 +85,7 @@ class Block {
 		Object.values(this.children).forEach(child => {
 			const stub = fragment.content.querySelector(`[data-id="${child.id}"]`);
 
-			stub.replaceWith(child.getContent());
+			if (stub && child) stub.replaceWith(child.getContent());
 		});
 
 		return fragment.content;

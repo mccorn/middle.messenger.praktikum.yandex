@@ -3,7 +3,7 @@ const __template = (props): string => `
 `
 
 const template = `
-	<button class="button shadowed {{className}}" onclick="{{onClick}}">{{label}}</button>
+	<button class="button shadowed {{className}}" >{{label}}</button>
 `
 
 export default template;

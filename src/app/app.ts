@@ -2,6 +2,8 @@ import Handlebars, { compile } from "handlebars"
 import Block from "../utils/Block.js";
 import App from "./blocks/App/index.js";
 import LoginPage from "./pages/LoginPage/index.js";
+import { utils } from "../utils/index.js";
+import registerUIPartials from "./ui.js";
 // import { utils } from "../utils";
 // import App from "./blocks/App";
 
@@ -9,23 +11,23 @@ import LoginPage from "./pages/LoginPage/index.js";
 // 	devMode: true,
 // }
 
-// const INIT_DATA = {
-// 	text: 'asdas',
-// 	test: '123132',
-// 	login: {
-// 		login: 'login2',
-// 		password: 'password',
-// 	},
-// 	register: {},
-// 	profile: {},
-// 	userData: {
-// 		username: 'Andrew',
-// 		authorize: false,
-// 		chats: utils.GEN.getDataArrayChats(5),
-// 		messages: utils.GEN.getArray(100, () => utils.GEN.getDataMessage(0))
-// 	},
-// 	error: {},
-// }
+const INIT_DATA = {
+	text: 'asdas',
+	test: '123132',
+	login: {
+		login: 'login2',
+		password: 'password',
+	},
+	register: {},
+	profile: {},
+	userData: {
+		username: 'Andrew',
+		authorize: false,
+		chats: utils.GEN.getDataArrayChats(5),
+		messages: utils.GEN.getArray(100, () => utils.GEN.getDataMessage(0))
+	},
+	error: {},
+}
 
 // registerUI();
 
@@ -131,14 +133,12 @@ const profile = new Profile({
 // render(".app", button2);
 // render(".app", profile);
 
-
+registerUIPartials();
 const loginPage = new LoginPage('article', {})
 
-const app = new App('section', {
-	userName: 'profile',
-	button: button,
-	loginPage: loginPage,
-})
+const app = new App('section', INIT_DATA)
+
+
 
 
 render("#app", app);
