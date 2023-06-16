@@ -31,5 +31,22 @@ export const GENERATORS = {
 		},
 		noreadMessagesCounter: Math.round(Math.random() * 5)
 	}),
-	getDataArrayChats: (length: number) => GENERATORS.getArray(length, GENERATORS.getDataChat)
+	getDataArrayChats: (length: number) => GENERATORS.getArray(length, GENERATORS.getDataChat),
+	getInitData: () => ({
+		text: 'asdas',
+		test: '123132',
+		login: {
+			login: 'login2',
+			password: 'password',
+		},
+		register: {},
+		profile: {},
+		userData: {
+			username: 'Andrew',
+			authorize: false,
+			chats: GENERATORS.getDataArrayChats(5),
+			messages: GENERATORS.getArray(100, GENERATORS.getDataMessage)
+		},
+		error: {},
+	})
 }

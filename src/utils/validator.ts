@@ -26,7 +26,7 @@ function validatePassword(value: any): boolean {
 }
 
 function validateEmail(value: any): boolean {
-	return typeof value === 'string';
+	return typeof value === 'string' && !!value.match(REGEXPS.email);
 }
 
 function validatePhone(value: any): boolean {
@@ -42,6 +42,7 @@ const REGEXPS = {
 	login: /^(([0-9a-zA-Za-яA-Я\-]){3,20})$/g,
 	name: /^^([А-Я]{1}[а-яё\-]{1,19}|[A-Z]{1}[a-z\-]{1,19})$/g,
 	password: /^(([0-9a-zA-Za-яёA-ЯЁ\-]){8,40})$/g,
+	email: /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/g,
 }
 
 const VALIDATORS: someObject = {
