@@ -46,9 +46,9 @@ class Block implements IBlock {
 		this._id = makeUUID();
 		this.props = this._makePropsProxy({ ...props, __id: this._id });
 
-		this.eventBus = () => eventBus;
+		this.eventBus = () => eventBus as IEventBus;
 
-		this._registerEvents(eventBus);
+		this._registerEvents(eventBus as IEventBus);
 		eventBus.emit(EVENTS_ENUM.INIT);
 	}
 
@@ -161,7 +161,7 @@ class Block implements IBlock {
 	}
 
 	// Переопределяется пользователем. Необходимо вернуть разметку
-	render() { return null; }
+	render() { return this.compile('', {}); }
 
 	getContent(): HTMLElement | null {
 		return this.element;
