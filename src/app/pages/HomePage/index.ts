@@ -5,57 +5,73 @@ import Block from "../../../utils/Block";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import ChatsList from "../../blocks/ChatsList";
+import Message from "../../components/Message";
+import { utils } from "../../../utils";
+import { someObject } from "../../../const/types";
 
 export default class HomePage extends Block {
-	componentDidMount() {
-		this.state = {};
-	}
-
 	render() {
+		const {currentChatIdx} = this.state;
 		const {data} = this.props;
-		const {chats, messages} = data;
+		const {chats} = data;
 
-		const messagesNodes = messages.map((node, idx) => {
-			if (node.me) {
-				node.classNames += " me"
-			}
-			return node;
-		})
-
-		function findParentBySelector(target, selector = '', count = 10) {
+		function findParentBySelector(target: HTMLElement | null, selector = '', count = 10) {
 			let i = 0;
 
-			while (i < count) {
+			while (i < count && target) {
 				if (target.matches(selector)) {
 					return target;
 				} else {
-					target = target.parentNode;
+					target = target.parentNode as HTMLElement;
 					i += 1;
 				}
 			}
+
+			return null;
 		}
 
-		const handleChatsClick = (event) => {
-			let parentNode = findParentBySelector(event.target, '.chatInfo', 10);
-
-			console.log(parentNode)
+		const handleChatsClick = (event: Event) => {
+			const parentNode = findParentBySelector(event.target as HTMLElement, '.chatInfo', 10);
 			
+			if (!parentNode) return;
+
+			const messagesNode = document.querySelector("#messages") as HTMLElement;
+			const id = parentNode.getAttribute("data-id");
+
+			
+			const currentChatIdx = chats.findIndex((node: someObject) => node.id === id)
+			const chatData = chats[currentChatIdx]
+
+			this.state.currentChatIdx = currentChatIdx;
+			
+			console.log(parentNode, chats, currentChatIdx)
+			utils.clear(messagesNode)
+
+			if (chatData) {
+				chatData.messages.forEach((node: someObject) => {
+					const block = new Message('div', {data: node, classNames: node.me ? 'me' : ''}).getContent() as HTMLElement;
+	
+					messagesNode?.appendChild(block)
+				})
+			}
 		}
 
-		const handleSubmit = (event) => {
+		const handleSubmit = (event: Event) => {
 			event.preventDefault();
 			console.log(this.state);
 		}
-		const handleFocusOut = (event) => {
-			this.state[event.target.name] = event.target.value
+		const handleFocusOut = (event: Event) => {
+			const target = event.target as HTMLInputElement;
+
+			if (target) this.state[target.name] = target.value
 		}
 
 		const inputEvents = { focusout: handleFocusOut };
 		const buttonEvents = {
-			click: (event) => handleSubmit(event, self),
+			click: (event: Event) => handleSubmit(event),
 		}
 
-		const chatsList = new ChatsList('section', {chats, events: {click: handleChatsClick}});
+		const chatsList = new ChatsList('section', {chats, currentChatIdx, events: {click: handleChatsClick}});
 		const input = new Input('div', { value: "", name: "message", events: inputEvents });
 		const button = new Button('div', { label: "send", events: buttonEvents });
 
@@ -65,6 +81,6 @@ export default class HomePage extends Block {
 			button,
 		}
 
-		return this.compile(tmpl, {...this.props, messagesNodes });
+		return this.compile(tmpl, {...this.props });
 	}
 }

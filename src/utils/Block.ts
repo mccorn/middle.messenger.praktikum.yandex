@@ -27,11 +27,13 @@ class Block {
 	eventBus: () => IEventBus;
 	children: someObject;
 	props: someObject;
+	state: someObject;
 
 	constructor(tagName:string = "div", propsAndChildren: someObject = {}) {
 		const { children, props } = this._getChildren(propsAndChildren);
 
 		this.children = children;
+		this.state = {};
 
 		const eventBus = new EventBus();
 
