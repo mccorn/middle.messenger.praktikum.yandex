@@ -1,9 +1,11 @@
 {
-  "extends": "stylelint-config-standard",
-  "rules": {
-    "color-hex-case": "lower"
-  },
-  "ignoreFiles": [
-    "build/*"
-  ]
-} 
+	"extends": "stylelint-config-recommended-less",
+	"rules": {
+		"block-no-empty": null,
+    "unit-whitelist": ["em", "rem", "s"]
+	},
+	"ignoreFiles": [
+		"build/*",
+		"dist/*"
+	]
+}
