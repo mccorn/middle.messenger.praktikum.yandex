@@ -1,11 +1,12 @@
 {
 	"extends": "stylelint-config-recommended-less",
 	"rules": {
-		"block-no-empty": null,
-    "unit-whitelist": ["em", "rem", "s"]
+		"block-no-empty": null
 	},
 	"ignoreFiles": [
 		"build/*",
-		"dist/*"
+		"dist/",
+		"src/assets/*",
+		"**/*.ts"
 	]
 }

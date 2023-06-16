@@ -11,21 +11,17 @@
 	padding: @padding;
 	border-radius: 16px;
 
-	.arrow {
-		content: "";
-		position: absolute;
-		bottom: 0%;
-
-		border: 8px solid transparent;
-	}
-
 	&:not(.me) {
 		@bg_color: @bg_color_light;
 		background-color: @bg_color;
 		border-bottom-left-radius: 0px;
 
 		&::after {
-			.arrow();
+			content: "";
+			position: absolute;
+			bottom: 0%;
+			border: 8px solid transparent;
+
 			right: 100%;
 
 			border-right-color: @bg_color;
@@ -41,7 +37,9 @@
 		border-bottom-right-radius: 0px;
 
 		&::after {
-			.arrow();
+			content: "";
+			position: absolute;
+			border: 8px solid transparent;
 
 			left: 100%;
 			bottom: 0%;
