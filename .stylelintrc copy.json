@@ -13,8 +13,8 @@
 	],
 	"overrides": [
     {
-      "files": ["*.less"],
-      "customSyntax": "postcss-less"
+      "files": ["*.less", "src/*.less"],
+      "customSyntax": "lessc"
     }
   ]
 }

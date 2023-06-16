@@ -8,6 +8,7 @@
   },
   "scripts": {
     "eslint": "eslint ./src --fix",
+    "stylelint": "stylelint ./src styles.less",
     "dev": "vite",
     "prebuild": "tsc --noEmit",
     "build": "vite build",
@@ -20,6 +21,7 @@
     "@typescript-eslint/parser": "^5.59.11",
     "eslint": "^8.42.0",
     "eslint-plugin-react": "^7.32.2",
+    "postcss-less": "^6.0.0",
     "stylelint": "^15.7.0",
     "stylelint-config-recommended-less": "^1.0.4",
     "typescript": "^5.1.3",
