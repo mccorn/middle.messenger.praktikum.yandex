@@ -1,6 +1,8 @@
 import App from "./blocks/App/index.js";
 import { utils } from "../utils/index.js";
 import registerUIPartials, { UI } from "./ui.js";
+import { validate } from "../utils/validator.js";
+import { testLogins, testNames, testPhones } from "../utils/tests.js";
 
 // const env = {
 // 	devMode: true,
@@ -31,3 +33,7 @@ registerUIPartials(UI);
 const app = new App('section', INIT_DATA)
 
 utils.render("#app", app);
+
+// testPhones();
+// testLogins();
+testNames();
