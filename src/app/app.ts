@@ -2,7 +2,7 @@ import App from "./blocks/App/index.js";
 import { utils } from "../utils/index.js";
 import registerUIPartials, { UI } from "./ui.js";
 import { validate } from "../utils/validator.js";
-import { testLogins, testNames, testPhones } from "../utils/tests.js";
+import { testLogins, testNames, testPasswords, testPhones } from "../utils/tests.js";
 
 // const env = {
 // 	devMode: true,
@@ -36,4 +36,5 @@ utils.render("#app", app);
 
 // testPhones();
 // testLogins();
-testNames();
+// testNames();
+// testPasswords();

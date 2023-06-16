@@ -15,7 +15,14 @@ function validateName(value: any): boolean {
 }
 
 function validatePassword(value: any): boolean {
-	return typeof value === 'string';
+	if (!value) return false;
+
+	const hasNumber = value.toString().match(/[0-9]/g);
+	const hasMajorLetter = value.toString().match(/[A-ZА-ЯЁ]/g);
+
+	const result = typeof value === 'string' && !!value.match(REGEXPS.password) && !!hasNumber && !!hasMajorLetter;
+
+	return result;
 }
 
 function validateEmail(value: any): boolean {
@@ -31,9 +38,10 @@ function validateMessage(value: any): boolean {
 }
 
 const REGEXPS = {
-	phone: /^(([+0-9]){10,15})$/gi,
-	login: /^(([0-9a-zA-Za-яA-Я\-]){3,20})$/gi,
-	name: /^^([А-Я]{1}[а-яё\-]{1,19}|[A-Z]{1}[a-z\-]{1,19})$/gm,
+	phone: /^(([+0-9]){10,15})$/g,
+	login: /^(([0-9a-zA-Za-яA-Я\-]){3,20})$/g,
+	name: /^^([А-Я]{1}[а-яё\-]{1,19}|[A-Z]{1}[a-z\-]{1,19})$/g,
+	password: /^(([0-9a-zA-Za-яёA-ЯЁ\-]){8,40})$/g,
 }
 
 const VALIDATORS: someObject = {

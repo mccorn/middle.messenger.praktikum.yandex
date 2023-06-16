@@ -109,6 +109,63 @@ const NAMES_TESTS = [
 		"comment:  start with small letter + numbers"
 	],
 ]
+const PASSWORDS_TESTS = [
+	[
+		"Андрей13",
+		true,
+		"comment: normal"
+	],
+	[
+		"Andrew12",
+		true,
+		"comment: normal"
+	],
+
+	[
+		"Андрей",
+		false,
+		"comment: not number"
+	],
+	[
+		"Andrew",
+		false,
+		"comment: not number"
+	],
+	[
+		"And-rew",
+		false,
+		"comment: normal"
+	],
+	[
+		"-___-",
+		false,
+		"comment: == \"-___-\""
+	],
+	[null, false, "comment: === null"],
+	["", false, "comment: === \'\'"],
+	["a", false, "comment: short, length === 2"],
+	[
+		"01234567890123456789",
+		false,
+		"comment: only numbers"
+	],
+	["01234567890123456789a", false, "comment: long, length === 21"],
+	[
+		"andrew",
+		false,
+		"comment: start with small letter"
+	],
+	[
+		"ab",
+		false,
+		"comment: start with small letter"
+	],
+	[
+		"a1234567890123456789",
+		false,
+		"comment:  start with small letter + numbers"
+	],
+]
 
 
 function test(arr = PHONES_TESTS, type: string) {
@@ -136,4 +193,8 @@ export function testLogins() {
 
 export function testNames() {
 	test(NAMES_TESTS, "name")
+}
+
+export function testPasswords() {
+	test(PASSWORDS_TESTS, "password")
 }
