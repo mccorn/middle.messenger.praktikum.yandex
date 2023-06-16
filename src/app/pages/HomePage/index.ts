@@ -16,7 +16,7 @@ export default class HomePage extends Block {
 		const {data} = this.props;
 		const {chats} = data;
 
-		function findParentBySelector(target: HTMLElement | null, selector = '', count = 10) {
+		function findParentBySelector(target: HTMLElement | null, selector = "", count = 10) {
 			let i = 0;
 
 			while (i < count && target) {
@@ -32,7 +32,7 @@ export default class HomePage extends Block {
 		}
 
 		const handleChatsClick = (event: Event) => {
-			const parentNode = findParentBySelector(event.target as HTMLElement, '.chatInfo', 10);
+			const parentNode = findParentBySelector(event.target as HTMLElement, ".chatInfo", 10);
 			
 			if (!parentNode) return;
 
@@ -48,7 +48,7 @@ export default class HomePage extends Block {
 
 			if (chatData) {
 				chatData.messages.forEach((node: someObject) => {
-					const block = new Message('div', {data: node, classNames: node.me ? 'me' : ''}).getContent() as HTMLElement;
+					const block = new Message("div", {data: node, classNames: node.me ? "me" : ""}).getContent() as HTMLElement;
 	
 					messagesNode?.appendChild(block)
 				})
@@ -57,13 +57,13 @@ export default class HomePage extends Block {
 
 		const handleSubmit = (event: Event) => {
 			event.preventDefault();
-			console.log(this.state, 'validate success = ' + validate('form', {message: this.state.message}));
+			console.log(this.state, "validate success = " + validate("form", {message: this.state.message}));
 		}
 		const handleFocusOut = (event: Event) => {
 			const target = event.target as HTMLInputElement;
 
 			if (target) this.state[target.name] = target.value
-			console.log('handleFocusOut: ' + target.name, 'validate success = ' + validate(target.name, target.value));
+			console.log("handleFocusOut: " + target.name, "validate success = " + validate(target.name, target.value));
 		}
 
 		const inputEvents = { focusout: handleFocusOut };
@@ -71,9 +71,9 @@ export default class HomePage extends Block {
 			click: (event: Event) => handleSubmit(event),
 		}
 
-		const chatsList = new ChatsList('section', {chats, currentChatIdx, events: {click: handleChatsClick}});
-		const input = new Input('div', { value: "", name: "message", events: inputEvents });
-		const button = new Button('div', { label: "send", events: buttonEvents });
+		const chatsList = new ChatsList("section", {chats, currentChatIdx, events: {click: handleChatsClick}});
+		const input = new Input("div", { value: "", name: "message", events: inputEvents });
+		const button = new Button("div", { label: "send", events: buttonEvents });
 
 		this.children = {
 			chatsList,

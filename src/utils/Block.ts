@@ -1,5 +1,5 @@
 import Handlebars from "handlebars"
-import { v4 as makeUUID } from 'uuid';
+import { v4 as makeUUID } from "uuid";
 import EventBus, { IEventBus } from "./EventBus";
 import { someObject } from "../const/types";
 import IBlock from "./BlockInterface";
@@ -21,7 +21,7 @@ class Block implements IBlock {
 	static EVENTS = EVENTS_ENUM;
 
 	_element: HTMLElement | null = null;
-	_id = '';
+	_id = "";
 	_isMounted = false;
 	_meta: META;
 
@@ -49,7 +49,7 @@ class Block implements IBlock {
 		this.eventBus = () => eventBus;
 
 		this._registerEvents(eventBus);
-		eventBus.emit(Block.EVENTS.INIT);
+		eventBus.emit(EVENTS_ENUM.INIT);
 	}
 
 	_getChildren(propsAndChildren: someObject) {
@@ -74,7 +74,7 @@ class Block implements IBlock {
 			propsAndStubs[key] = `<div data-id="${child.id}"></div>`
 		});
 
-		const fragment = this._createDocumentElement('template') as HTMLMetaElement;
+		const fragment = this._createDocumentElement("template") as HTMLMetaElement;
 
 		fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
 
@@ -89,10 +89,10 @@ class Block implements IBlock {
 	}
 
 	_registerEvents(eventBus: IEventBus) {
-		eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
-		eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
-		eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
-		eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
+		eventBus.on(EVENTS_ENUM.INIT, this.init.bind(this));
+		eventBus.on(EVENTS_ENUM.FLOW_CDM, this._componentDidMount.bind(this));
+		eventBus.on(EVENTS_ENUM.FLOW_CDU, this._componentDidUpdate.bind(this));
+		eventBus.on(EVENTS_ENUM.FLOW_RENDER, this._render.bind(this));
 	}
 
 	_createResources() {
@@ -105,7 +105,7 @@ class Block implements IBlock {
 		this.dispatchComponentDidMount();
 
 		if (!this._isMounted) {
-			this.emit(Block.EVENTS.FLOW_RENDER);
+			this.emit(EVENTS_ENUM.FLOW_RENDER);
 			this._isMounted = true;
 		}
 	}
@@ -122,13 +122,13 @@ class Block implements IBlock {
 
 	dispatchComponentDidMount() {
 		const { eventBus } = this;
-		if (eventBus) eventBus().emit(Block.EVENTS.FLOW_CDM);
+		if (eventBus) eventBus().emit(EVENTS_ENUM.FLOW_CDM);
 	}
 
 	_componentDidUpdate(oldProps: someObject, newProps: someObject) {
 		const response = this.componentDidUpdate(oldProps, newProps);
 
-		if (response) this.emit(Block.EVENTS.FLOW_RENDER);
+		if (response) this.emit(EVENTS_ENUM.FLOW_RENDER);
 	}
 
 	componentDidUpdate(oldProps: someObject, newProps: someObject) {
@@ -153,7 +153,7 @@ class Block implements IBlock {
 		this._removeEvents();
 		
 		if (this._element) {
-			this._element.innerHTML = '';
+			this._element.innerHTML = "";
 			this._element.appendChild(block);
 		}
 
@@ -161,33 +161,33 @@ class Block implements IBlock {
 	}
 
 	// Переопределяется пользователем. Необходимо вернуть разметку
-	render() { }
+	render() { return null; }
 
 	getContent(): HTMLElement | null {
 		return this.element;
 	}
 
-	emit(event: string, ...args: any) {
+	emit(event: EVENTS_ENUM, ...args: any) {
 		this.eventBus().emit(event, ...args);
 	}
 
 	_makePropsProxy(props: someObject) {
 		return new Proxy(props, {
 			get: (target, key: string) => {
-				return typeof target[key] === 'function' ? target[key].bind(target) : target[key]
+				return typeof target[key] === "function" ? target[key].bind(target) : target[key]
 			},
 			set: (target, key: string, value) => {
-				if (key[0] === '_') {
+				if (key[0] === "_") {
 					throw new Error("Нет прав")
 				}
 
-				if (typeof target[key] === 'function') {
+				if (typeof target[key] === "function") {
 					target[key] = value.bind(target)
 				} else {
 					target[key] = value
 				}
 
-				this.emit(Block.EVENTS.FLOW_CDU);
+				this.emit(EVENTS_ENUM.FLOW_CDU);
 
 				return target[key]
 			},
@@ -200,7 +200,7 @@ class Block implements IBlock {
 	_createDocumentElement(tagName: string) {
 		// Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
 		const element = document.createElement(tagName);
-		element.setAttribute('data-id', this._id || "");
+		element.setAttribute("data-id", this._id || "");
 		return element;
 	}
 

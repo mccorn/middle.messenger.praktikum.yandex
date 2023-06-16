@@ -7,7 +7,7 @@ export function validate(type: string, value: any) {
 }
 
 function validateLogin(value: any): boolean {
-	return !!value && typeof value === 'string' && !!value.match(REGEXPS.login) && value.toString().replace(/[0-9]/g, "") !== "";
+	return !!value && typeof value === "string" && !!value.match(REGEXPS.login) && value.toString().replace(/[0-9]/g, "") !== "";
 }
 
 function validateName(value: any): boolean {
@@ -20,13 +20,13 @@ function validatePassword(value: any): boolean {
 	const hasNumber = value.toString().match(/[0-9]/g);
 	const hasMajorLetter = value.toString().match(/[A-ZА-ЯЁ]/g);
 
-	const result = typeof value === 'string' && !!value.match(REGEXPS.password) && !!hasNumber && !!hasMajorLetter;
+	const result = typeof value === "string" && !!value.match(REGEXPS.password) && !!hasNumber && !!hasMajorLetter;
 
 	return result;
 }
 
 function validateEmail(value: any): boolean {
-	return typeof value === 'string' && !!value.match(REGEXPS.email);
+	return typeof value === "string" && !!value.match(REGEXPS.email);
 }
 
 function validatePhone(value: any): boolean {
@@ -34,7 +34,7 @@ function validatePhone(value: any): boolean {
 }
 
 function validateMessage(value: any): boolean {
-	return typeof value === 'string' && value.length > 0;
+	return typeof value === "string" && value.length > 0;
 }
 
 function validateForm(formData: someObject): boolean {
@@ -48,9 +48,9 @@ function validateForm(formData: someObject): boolean {
 
 const REGEXPS = {
 	phone: /^(([+0-9]){10,15})$/g,
-	login: /^(([0-9a-zA-Za-яA-Я\-]){3,20})$/g,
-	name: /^^([А-Я]{1}[а-яё\-]{1,19}|[A-Z]{1}[a-z\-]{1,19})$/g,
-	password: /^(([0-9a-zA-Za-яёA-ЯЁ\-]){8,40})$/g,
+	login: /^(([0-9a-zA-Za-яA-Я-]){3,20})$/g,
+	name: /^^([А-Я]{1}[а-яё-]{1,19}|[A-Z]{1}[a-z-]{1,19})$/g,
+	password: /^(([0-9a-zA-Za-яёA-ЯЁ-]){8,40})$/g,
 	email: /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/g,
 }
 

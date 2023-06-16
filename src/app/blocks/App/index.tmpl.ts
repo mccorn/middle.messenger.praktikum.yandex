@@ -1,3 +1,3 @@
-const template = `template`
+const template = "template"
 
 export default template;

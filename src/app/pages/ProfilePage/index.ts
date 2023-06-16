@@ -9,15 +9,15 @@ import { HANDLERS } from "../../../utils/handlers";
 export default class ProfilePage extends Block {
 	componentDidMount() {
 		this.state = {
-			avatar: '',
-			login: '',
-			display_name: '',
-			first_name: '',
-			second_name: '',
-			email: '',
-			phone: '',
-			newPassword: '',
-			oldPassword: '',
+			avatar: "",
+			login: "",
+			display_name: "",
+			first_name: "",
+			second_name: "",
+			email: "",
+			phone: "",
+			newPassword: "",
+			oldPassword: "",
 		};
 	}
 
@@ -25,19 +25,19 @@ export default class ProfilePage extends Block {
 		const inputEvents = { focusout: (event: Event) => HANDLERS.handleFocusOut(event, this) };
 		const buttonEvents = { click: (event: Event) => HANDLERS.handleSubmit(event, this) }
 
-		const inputAvatar = new InputLazy('div', { value: "", name: "avatar", inputEvents: inputEvents });
+		const inputAvatar = new InputLazy("div", { value: "", name: "avatar", inputEvents: inputEvents });
 		
-		const inputLogin = new InputLazy('div', { value: "", name: "login", inputEvents: inputEvents });
-		const inputDisplayName = new InputLazy('div', { value: "", name: "display_name", inputEvents: inputEvents });
-		const inputFirstName = new InputLazy('div', { value: "", name: "first_name", inputEvents: inputEvents });
-		const inputSecondName = new InputLazy('div', { value: "", name: "second_name", inputEvents: inputEvents });
-		const inputEmail = new InputLazy('div', { value: "", name: "email", inputEvents: inputEvents });
-		const inputPhone = new InputLazy('div', { value: "", name: "phone", inputEvents: inputEvents });
+		const inputLogin = new InputLazy("div", { value: "", name: "login", inputEvents: inputEvents });
+		const inputDisplayName = new InputLazy("div", { value: "", name: "display_name", inputEvents: inputEvents });
+		const inputFirstName = new InputLazy("div", { value: "", name: "first_name", inputEvents: inputEvents });
+		const inputSecondName = new InputLazy("div", { value: "", name: "second_name", inputEvents: inputEvents });
+		const inputEmail = new InputLazy("div", { value: "", name: "email", inputEvents: inputEvents });
+		const inputPhone = new InputLazy("div", { value: "", name: "phone", inputEvents: inputEvents });
 
-		const inputNewPassword = new InputLazy('div', { value: "", name: "newPassword", inputEvents: inputEvents });
-		const inputOldPassword = new InputLazy('div', { value: "", name: "oldPassword", inputEvents: inputEvents });
+		const inputNewPassword = new InputLazy("div", { value: "", name: "newPassword", inputEvents: inputEvents });
+		const inputOldPassword = new InputLazy("div", { value: "", name: "oldPassword", inputEvents: inputEvents });
 
-		const button = new Button('div', { label: "Save", events: buttonEvents });
+		const button = new Button("div", { label: "Save", events: buttonEvents });
 
 		this.children = {
 			inputAvatar,

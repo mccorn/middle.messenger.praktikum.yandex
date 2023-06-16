@@ -1,17 +1,17 @@
 import { someObject } from "../const/types";
 
 const METHODS = {
-	GET: 'GET',
-	PUT: 'PUT',
-	POST: 'POST',
-	DELETE: 'DELETE',
+	GET: "GET",
+	PUT: "PUT",
+	POST: "POST",
+	DELETE: "DELETE",
 };
 
 function queryStringify(data: someObject) {
-	let result = '';
+	let result = "";
 
 	for (const key in data) {
-		result += `${result ? '&' : '?'}${key}=${data[key]}`
+		result += `${result ? "&" : "?"}${key}=${data[key]}`
 	}
 
 	return result;

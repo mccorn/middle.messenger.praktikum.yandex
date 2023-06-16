@@ -8,7 +8,7 @@ export default class InputWithLabel extends Block {
 	render() {
 		const {value, placeholder, inputEvents, name} = this.props;
 
-		const input = new Input('div', {name: name, value: value, placeholder: placeholder, events: inputEvents});
+		const input = new Input("div", {name: name, value: value, placeholder: placeholder, events: inputEvents});
 		this.children.input = input;
 
 		return this.compile(tmpl, {...this.props, events: null});

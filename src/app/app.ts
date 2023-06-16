@@ -14,7 +14,7 @@ const INIT_DATA = utils.GEN.getInitData();
 
 registerUIPartials(UI);
 
-const app = new App('section', INIT_DATA)
+const app = new App("section", INIT_DATA)
 
 utils.render("#app", app);
 

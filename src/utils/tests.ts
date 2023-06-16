@@ -19,8 +19,8 @@ const PHONES_TESTS = [
 
 
 	[null, false, "comment: === null"],
-	["", false, "comment: === \'\'"],
-	["string", false, "comment: === \'string\'"],
+	["", false, "comment: === \"\""],
+	["string", false, "comment: === \"string\""],
 	["012345678", false, "comment: short, length === 9"],
 	["0123456789012345", false, "comment: long, length === 16"],
 ]
@@ -53,7 +53,7 @@ const LOGINS_TESTS = [
 
 
 	[null, false, "comment: === null"],
-	["", false, "comment: === \'\'"],
+	["", false, "comment: === \"\""],
 	["ab", false, "comment: short, length === 2"],
 	[
 		"01234567890123456789",
@@ -85,7 +85,7 @@ const NAMES_TESTS = [
 		"comment: == \"-___-\""
 	],
 	[null, false, "comment: === null"],
-	["", false, "comment: === \'\'"],
+	["", false, "comment: === \"\""],
 	["a", false, "comment: short, length === 2"],
 	[
 		"01234567890123456789",
@@ -142,7 +142,7 @@ const PASSWORDS_TESTS = [
 		"comment: == \"-___-\""
 	],
 	[null, false, "comment: === null"],
-	["", false, "comment: === \'\'"],
+	["", false, "comment: === \"\""],
 	["a", false, "comment: short, length === 2"],
 	[
 		"01234567890123456789",
@@ -176,7 +176,7 @@ function test(arr = PHONES_TESTS, type: string) {
 		const testComment = test[2];
 
 		if (testResult) {
-			console.log(testValue + '', testResult, testComment)
+			console.log(testValue + "", testResult, testComment)
 		} else {
 			console.warn(testValue, testResult, testComment)
 		}

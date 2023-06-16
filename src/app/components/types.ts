@@ -1,12 +1,12 @@
 export type SampleInput = {
 	value: string, 
 	placeholder?: string, 
-	onBlur: Function, 
+	onBlur: FunctionStringCallback, 
 }
 
 export type SampleInputWithLabel = {
 	value: string, 
 	placeholder?: string, 
-	onBlur: Function, 
+	onBlur: FunctionStringCallback, 
 	label: string
 }
