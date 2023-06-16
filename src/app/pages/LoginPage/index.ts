@@ -11,17 +11,17 @@ export default class LoginPage extends Block {
 	}
 
 	render() {
-		const handleSubmit = (event) => {
+		const handleSubmit = (event: Event) => {
 			event.preventDefault();
 			console.log(this.state);
 		}
-		const handleFocusOut = (event) => {
-			this.state[event.target.name] = event.target.value
+		const handleFocusOut = (event: Event) => {
+			const target = event.target as HTMLInputElement;
+
+			if (target) this.state[target.name] = target.value
 		}
 		const inputEvents = { focusout: handleFocusOut };
-		const buttonEvents = {
-			click: (event) => handleSubmit(event, self),
-		}
+		const buttonEvents = { click: handleSubmit }
 
 		const inputLogin = new InputWithLabel('div', { value: "", name: "login", placeholder: "login", label: "login", inputEvents: inputEvents });
 		const inputPassword = new InputWithLabel('div', { value: "", name: "password", placeholder: "password", label: "password", inputEvents: inputEvents });

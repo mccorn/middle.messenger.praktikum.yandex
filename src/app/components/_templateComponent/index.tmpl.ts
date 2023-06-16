@@ -1,4 +1,4 @@
-const template = (): string => `
+const template = `
 	<div>
 		template
 	</div>

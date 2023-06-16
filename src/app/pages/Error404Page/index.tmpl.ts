@@ -1,5 +1,3 @@
-import Button from "../../components/Button";
-
 const template = `
 <div class='page'>
   <main class="error404">
@@ -13,7 +11,5 @@ const template = `
   </main>
 </div>
 `
-
-// ${(new Button({ label: "To home" })).render()}
 
 export default template;
