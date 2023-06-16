@@ -38,11 +38,6 @@ class HTTPTransport {
 		return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 	};
 
-	// PUT, POST, DELETE
-
-	// options:
-	// headers — obj
-	// data — obj
 	request = (url: string, options: someObject = { method: METHODS.GET }, timeout: number = 5000) => {
 		const { method, data } = options;
 
