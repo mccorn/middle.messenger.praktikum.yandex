@@ -4,7 +4,6 @@ import "./styles.less";
 import Block from "../../../utils/Block";
 import Button from "../../components/Button";
 import InputLazy from "../../components/InputLazy";
-import { validate } from "../../../utils/validator";
 import { HANDLERS } from "../../../utils/handlers";
 
 export default class RegisterPage extends Block {

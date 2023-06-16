@@ -17,24 +17,20 @@ function queryStringify(data: someObject) {
 	return result;
 }
 
-class HTTPTransport {
+export class HTTPTransport {
 	get = (url: string, options: someObject = {}) => {
-
 		return this.request(url + queryStringify(options.data), { ...options, method: METHODS.GET }, options.timeout);
 	};
 
 	put = (url: string, options: someObject = {}) => {
-
 		return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
 	};
 
 	post = (url: string, options: someObject = {}) => {
-
 		return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
 	};
 
 	delete = (url: string, options: someObject = {}) => {
-
 		return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 	};
 
@@ -54,7 +50,6 @@ class HTTPTransport {
 			xhr.onerror = reject;
 			xhr.ontimeout = reject;
 
-
 			if (method === METHODS.GET || !data) {
 				xhr.send();
 			} else {
@@ -64,16 +59,16 @@ class HTTPTransport {
 	};
 }
 
-// function fetchWithRetry(url: string, options: someObject) {
-//   let {retries = 1} = options;
-  
-//   let response = null;
-//   let xhr = new HTTPTransport();
-  
-//   while (retries > 0 && !response) {
-//     retries -= 1;
-//     response = xhr.request(url, options)
-//   }
-  
-//   return response
-// }
+export function fetchWithRetry(url: string, options: someObject) {
+	let { retries = 1 } = options;
+
+	let response = null;
+	let xhr = new HTTPTransport();
+
+	while (retries > 0 && !response) {
+		retries -= 1;
+		response = xhr.request(url, options)
+	}
+
+	return response
+}
