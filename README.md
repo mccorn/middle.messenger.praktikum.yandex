@@ -1,83 +1,47 @@
-### Ветка, в которой делаете задания спринта, должна называться sprint_i, где i - номер спринта. Не переименовывайте её.
+[maket]: https://www.figma.com/file/3oruxhqroItRQ1XNqL4pjb/YANDEX.MESSENGER?type=design&node-id=0-1&t=YyiqCxkpjt8Wxhrs-0        "Figma maket link"
 
-### Откройте pull request в ветку main из ветки, где вы разрабатывали проект, и добавьте ссылку на этот pr в README.md в ветке main. 
-### ВАЖНО: pull request должен называться “Sprint i” (i — номер спринта).
+[domain]: https://frabjous-gnome-6c6c2c.netlify.app/        "Netlify domain link"
+[domain_home]: https://frabjous-gnome-6c6c2c.netlify.app/home 
+[domain_login]: https://frabjous-gnome-6c6c2c.netlify.app/login 
+[domain_register]: https://frabjous-gnome-6c6c2c.netlify.app/register 
+[domain_profile]: https://frabjous-gnome-6c6c2c.netlify.app/profile 
+[domain_error404]: https://frabjous-gnome-6c6c2c.netlify.app/error404 
+[domain_error500]: https://frabjous-gnome-6c6c2c.netlify.app/error500 
 
-### Например, задания для проектной работы во втором спринте вы делаете в ветке sprint_2. Открываете из неё pull request в ветку main. Ссылку на этот pr добавляете в README.md в ветке main. После этого на платформе Практикума нажимаете «Проверить задание».
+[local]: http://localhost:5173/        "localhost link"
+[local_home]: http://localhost:5173/home 
+[local_login]: http://localhost:5173/login 
+[local_register]: http://localhost:5173/register 
+[local_profile]: http://localhost:5173/profile 
+[local_error404]: http://localhost:5173/error404 
+[local_error500]: http://localhost:5173/error500 
 
-### Также не забудьте проверить, что репозиторий публичный.
+## Мессенджер
+
 ---
+### Прототип в Figma: [link][maket]
 
+---
+### Домен Netlify: [link][domain]
 
-Даже законченный проект остаётся только заготовкой, пока им не начнут пользоваться. Но сначала пользователь должен понять, зачем ему пользоваться вашим кодом. В этом помогает файл README.
+- [home page][domain_home]
+- [login page][domain_login]
+- [register page][domain_register]
+- [profile page][domain_profile]
+- [error404 page][domain_error404]
+- [error500 page][domain_error500]
 
-README — первое, что прочитает пользователь, когда попадёт в репозиторий на «Гитхабе». Хороший REAMDE отвечает на четыре вопроса:
+---
+## Команды
+<code>-npm run build</code>  ==> сборка (build)
 
-- Готов ли проект к использованию?
-- В чём его польза?
-- Как установить?
-- Как применять?
+<code>-npm run start</code>  ==> сборка (build) и запуск express-сервера на <a>http://localhost:3000/</a>    
 
-## Бейджи
-
-Быстро понять статус проекта помогают бейджи на «Гитхабе». Иногда разработчики ограничиваются парой бейджев, которые сообщат о статусе тестов кода:
-
-![Бэйджи](https://github.com/yandex-praktikum/mf.messenger.praktikum.yandex.images/blob/master/mf/b.png)
-
-Если пользователь увидит ошибку в работе тестов, то поймёт: использовать текущую версию в важном проекте — не лучшая идея.
-
-Бейджи помогают похвастаться достижениями: насколько популярен проект, как много разработчиков создавало этот код. Через бейджи можно даже пригласить пользователя в чат:
-
-![Версии](https://github.com/yandex-praktikum/mf.messenger.praktikum.yandex.images/blob/master/mf/vers.png)
-
-В README **Webpack** строка бейджев подробно рассказывает о покрытии кода тестами. Когда проект протестирован, это вызывает доверие пользователя. Последний бейдж приглашает присоединиться к разработке. 
-
-Другая строка убедит пользователя в стабильности инфраструктуры и популярности проекта. Последний бейдж зовёт в чат проекта.
-
-## Описание
-
-Краткое опишите, какую задачу решает проект. Пользователь не верит обещаниям и не готов читать «полотна» текста. Поэтому в описании достаточно нескольких строк:
-
-![Описание](https://github.com/yandex-praktikum/mf.messenger.praktikum.yandex.images/blob/master/mf/desc.png)
-
-Авторы **React** дробят описание на абзацы и списки — так проще пробежаться глазами по тексту и найти ключевую информацию.
-
-Если у проекта есть сайт, добавьте ссылку в заголовок.
-
-## Установка
-
-Лучше всего пользователя убеждает собственный опыт. Чем быстрее он начнёт пользоваться проектом, тем раньше почувствует пользу. Для этого помогите ему установить приложение: напишите краткую пошаговую инструкцию.
-
-Если проект предназначен для разработчиков, добавьте информацию об установке тестовых версий. Например:
-
-- `npm install` — установка стабильной версии,
-- `npm start` — запуск версии для разработчика,
-- `npm run build:prod` — сборка стабильной версии.
-
-## **Примеры использования**
-
-Хорошо, если сразу после установки пользователь сможет решить свои задачи без изучения проекта. Это особенно верно, если ваш пользователь — не профессиональный разработчик. Но даже профессионал поймёт вас лучше, если показать примеры использования:
-
-![Ссылки](https://github.com/yandex-praktikum/mf.messenger.praktikum.yandex.images/blob/master/mf/link.png)
-
-Для более подробных инструкции добавьте новые разделы или ссылки:
-
-- на документацию,
-- вики проекта,
-- описание API.
-
-В учебном проекте будут полезен раздел с описанием стиля кода и правилами разработки: как работать с ветками, пул-реквестами и релизами.
-
-### **Команда**
-
-Если вы работаете в команде, укажите основных участников: им будет приятно, а новые разработчики охотнее присоединятся к проекту. «Гитхаб» — не просто инструмент, это социальная сеть разработчиков.
-
-![Команда](https://github.com/yandex-praktikum/mf.messenger.praktikum.yandex.images/blob/master/mf/team.png)
-
-### **Примеры README**
-
-- «[Реакт](https://github.com/facebook/react)»,
-- «[Эхо](https://github.com/labstack/echo)»,
-- «[Вебпак](https://github.com/webpack/webpack)»,
-- «[ТДенгине](https://github.com/taosdata/TDengine)»,
-- «[Соул-хантинг](https://github.com/vladpereskokov/soul-hunting/)».
+---
+### Локальные ссылки
+- [home page][local_home]
+- [login page][local_login]
+- [register page][local_register]
+- [profile page][local_profile]
+- [error404 page][local_error404]
+- [error500 page][local_error500]
