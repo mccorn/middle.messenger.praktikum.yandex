@@ -1,6 +1,6 @@
 @bg_color_x_light: #F5F5F5;
-@bg_color_light: #e2e2e2; // rgba(168, 168, 168, 0.31);
-@bg_color_default: #7BA7BF; // rgba(168, 168, 168, 0.31);
+@bg_color_light: #e2e2e2;
+@bg_color_default: #7BA7BF;
 
 @bg_color_theme_medium: #00D1FF;
 
@@ -21,50 +21,49 @@
 @margin_x_small: 8px;
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 body {
-  font-family: monospace, sans-serif;
+	font-family: monospace, sans-serif;
 }
 
 .page {
-  min-height: 100vh;
-  width: 100vw;
+	min-height: 100vh;
+	width: 100vw;
 }
 
 .wrapper {
-  margin: 0px auto;
-  width: 400px;
+	margin: 0px auto;
+	width: 400px;
 }
 
 .wrapper_theme_default {
-  background-color: @bg_color_light;
-  padding: @padding_big;
+	background-color: @bg_color_light;
+	padding: @padding_big;
 }
 
 .wrapper_crop_bottom {
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
+	border-bottom-left-radius: 24px;
+	border-bottom-right-radius: 24px;
 }
 
 .shadowed {
-  box-shadow: 0px 4px 4px #00000040;
+	box-shadow: 0px 4px 4px #00000040;
 }
 
 .stretch {
 	flex: 1;
 }
 
-// Сетка GRID
 .row {
-  display: flex;
-  width: 100%;
-  
-  gap: @margin_default;
-  margin-bottom: @margin_default;
+	display: flex;
+	width: 100%;
+
+	gap: @margin_default;
+	margin-bottom: @margin_default;
 }
 
 .line {
@@ -72,59 +71,59 @@ body {
 }
 
 .flex {
-  display: flex;
+	display: flex;
 }
 
-@column-number: 12; 
-.create-columns(@column-number); // создать стили колонок разных ширин
+/* stylelint-disable selector-max-create-columns, declaration-no-important */
+@column-number: 12;
+.create-columns(@column-number);
+
 .create-columns(@total, @i: 1) when (@i =< @total) {
-  .col@{i} {
-    flex: calc(@i / 12);
-  }
-  .create-columns(@total, (@i + 1));
+	.col@{i} {
+		flex: calc(@i / 12);
+	}
+
+	.create-columns(@total, (@i + 1));
 }
+/* stylelint-enable selector-max-create-columns, declaration-no-important */
 
 .column {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .withGap {
-  gap: @margin_default;
+	gap: @margin_default;
 }
 
 .column_justify_center {
-  justify-content: center;
+	justify-content: center;
 }
 
 .column_align_center {
-  align-items: center;
+	align-items: center;
 }
 
 .article {
-  margin-bottom: @margin_big;
+	margin-bottom: @margin_big;
 }
 
-// Переопределение дефолтных стилей
 input {
-  outline: none;
-  border: none;
+	outline: none;
+	border: none;
 }
 
 a {
 	text-decoration: none;
 }
 
-// Классы для текстов
 h1 {
-  padding-bottom: @padding_big;
+	padding-bottom: @padding_big;
 }
 
 .text_center {
-  text-align: center;
+	text-align: center;
 }
-
-// Классы для фона
 
 .bg_light {
 	background-color: @bg_color_light;
@@ -133,4 +132,3 @@ h1 {
 .bg_default {
 	background-color: @bg_color_default;
 }
-

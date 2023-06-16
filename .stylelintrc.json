@@ -8,6 +8,13 @@
 		"build/*",
 		"dist/",
 		"src/assets/*",
-		"**/*.ts"
-	]
+		"**/*.ts",
+		"**/*.js"
+	],
+	"overrides": [
+    {
+      "files": ["*.less", "src/*.less"],
+      "customSyntax": "less"
+    }
+  ]
 }

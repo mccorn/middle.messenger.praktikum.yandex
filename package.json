@@ -8,7 +8,7 @@
   },
   "scripts": {
     "eslint": "eslint ./src --fix",
-    "stylelint": "stylelint ./src --fix",
+    "stylelint": "stylelint ./src styles.less",
     "dev": "vite",
     "prebuild": "tsc --noEmit",
     "build": "vite build",
