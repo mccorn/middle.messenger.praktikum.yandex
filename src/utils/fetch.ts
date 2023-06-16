@@ -41,6 +41,8 @@ class HTTPTransport {
 	request = (url: string, options: someObject = { method: METHODS.GET }, timeout: number = 5000) => {
 		const { method, data } = options;
 
+		setTimeout(() => null, timeout);
+
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
 
@@ -58,21 +60,20 @@ class HTTPTransport {
 			} else {
 				xhr.send(data);
 			}
-
 		})
 	};
 }
 
-function fetchWithRetry(url: string, options: someObject) {
-  let {retries = 1} = options;
+// function fetchWithRetry(url: string, options: someObject) {
+//   let {retries = 1} = options;
   
-  let response = null;
-  let xhr = new HTTPTransport();
+//   let response = null;
+//   let xhr = new HTTPTransport();
   
-  while (retries > 0 && !response) {
-    retries -= 1;
-    response = xhr.request(url, options)
-  }
+//   while (retries > 0 && !response) {
+//     retries -= 1;
+//     response = xhr.request(url, options)
+//   }
   
-  return response
-}
+//   return response
+// }
