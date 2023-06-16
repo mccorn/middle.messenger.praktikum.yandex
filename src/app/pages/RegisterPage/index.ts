@@ -1,8 +1,7 @@
 import tmpl from "./index.tmpl";
 import "./styles.less";
 
-import Block from "../../../utils/Block.js";
-import InputWithLabel from "../../components/InputWithLabel";
+import Block from "../../../utils/Block";
 import Button from "../../components/Button";
 import InputLazy from "../../components/InputLazy";
 

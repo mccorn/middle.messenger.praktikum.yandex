@@ -1,7 +1,7 @@
 import tmpl from "./index.tmpl";
 import "./styles.less";
 
-import Block from "../../../utils/Block.js";
+import Block from "../../../utils/Block";
 import InputLazy from "../../components/InputLazy";
 import Button from "../../components/Button";
 

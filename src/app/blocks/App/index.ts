@@ -1,6 +1,6 @@
 import "./styles.less";
 
-import Block from "../../../utils/Block.js";
+import Block from "../../../utils/Block";
 
 import LoginPage from "../../pages/LoginPage";
 import RegisterPage from "../../pages/RegisterPage";
