@@ -21,6 +21,7 @@ export default class App extends Block {
 			case '/home': component = new HomePage('section', { data: this.props.userData }); break;
 			case '/error404': component = new Error404Page('section'); break;
 			case '/error500': component = new Error500Page('section'); break;
+			case '/': window.location.replace("/home"); break;
 
 			default: window.location.replace("/error404");
 		}
