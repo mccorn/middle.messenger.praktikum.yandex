@@ -2,6 +2,7 @@ import Handlebars from "handlebars"
 import { v4 as makeUUID } from 'uuid';
 import EventBus, { IEventBus } from "./EventBus";
 import { someObject } from "../const/types";
+import IBlock from "./BlockInterface";
 
 enum EVENTS_ENUM {
 	INIT = "init",
@@ -16,7 +17,7 @@ type META = {
 }
 
 // Нельзя создавать экземпляр данного класса
-class Block {
+class Block implements IBlock {
 	static EVENTS = EVENTS_ENUM;
 
 	_element: HTMLElement | null = null;
@@ -117,7 +118,7 @@ class Block {
 		});
 	}
 
-	componentDidMount(oldProps: someObject) { }
+	componentDidMount(oldProps: someObject) { oldProps }
 
 	dispatchComponentDidMount() {
 		const { eventBus } = this;

@@ -16,7 +16,7 @@ export const GENERATORS = {
 		"isRead": Math.random() > 0.5,
 	}),
 	getDataChat: (i: any, idx: number) => ({
-		"id": "Chat_" + idx,
+		"id": `Chat_${i}_${idx}`,
 		"avatarUrl": "https://n1s2.hsmedia.ru/6a/46/ae/6a46aeed947a183d67d1bc48211151bf/480x496_0xac120003_4430520541578509619.jpg",
 		"name": "Chat Name " + idx,
 		"messages": [

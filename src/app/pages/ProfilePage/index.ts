@@ -11,18 +11,18 @@ export default class ProfilePage extends Block {
 	}
 
 	render() {
-		const handleFocusOut = (event) => {
-			this.state[event.target.name] = event.target.value
+		const handleFocusOut = (event: Event) => {
+			const target = event.target as HTMLInputElement;
+
+			if (target) this.state[target.name] = target.value
 		}
-		const handleSubmit = (event) => {
+		const handleSubmit = (event: Event) => {
 			event.preventDefault();
 			console.log(this.state);
 		}
 
 		const inputEvents = { focusout: handleFocusOut };
-		const buttonEvents = {
-			click: (event) => handleSubmit(event, self),
-		}
+		const buttonEvents = { click: handleSubmit }
 
 		const inputAvatar = new InputLazy('div', { value: "", name: "avatar", inputEvents: inputEvents });
 		

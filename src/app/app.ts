@@ -1,6 +1,6 @@
 import App from "./blocks/App/index.js";
 import { utils } from "../utils/index.js";
-import registerUIPartials from "./ui.js";
+import registerUIPartials, { UI } from "./ui.js";
 
 // const env = {
 // 	devMode: true,
@@ -26,7 +26,7 @@ const INIT_DATA = {
 	error: {},
 }
 
-registerUIPartials();
+registerUIPartials(UI);
 
 const app = new App('section', INIT_DATA)
 
