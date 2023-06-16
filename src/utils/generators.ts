@@ -1,15 +1,25 @@
-const TEXTS = {
-	0: `Отлично! Теперь мы будем присылать вам уведомления о занятиях Открытого лектория по направлению «Разработка интерфейсов». Каждый понедельник — дайджест занятий на неделю, а за час до лекции — ссылка для подключения.
+const TEXTS = [
+	`Отлично! Теперь мы будем присылать вам уведомления о занятиях Открытого лектория по направлению «Разработка интерфейсов». Каждый понедельник — дайджест занятий на неделю, а за час до лекции — ссылка для подключения.
 	Если вы хотите выбрать ещё одно направление, нажмите на нужную кнопку. Чтобы отписаться от направления, нажмите на кнопку с его названием ещё раз.
 	Приятного обучения!`,
-}
+	`480x496_0xac120003_443052054157850480x496_0xac120003_44305205415785096199619`
+]
+
+const AVATARS = [
+	"https://n1s2.hsmedia.ru/6a/46/ae/6a46aeed947a183d67d1bc48211151bf/480x496_0xac120003_4430520541578509619.jpg",
+]
 
 export const GENERATORS = {
+	getRndElement: (arr: any[]): any => {
+		let idx = GENERATORS.getRndInt(0, arr.length - 1);
+		return arr[idx]
+	},
+	getRndInt: (min: number = 0, max: number = 1): number => Math.round(Math.random() * (max - min) + min),
 	getArrayString: (length = 3) => Object.keys(new Array(length).fill(1)),
 	getArrayNumbers: (length = 3) => GENERATORS.getArray(length, (a: any): number => Number.parseFloat(a)),
 	getArray: (length = 3, callback: (a: any, b: number) => any) => GENERATORS.getArrayString(length).map(callback),
 	getDataMessage: (i: any, idx?: number) => ({
-		"text": Math.random() > 0.5 ? TEXTS[0] : `text_${i}_${idx}`,
+		"text": Math.random() > 0.5 ? GENERATORS.getRndElement(TEXTS) : `text_${i}_${idx}`,
 		"date": (new Date()).toLocaleTimeString('ru-Ru', { hour: "2-digit", minute: "2-digit" }),
 		"me": Math.random() > 0.5,
 		"isEdited": Math.random() > 0.5,
@@ -17,14 +27,9 @@ export const GENERATORS = {
 	}),
 	getDataChat: (i: any, idx: number) => ({
 		"id": `Chat_${i}_${idx}`,
-		"avatarUrl": "https://n1s2.hsmedia.ru/6a/46/ae/6a46aeed947a183d67d1bc48211151bf/480x496_0xac120003_4430520541578509619.jpg",
+		"avatarUrl": GENERATORS.getRndElement(AVATARS),
 		"name": "Chat Name " + idx,
-		"messages": [
-			GENERATORS.getDataMessage(idx, 0),
-			GENERATORS.getDataMessage(idx, 1),
-			GENERATORS.getDataMessage(idx, 2),
-			GENERATORS.getDataMessage(idx, 3),
-		],
+		"messages": GENERATORS.getArray(5, GENERATORS.getDataMessage),
 		lastMessage: {
 			"text": "text_last_" + idx,
 			"date": (new Date()).toLocaleTimeString('ru-Ru', { hour: "2-digit", minute: "2-digit" }),
