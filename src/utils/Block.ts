@@ -1,6 +1,6 @@
 import Handlebars from "handlebars"
+import { v4 as makeUUID } from 'uuid';
 import EventBus, { IEventBus } from "./EventBus";
-import { v4 as makeUUID } from "uuid";
 import { someObject } from "../const/types";
 
 enum EVENTS_ENUM {
@@ -19,17 +19,16 @@ type META = {
 class Block {
 	static EVENTS = EVENTS_ENUM;
 
-	children: someObject = {};
-	props: someObject = {};
-	eventBus: (() => IEventBus) | null = null;
-
-	_element: someObject | null = null;
-	_meta: META;
-	_id = '';
+	_element: HTMLElement | null = null;
+	_id: string = '';
 	_isMounted = false;
+	_meta: META;
 
+	eventBus: () => IEventBus;
+	children: someObject;
+	props: someObject;
 
-	constructor(tagName: string = "div", propsAndChildren: someObject = {}) {
+	constructor(tagName:string = "div", propsAndChildren: someObject = {}) {
 		const { children, props } = this._getChildren(propsAndChildren);
 
 		this.children = children;
@@ -108,15 +107,15 @@ class Block {
 		}
 	}
 
-	_componentDidMount() {
-		this.componentDidMount();
+	_componentDidMount(oldProps: someObject) {
+		this.componentDidMount(oldProps);
 
 		Object.values(this.children).forEach(child => {
 			child.dispatchComponentDidMount();
 		});
 	}
 
-	componentDidMount() { }
+	componentDidMount(oldProps: someObject) { }
 
 	dispatchComponentDidMount() {
 		const { eventBus } = this;
@@ -130,7 +129,7 @@ class Block {
 	}
 
 	componentDidUpdate(oldProps: someObject, newProps: someObject) {
-		return oldProps === newProps; // TODO: Продумать логику
+		return oldProps !== newProps;
 	}
 
 	setProps(nextProps: someObject): void {
@@ -145,26 +144,14 @@ class Block {
 		return this._element;
 	}
 
-	o_render() {
-		const block = this.render();
-		// Это небезопасный метод для упрощения логики
-		// Используйте шаблонизатор из npm или напишите свой безопасный
-		// Нужно компилировать не в строку (или делать это правильно),
-		// либо сразу превращать в DOM-элементы и возвращать из compile DOM-ноду
-		this._removeEvents();
-		if (this._element) this._element.innerHTML = block;
-
-		this._addEvents();
-	}
-
 	_render() {
-		const block = this.render(); // render теперь возвращает DocumentFragment
+		const block = this.render() as any as DocumentFragment;
 
 		this._removeEvents();
-
+		
 		if (this._element) {
-			this._element.appendChild(block);
 			this._element.innerHTML = '';
+			this._element.appendChild(block);
 		}
 
 		this._addEvents();
@@ -173,24 +160,20 @@ class Block {
 	// Переопределяется пользователем. Необходимо вернуть разметку
 	render() { }
 
-	getContent() {
+	getContent(): HTMLElement | null {
 		return this.element;
 	}
 
 	emit(event: string, ...args: any) {
-		const { eventBus } = this;
-		if (eventBus) eventBus().emit(event, ...args);
+		this.eventBus().emit(event, ...args);
 	}
 
 	_makePropsProxy(props: someObject) {
-		// Ещё один способ передачи this, но он больше не применяется с приходом ES6+
-		const self = this;
-
 		return new Proxy(props, {
-			get(target, key: string) {
+			get: (target, key: string) => {
 				return typeof target[key] === 'function' ? target[key].bind(target) : target[key]
 			},
-			set(target, key: string, value) {
+			set: (target, key: string, value) => {
 				if (key[0] === '_') {
 					throw new Error("Нет прав")
 				}
@@ -201,11 +184,11 @@ class Block {
 					target[key] = value
 				}
 
-				self.emit(Block.EVENTS.FLOW_CDU);
+				this.emit(Block.EVENTS.FLOW_CDU);
 
 				return target[key]
 			},
-			deleteProperty() {
+			deleteProperty: () => {
 				throw new Error("нет доступа")
 			},
 		});
@@ -235,13 +218,11 @@ class Block {
 	}
 
 	show() {
-		const block = this.getContent();
-		if (block) block.style.display = "block";
+		if (this._element) this._element.style.display = "block";
 	}
 
 	hide() {
-		const block = this.getContent();
-		if (block) block.style.display = "none";
+		if (this._element) this._element.style.display = "none";
 	}
 }
 

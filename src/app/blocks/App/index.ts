@@ -8,7 +8,6 @@ import ProfilePage from "../../pages/ProfilePage";
 import HomePage from "../../pages/HomePage";
 import Error404Page from "../../pages/Error404Page";
 import Error500Page from "../../pages/Error500Page";
-import Button from "../../components/Button";
 
 export default class App extends Block {
 	render() {
@@ -26,6 +25,6 @@ export default class App extends Block {
 			default: window.location.replace("/error404");
 		}
 
-		return component.render();
+		return component ? component.render() : 'app error';
 	}
 }
