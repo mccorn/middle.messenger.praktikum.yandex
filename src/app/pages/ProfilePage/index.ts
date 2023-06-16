@@ -4,25 +4,26 @@ import "./styles.less";
 import Block from "../../../utils/Block";
 import InputLazy from "../../components/InputLazy";
 import Button from "../../components/Button";
+import { HANDLERS } from "../../../utils/handlers";
 
 export default class ProfilePage extends Block {
 	componentDidMount() {
-		this.state = {};
+		this.state = {
+			avatar: '',
+			login: '',
+			display_name: '',
+			first_name: '',
+			second_name: '',
+			email: '',
+			phone: '',
+			newPassword: '',
+			oldPassword: '',
+		};
 	}
 
 	render() {
-		const handleFocusOut = (event: Event) => {
-			const target = event.target as HTMLInputElement;
-
-			if (target) this.state[target.name] = target.value
-		}
-		const handleSubmit = (event: Event) => {
-			event.preventDefault();
-			console.log(this.state);
-		}
-
-		const inputEvents = { focusout: handleFocusOut };
-		const buttonEvents = { click: handleSubmit }
+		const inputEvents = { focusout: (event: Event) => HANDLERS.handleFocusOut(event, this) };
+		const buttonEvents = { click: (event: Event) => HANDLERS.handleSubmit(event, this) }
 
 		const inputAvatar = new InputLazy('div', { value: "", name: "avatar", inputEvents: inputEvents });
 		

@@ -4,26 +4,24 @@ import "./styles.less";
 import Block from "../../../utils/Block";
 import Button from "../../components/Button";
 import InputLazy from "../../components/InputLazy";
+import { validate } from "../../../utils/validator";
+import { HANDLERS } from "../../../utils/handlers";
 
 export default class RegisterPage extends Block {
 	componentDidMount() {
-		this.state = {};
+		this.state = {
+			login: '',
+			password: '',
+			first_name: '',
+			second_name: '',
+			email: '',
+			phone: '',
+		};
 	}
 
 	render() {
-		const handleSubmit = (event: Event) => {
-			event.preventDefault();
-			console.log(this.state);
-		}
-
-		const handleFocusOut = (event: Event) => {
-			const target = event.target as HTMLInputElement;
-
-			if (target) this.state[target.name] = target.value
-		}
-
-		const inputEvents = { focusout: handleFocusOut };
-		const buttonEvents = { click: handleSubmit }
+		const inputEvents = { focusout: (event: Event) => HANDLERS.handleFocusOut(event, this) };
+		const buttonEvents = { click: (event: Event) => HANDLERS.handleSubmit(event, this) }
 
 		const inputLogin = new InputLazy('div', { value: "", name: "login", inputEvents: inputEvents });
 		const inputPassword = new InputLazy('div', { value: "", name: "password", inputEvents: inputEvents });

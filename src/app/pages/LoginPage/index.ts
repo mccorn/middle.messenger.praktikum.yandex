@@ -4,24 +4,19 @@ import "./styles.less";
 import Block from "../../../utils/Block";
 import InputWithLabel from "../../components/InputWithLabel";
 import Button from "../../components/Button";
+import { HANDLERS } from "../../../utils/handlers";
 
 export default class LoginPage extends Block {
 	componentDidMount() {
-		this.state = {}
+		this.state = {
+			login: '',
+			password: '',
+		}
 	}
 
 	render() {
-		const handleSubmit = (event: Event) => {
-			event.preventDefault();
-			console.log(this.state);
-		}
-		const handleFocusOut = (event: Event) => {
-			const target = event.target as HTMLInputElement;
-
-			if (target) this.state[target.name] = target.value
-		}
-		const inputEvents = { focusout: handleFocusOut };
-		const buttonEvents = { click: handleSubmit }
+		const inputEvents = { focusout: (event: Event) => HANDLERS.handleFocusOut(event, this) };
+		const buttonEvents = { click: (event: Event) => HANDLERS.handleSubmit(event, this) }
 
 		const inputLogin = new InputWithLabel('div', { value: "", name: "login", placeholder: "login", label: "login", inputEvents: inputEvents });
 		const inputPassword = new InputWithLabel('div', { value: "", name: "password", placeholder: "password", label: "password", inputEvents: inputEvents });

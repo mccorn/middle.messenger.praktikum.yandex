@@ -8,6 +8,7 @@ import ChatsList from "../../blocks/ChatsList";
 import Message from "../../components/Message";
 import { utils } from "../../../utils";
 import { someObject } from "../../../const/types";
+import { validate } from "../../../utils/validator";
 
 export default class HomePage extends Block {
 	render() {
@@ -38,13 +39,11 @@ export default class HomePage extends Block {
 			const messagesNode = document.querySelector("#messages") as HTMLElement;
 			const id = parentNode.getAttribute("data-id");
 
-			
 			const currentChatIdx = chats.findIndex((node: someObject) => node.id === id)
 			const chatData = chats[currentChatIdx]
 
 			this.state.currentChatIdx = currentChatIdx;
 			
-			console.log(parentNode, chats, currentChatIdx)
 			utils.clear(messagesNode)
 
 			if (chatData) {
@@ -58,12 +57,13 @@ export default class HomePage extends Block {
 
 		const handleSubmit = (event: Event) => {
 			event.preventDefault();
-			console.log(this.state);
+			console.log(this.state, 'validate success = ' + validate('form', {message: this.state.message}));
 		}
 		const handleFocusOut = (event: Event) => {
 			const target = event.target as HTMLInputElement;
 
 			if (target) this.state[target.name] = target.value
+			console.log('handleFocusOut: ' + target.name, 'validate success = ' + validate(target.name, target.value));
 		}
 
 		const inputEvents = { focusout: handleFocusOut };

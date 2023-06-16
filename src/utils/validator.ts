@@ -37,6 +37,15 @@ function validateMessage(value: any): boolean {
 	return typeof value === 'string' && value.length > 0;
 }
 
+function validateForm(formData: someObject): boolean {
+	let result = true;
+
+	for (const key in formData) {
+		result = result && validate(key, formData[key])
+	}
+	return result;
+}
+
 const REGEXPS = {
 	phone: /^(([+0-9]){10,15})$/g,
 	login: /^(([0-9a-zA-Za-яA-Я\-]){3,20})$/g,
@@ -52,6 +61,7 @@ const VALIDATORS: someObject = {
 	email: validateEmail,
 	phone: validatePhone,
 	message: validateMessage,
+	form: validateForm,
 
 	default: validateName,
 }
