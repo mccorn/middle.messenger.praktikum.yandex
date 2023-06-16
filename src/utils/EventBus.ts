@@ -1,7 +1,7 @@
 export interface IEventBus {
 	listeners: { [key: string]: FunctionStringCallback[] };
-	on: (eventName: string, callback: FunctionStringCallback) => void;
-	off: (eventName: string, callback: FunctionStringCallback) => void;
+	on: (eventName: string, callback: (...args: any) => any) => void;
+	off: (eventName: string, callback: (...args: any) => any) => void;
 	emit: (eventName: string, ...args: any) => void;
 }
 
