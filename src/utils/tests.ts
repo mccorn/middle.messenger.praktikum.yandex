@@ -170,15 +170,15 @@ const PASSWORDS_TESTS = [
 
 function test(arr = PHONES_TESTS, type: string) {
 	for (const test of arr) {
-	
+
 		const testValue = test[0];
 		const testResult = test[1] === validate(type, testValue);
 		const testComment = test[2];
 
 		if (testResult) {
-			console.log(testValue + '', testResult, testComment )
+			console.log(testValue + '', testResult, testComment)
 		} else {
-			console.warn(testValue, testResult, testComment  )
+			console.warn(testValue, testResult, testComment)
 		}
 	}
 }

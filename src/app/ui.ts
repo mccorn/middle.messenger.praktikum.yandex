@@ -11,7 +11,7 @@ export const UI = {
 }
 
 const registerUIPartials = (UI: someObject) => {
-	for (let keyName in UI) {
+	for (const keyName in UI) {
 		Handlebars.registerPartial(keyName, UI[keyName])
 	}
 }

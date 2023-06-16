@@ -21,7 +21,7 @@ class Block implements IBlock {
 	static EVENTS = EVENTS_ENUM;
 
 	_element: HTMLElement | null = null;
-	_id: string = '';
+	_id = '';
 	_isMounted = false;
 	_meta: META;
 
@@ -30,7 +30,7 @@ class Block implements IBlock {
 	props: someObject;
 	state: someObject;
 
-	constructor(tagName:string = "div", propsAndChildren: someObject = {}) {
+	constructor(tagName = "div", propsAndChildren: someObject = {}) {
 		const { children, props } = this._getChildren(propsAndChildren);
 
 		this.children = children;
@@ -141,7 +141,7 @@ class Block implements IBlock {
 		}
 
 		Object.assign(this.props || {}, nextProps);
-	};
+	}
 
 	get element() {
 		return this._element;

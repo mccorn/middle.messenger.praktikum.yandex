@@ -10,7 +10,7 @@ const METHODS = {
 function queryStringify(data: someObject) {
 	let result = '';
 
-	for (let key in data) {
+	for (const key in data) {
 		result += `${result ? '&' : '?'}${key}=${data[key]}`
 	}
 
@@ -34,7 +34,7 @@ export class HTTPTransport {
 		return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 	};
 
-	request = (url: string, options: someObject = { method: METHODS.GET }, timeout: number = 5000) => {
+	request = (url: string, options: someObject = { method: METHODS.GET }, timeout = 5000) => {
 		const { method, data } = options;
 
 		setTimeout(() => null, timeout);
@@ -63,7 +63,7 @@ export function fetchWithRetry(url: string, options: someObject) {
 	let { retries = 1 } = options;
 
 	let response = null;
-	let xhr = new HTTPTransport();
+	const xhr = new HTTPTransport();
 
 	while (retries > 0 && !response) {
 		retries -= 1;

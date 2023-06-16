@@ -11,10 +11,10 @@ const AVATARS = [
 
 export const GENERATORS = {
 	getRndElement: (arr: any[]): any => {
-		let idx = GENERATORS.getRndInt(0, arr.length - 1);
+		const idx = GENERATORS.getRndInt(0, arr.length - 1);
 		return arr[idx]
 	},
-	getRndInt: (min: number = 0, max: number = 1): number => Math.round(Math.random() * (max - min) + min),
+	getRndInt: (min = 0, max = 1): number => Math.round(Math.random() * (max - min) + min),
 	getArrayString: (length = 3) => Object.keys(new Array(length).fill(1)),
 	getArrayNumbers: (length = 3) => GENERATORS.getArray(length, (a: any): number => Number.parseFloat(a)),
 	getArray: (length = 3, callback: (a: any, b: number) => any) => GENERATORS.getArrayString(length).map(callback),
