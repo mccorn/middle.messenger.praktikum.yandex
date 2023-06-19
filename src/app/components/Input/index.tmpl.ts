@@ -1,3 +1,3 @@
-const template = "<input name=\"{{name}}\" value=\"{{value}}\" placeholder=\"{{placeholder}}\" blur=\"{{onBlur}}\" />"
+const template = "<input name=\"{{name}}\" value=\"{{value}}\" placeholder=\"{{placeholder}}\" />"
 
 export default template;

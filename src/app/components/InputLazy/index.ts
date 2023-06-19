@@ -2,9 +2,15 @@ import tmpl from "./index.tmpl";
 import "./styles.less";
 
 import Block from "../../../utils/Block";
-import Input from "../Input";
+import Input, { InputProps } from "../Input";
+
+type InputLazyProps = InputProps;
 
 export default class InputLazy extends Block {
+	constructor(tagName: string, props: InputLazyProps) {
+		super(tagName, props);
+	}
+
 	render() {
 		const {value, placeholder, inputEvents, name, label} = this.props;
 

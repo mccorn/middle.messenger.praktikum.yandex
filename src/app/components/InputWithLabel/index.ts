@@ -2,9 +2,17 @@ import tmpl from "./index.tmpl";
 import "./styles.less";
 
 import Block from "../../../utils/Block";
-import Input from "../Input";
+import Input, {InputProps} from "../Input";
+
+interface InputWithLabelProps extends InputProps {
+	label: string,
+}
 
 export default class InputWithLabel extends Block {
+	constructor(tagName: string, props: InputWithLabelProps) {
+		super(tagName, props);
+	}
+
 	render() {
 		const {value, placeholder, inputEvents, name} = this.props;
 
