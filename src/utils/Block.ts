@@ -178,7 +178,7 @@ class Block implements IBlock {
 			},
 			set: (target, key: string, value) => {
 				if (key[0] === "_") {
-					throw new Error("Нет прав")
+					// throw new Error("Нет прав")
 				}
 
 				if (typeof target[key] === "function") {

@@ -3,6 +3,7 @@ const template = `
 	<label>
 	<div class="label">{{label}}</div>
 	{{{ input }}}
+	<div class="error">{{error}}</div>
 	</label>
 </div>
 `

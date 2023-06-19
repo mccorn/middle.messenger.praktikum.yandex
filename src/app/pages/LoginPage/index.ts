@@ -5,7 +5,6 @@ import Block from "../../../utils/Block";
 import InputWithLabel from "../../components/InputWithLabel";
 import Button from "../../components/Button";
 import { HANDLERS } from "../../../utils/handlers";
-import ErrorMessage from "../../components/ErrorMessage";
 
 export default class LoginPage extends Block {
 	componentDidMount() {
@@ -17,12 +16,12 @@ export default class LoginPage extends Block {
 
 	render() {
 		const inputLoginEvents = {
-			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputLoginError),
-			input: () => HANDLERS.handleInputWithError(this.children.inputLoginError)
+			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputLogin),
+			// input: () => HANDLERS.handleInputWithError(this.children.inputLogin)
 		};
 		const inputPasswordEvents = {
-			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputPasswordError),
-			input: () => HANDLERS.handleInputWithError(this.children.inputPasswordError),
+			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputPassword),
+			// input: () => HANDLERS.handleInputWithError(this.children.inputPassword),
 		};
 
 		const buttonEvents = { click: (event: Event) => HANDLERS.handleSubmit(event, this) }
@@ -30,16 +29,10 @@ export default class LoginPage extends Block {
 		const inputLogin = new InputWithLabel("div", { value: "", name: "login", placeholder: "login", label: "login", inputEvents: inputLoginEvents });
 		const inputPassword = new InputWithLabel("div", { value: "", name: "password", placeholder: "password", label: "password", inputEvents: inputPasswordEvents });
 
-		const inputLoginError = new ErrorMessage("div", { message: "" });
-		const inputPasswordError = new ErrorMessage("div", { message: "" });
-
 		const button = new Button("div", { label: "Sign in", events: buttonEvents });
 
 		this.children.inputLogin = inputLogin;
-		this.children.inputLoginError = inputLoginError;
-
 		this.children.inputPassword = inputPassword;
-		this.children.inputPasswordError = inputPasswordError;
 
 		this.children.button = button;
 

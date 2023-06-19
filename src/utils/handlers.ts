@@ -3,7 +3,7 @@ import IBlock from "./BlockInterface";
 import { validate } from "./validator";
 
 export const HANDLERS = {
-	handleFocusOut: (event: Event, self: someObject, errorBlock: someObject) => {
+	handleFocusOut: (event: Event, self: IBlock, errorBlock?: IBlock) => {
 		if (!self) return;
 
 		const target = event.target as HTMLInputElement;
@@ -11,8 +11,8 @@ export const HANDLERS = {
 
 		if (target) self.state[target.name] = target.value;
 
-		if (errorBlock && !validateResult.success) {
-			errorBlock.setProps({message: validateResult.message});
+		if (errorBlock) {
+			errorBlock.setProps({value: target.value, error: validateResult.message});
 		}
 
 		console.log("handleFocusOut: " + target.name, validateResult);
@@ -24,9 +24,11 @@ export const HANDLERS = {
 
 		console.log(self.state, validate("form", self.state));
 	},
-	handleInputWithError: (block: IBlock) => {
-		if (block.props.message) {
-			block.setProps({message: ""})
+	handleInputWithError: () => {
+		return (block: IBlock) => {
+			// if (block.props.error) {
+			// 	block.setProps({...block.props, error: ""})
+			// }
 		}
 	}
 }

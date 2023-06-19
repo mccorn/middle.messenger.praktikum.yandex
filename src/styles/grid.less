@@ -1,0 +1,59 @@
+@padding_big: 32px;
+@padding_medium: 24px;
+@padding_default: 16px;
+@padding_small: 12px;
+@padding_x_small: 8px;
+
+@margin_big: 32px;
+@margin_medium: 24px;
+@margin_default: 16px;
+@margin_small: 12px;
+@margin_x_small: 8px;
+
+.row {
+	display: flex;
+	width: 100%;
+
+	gap: @margin_default;
+	margin-bottom: @margin_default;
+}
+
+.line {
+	margin-bottom: @margin_x_small;
+}
+
+.flex {
+	display: flex;
+}
+
+.stretch {
+	flex: 1;
+}
+
+@column-number: 12;
+.create-columns(@column-number);
+
+.create-columns(@total, @i: 1) when (@i =< @total) {
+	.col@{i} {
+		flex: calc(@i / 12);
+	}
+
+	.create-columns(@total, (@i + 1));
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
+}
+
+.withGap {
+	gap: @margin_default;
+}
+
+.column_justify_center {
+	justify-content: center;
+}
+
+.column_align_center {
+	align-items: center;
+}

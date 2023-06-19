@@ -19,17 +19,41 @@ export default class RegisterPage extends Block {
 	}
 
 	render() {
-		const inputEvents = { focusout: (event: Event) => HANDLERS.handleFocusOut(event, this) };
+		const inputLoginEvents = {
+			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputLogin),
+			// input: () => HANDLERS.handleInputWithError(this.children.inputLogin),
+		};
+		const inputPasswordEvents = {
+			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputPassword),
+			// input: () => HANDLERS.handleInputWithError(this.children.inputPassword),
+		};
+		const inputFirstNameEvents = {
+			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputFirstName),
+			// input: () => HANDLERS.handleInputWithError(this.children.inputFirstName),
+		};
+		const inputSecondNameEvents = {
+			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputSecondName),
+			// input: () => HANDLERS.handleInputWithError(this.children.inputSecondName),
+		};
+		const inputEmailEvents = {
+			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputEmail),
+			// input: () => HANDLERS.handleInputWithError(this.children.inputEmail),
+		};
+		const inputPhoneEvents = {
+			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputPhone),
+			// input: () => HANDLERS.handleInputWithError(this.children.inputPhone),
+		};
+
 		const buttonEvents = { click: (event: Event) => HANDLERS.handleSubmit(event, this) }
 
-		const inputLogin = new InputLazy("div", { value: "", name: "login", inputEvents: inputEvents });
-		const inputPassword = new InputLazy("div", { value: "", name: "password", inputEvents: inputEvents });
+		const inputLogin = new InputLazy("div", { value: "", name: "login", inputEvents: inputLoginEvents });
+		const inputPassword = new InputLazy("div", { value: "", name: "password", inputEvents: inputPasswordEvents });
 
-		const inputFirstName = new InputLazy("div", { value: "", name: "first_name", inputEvents: inputEvents });
-		const inputSecondName = new InputLazy("div", { value: "", name: "second_name", inputEvents: inputEvents });
+		const inputFirstName = new InputLazy("div", { value: "", name: "first_name", inputEvents: inputFirstNameEvents });
+		const inputSecondName = new InputLazy("div", { value: "", name: "second_name", inputEvents: inputSecondNameEvents });
 
-		const inputEmail = new InputLazy("div", { value: "", name: "email", inputEvents: inputEvents });
-		const inputPhone = new InputLazy("div", { value: "", name: "phone", inputEvents: inputEvents });
+		const inputEmail = new InputLazy("div", { value: "", name: "email", inputEvents: inputEmailEvents });
+		const inputPhone = new InputLazy("div", { value: "", name: "phone", inputEvents: inputPhoneEvents });
 
 		const button = new Button("div", { label: "Save", events: buttonEvents });
 
