@@ -12,7 +12,7 @@ export const HANDLERS = {
 		if (target) self.state[target.name] = target.value;
 
 		if (errorBlock) {
-			errorBlock.setProps({value: target.value, error: validateResult.message});
+			errorBlock.setProps({ value: target.value, error: validateResult.message });
 		}
 
 		console.log("handleFocusOut: " + target.name, validateResult);
@@ -25,10 +25,10 @@ export const HANDLERS = {
 		console.log(self.state, validate("form", self.state));
 	},
 	handleInputWithError: () => {
-		return (block: IBlock) => {
-			// if (block.props.error) {
-			// 	block.setProps({...block.props, error: ""})
-			// }
-		}
+		// return (block: IBlock) => {
+		// if (block.props.error) {
+		// 	block.setProps({ ...block.props, error: "" })
+		// }
+		// }
 	}
 }
