@@ -45,3 +45,14 @@
 - [profile page][local_profile]
 - [error404 page][local_error404]
 - [error500 page][local_error500]
+
+---
+### Версии
+
+#### v2.0.0 (16/06/2023)
+- Добавлен fetch
+- Добавлен EventBus
+- Добавлен Block
+- Добавлен eslint и stylelint
+- Добавлена валидация инпутов и форм (тип: консоль)
+- Переход на компоненты
