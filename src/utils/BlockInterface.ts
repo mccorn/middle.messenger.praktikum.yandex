@@ -120,13 +120,7 @@ interface IBlock {
 	// 	return oldProps !== newProps;
 	// }
 
-	// setProps(nextProps: someObject): void {
-	// 	if (!nextProps) {
-	// 		return;
-	// 	}
-
-	// 	Object.assign(this.props || {}, nextProps);
-	// };
+	setProps: (nextProps: someObject) => void,
 
 	// get element() {
 	// 	return this._element;

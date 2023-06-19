@@ -140,7 +140,7 @@ class Block implements IBlock {
 			return;
 		}
 
-		Object.assign(this.props || {}, nextProps);
+		Object.assign(this.props, nextProps);
 	}
 
 	get element() {
@@ -189,7 +189,7 @@ class Block implements IBlock {
 
 				this.emit(EVENTS_ENUM.FLOW_CDU);
 
-				return target[key]
+				return true;
 			},
 			deleteProperty: () => {
 				throw new Error("нет доступа")

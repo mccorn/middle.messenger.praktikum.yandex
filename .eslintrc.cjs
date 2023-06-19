@@ -18,7 +18,7 @@ module.exports = {
 		"react"
 	],
 	"rules": {
-		"max-len": [1, 80],
+		"max-len": [0, 120],
 		"max-params": [2, 3],
 	}
 }

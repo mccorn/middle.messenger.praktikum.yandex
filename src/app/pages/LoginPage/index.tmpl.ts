@@ -8,8 +8,11 @@ const template = `
 				<div class="column withGap" >
 				
 					{{{ inputLogin }}}
-					{{{ inputPassword }}}
+					{{{ inputLoginError }}}
 
+					{{{ inputPassword }}}
+					{{{ inputPasswordError }}}
+					
 					<div class="column column_align_center">
 						<div class="line">
 							{{{ button }}}
