@@ -3,9 +3,11 @@ import "./styles.less";
 
 import Block from "../../../utils/Block";
 import Input, {InputProps} from "../Input";
+import { eventsObject } from "../../../const/types";
 
 interface InputWithLabelProps extends InputProps {
-	label: string,
+	label?: string,
+	inputEvents?: eventsObject,
 }
 
 export default class InputWithLabel extends Block {

@@ -3,8 +3,11 @@ import "./styles.less";
 
 import Block from "../../../utils/Block";
 import Input, { InputProps } from "../Input";
+import { eventsObject } from "../../../const/types";
 
-type InputLazyProps = InputProps;
+interface InputLazyProps extends InputProps {
+	inputEvents?: eventsObject,
+}
 
 export default class InputLazy extends Block {
 	constructor(tagName: string, props: InputLazyProps) {
