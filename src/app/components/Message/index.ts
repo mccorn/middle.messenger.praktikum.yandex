@@ -5,10 +5,11 @@ import Block from "../../../utils/Block";
 
 type MessageProps = {
 	data: {
-		text: string,
-		date: string,
+		text?: string,
+		date?: string,
 		isEdited?: boolean,
-	}
+	},
+	classNames?: string,
 }
 
 export default class Message extends Block {
