@@ -2,11 +2,11 @@ import tmpl from "./index.tmpl";
 import "./styles.less";
 
 import Block from "../../../utils/Block";
-import { someObject } from "../../../const/types";
+import { eventsObject } from "../../../const/types";
 
 type ButtonProps = {
 	label: string,
-	events?: someObject,
+	events?: eventsObject,
 }
 
 export default class Button extends Block {
