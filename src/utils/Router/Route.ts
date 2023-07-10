@@ -1,0 +1,47 @@
+import { someObject } from '../../const/types';
+import {utils} from '../../utils';
+import Block from '../Block';
+import IBlock from '../BlockInterface';
+
+const {render, isEqual} = utils;
+
+export default class Route {
+	protected _pathname = "";
+	protected _blockClass = null as any as typeof Block;
+	protected _block: IBlock;
+	protected _props = {};
+
+  constructor(pathname: string, view: typeof Block, props: someObject) {
+    this._pathname = pathname;
+    this._blockClass = view;
+    this._block = {} as IBlock;
+    this._props = props;
+  }
+
+  navigate(pathname: string) {
+    if (this.match(pathname)) {
+      this._pathname = pathname;
+      this.render();
+    }
+  }
+
+  leave() {
+    if (this._block) {
+      this._block.hide();
+    }
+  }
+
+  match(pathname: string) {
+    return isEqual(pathname, this._pathname);
+  }
+
+  render() {
+    if (this._block) {
+			this._block.show();
+		} else {
+			this._block = new this._blockClass('div', this._props);
+			
+			render('div', this._block)
+		}
+  }
+}

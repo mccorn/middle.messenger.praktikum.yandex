@@ -1,5 +1,6 @@
 import { IEventBus } from "./EventBus";
 import { someObject } from "../const/types";
+import Block from "./Block";
 
 export type META = {
 	tagName: string,
@@ -18,27 +19,7 @@ interface IBlock {
 	props: someObject,
 	state: someObject,
 
-	// constructor(tagName:string = "div", propsAndChildren: someObject = {}) {
-	// 	const { children, props } = this._getChildren(propsAndChildren);
-
-	// 	this.children = children;
-	// 	this.state = {};
-
-	// 	const eventBus = new EventBus();
-
-	// 	this._meta = {
-	// 		tagName,
-	// 		props
-	// 	};
-
-	// 	this._id = makeUUID();
-	// 	this.props = this._makePropsProxy({ ...props, __id: this._id });
-
-	// 	this.eventBus = () => eventBus;
-
-	// 	this._registerEvents(eventBus);
-	// 	eventBus.emit(Block.EVENTS.INIT);
-	// }
+	// constructor: (tagName: string, propsAndChildren: someObject) => Block,
 
 	// _getChildren(propsAndChildren: someObject) {
 	// 	const children: someObject = {};
@@ -197,13 +178,8 @@ interface IBlock {
 	// 	});
 	// }
 
-	// show() {
-	// 	if (this._element) this._element.style.display = "block";
-	// }
-
-	// hide() {
-	// 	if (this._element) this._element.style.display = "none";
-	// }
+	show: () => void,
+	hide: () => void,
 }
 
 export default IBlock;
