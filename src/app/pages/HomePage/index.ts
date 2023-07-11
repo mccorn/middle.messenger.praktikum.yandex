@@ -10,11 +10,11 @@ import { utils } from "../../../utils";
 import { someObject } from "../../../const/types";
 import { validate } from "../../../utils/validator";
 
-export default class HomePage extends Block {
+class HomePage extends Block {
 	render() {
 		const {currentChatIdx} = this.state;
-		const {data} = this.props;
-		const {chats} = data;
+		const {data = {}} = this.props;
+		const {chats = []} = data;
 
 		function findParentBySelector(target: HTMLElement | null, selector = "", count = 10) {
 			let i = 0;
@@ -84,3 +84,5 @@ export default class HomePage extends Block {
 		return this.compile(tmpl, {...this.props });
 	}
 }
+
+export default HomePage

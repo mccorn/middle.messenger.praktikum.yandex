@@ -71,6 +71,7 @@ class Block implements IBlock {
 		const propsAndStubs = { ...props };
 
 		Object.entries(this.children).forEach(([key, child]) => {
+			if (!child) return;
 			propsAndStubs[key] = `<div data-id="${child.id}"></div>`
 		});
 
@@ -79,6 +80,8 @@ class Block implements IBlock {
 		fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
 
 		Object.values(this.children).forEach(child => {
+			if (!child) return;
+
 			const content = fragment.content as unknown as HTMLElement;
 			const stub = content.querySelector(`[data-id="${child.id}"]`);
 
@@ -114,6 +117,7 @@ class Block implements IBlock {
 		this.componentDidMount(oldProps);
 
 		Object.values(this.children).forEach(child => {
+			if (!child) return;
 			child.dispatchComponentDidMount();
 		});
 	}
