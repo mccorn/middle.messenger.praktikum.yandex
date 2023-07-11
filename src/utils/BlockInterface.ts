@@ -1,6 +1,5 @@
 import { IEventBus } from "./EventBus";
 import { someObject } from "../const/types";
-import Block from "./Block";
 
 export type META = {
 	tagName: string,

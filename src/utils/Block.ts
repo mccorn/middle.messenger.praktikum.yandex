@@ -79,7 +79,7 @@ class Block implements IBlock {
 		fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
 
 		Object.values(this.children).forEach(child => {
-			const content = fragment.content as any as HTMLElement;
+			const content = fragment.content as unknown as HTMLElement;
 			const stub = content.querySelector(`[data-id="${child.id}"]`);
 
 			if (stub && child) stub.replaceWith(child.getContent());
@@ -148,7 +148,7 @@ class Block implements IBlock {
 	}
 
 	_render() {
-		const block = this.render() as any as DocumentFragment;
+		const block = this.render() as unknown as DocumentFragment;
 
 		this._removeEvents();
 		
@@ -167,6 +167,7 @@ class Block implements IBlock {
 		return this.element;
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	emit(event: EVENTS_ENUM, ...args: any) {
 		this.eventBus().emit(event, ...args);
 	}

@@ -7,7 +7,7 @@ const {render, isEqual} = utils;
 
 export default class Route {
 	protected _pathname = "";
-	protected _blockClass = null as any as typeof Block;
+	protected _blockClass = null as unknown as typeof Block;
 	protected _block: IBlock;
 	protected _props = {};
 

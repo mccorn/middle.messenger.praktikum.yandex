@@ -1,9 +1,6 @@
+import { Indexed } from "../const/types";
 import IBlock from "./BlockInterface";
 import { GENERATORS } from "./generators";
-
-type Indexed<T = unknown> = {
-	[key in string | symbol | number]: T;
-};
 
 export const utils = {
 	GEN: GENERATORS,
