@@ -1,5 +1,7 @@
-import { Indexed } from "../const/types";
+import { Indexed, someObject } from "../const/types";
+import Block from "./Block";
 import IBlock from "./BlockInterface";
+import Store, { StoreEvents } from "./Store";
 import { GENERATORS } from "./generators";
 
 export const utils = {
@@ -43,5 +45,37 @@ export const utils = {
 		}
 
 		return result;
+	},
+	set: function (object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
+		if (!object || typeof object !== 'object') return object;
+		if (typeof path !== 'string') throw new Error('path must be string');
+
+		const pathArr = path.split('.');
+		let target = object as Indexed;
+
+		for (let i = 0; i < pathArr.length; i++) {
+			const key = pathArr[i];
+
+			if (i === pathArr.length - 1) {
+				target[key] = value;
+			} else {
+				target[key] = {};
+				target = target[key] as Indexed;
+			}
+		}
+
+		return object;
+	}
+}
+
+export function connect(ComponentClass: typeof Block, mapStateToProps: (state: Indexed) => Indexed) {
+	return class extends ComponentClass {
+		constructor(tagName: string, props: someObject) {
+			super(tagName, { ...props, ...mapStateToProps(Store.getState()) });
+
+			Store.on(StoreEvents.Updated, () => {
+				this.setProps({ ...mapStateToProps(Store.getState()) });
+			});
+		}
 	}
 }

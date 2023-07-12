@@ -17,7 +17,7 @@ type META = {
 }
 
 // Нельзя создавать экземпляр данного класса
-class Block implements IBlock {
+abstract class Block implements IBlock {
 	static EVENTS = EVENTS_ENUM;
 
 	_element: HTMLElement | null = null;

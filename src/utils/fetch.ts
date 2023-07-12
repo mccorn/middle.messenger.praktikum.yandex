@@ -37,7 +37,7 @@ export class HTTPTransport {
 	};
 
 	request = (url: string, options: someObject = { method: METHODS.GET }, timeout = 5000) => {
-		const { method, data } = options;
+		const { method, data, headers = {} } = options;
 
 		setTimeout(() => null, timeout);
 
@@ -45,6 +45,9 @@ export class HTTPTransport {
 			const xhr = new XMLHttpRequest();
 
 			xhr.open(method, url);
+			xhr.withCredentials = true;
+
+			Object.keys(headers).forEach(key => xhr.setRequestHeader(key, headers[key]))
 
 			xhr.onload = function () { resolve(xhr); }
 

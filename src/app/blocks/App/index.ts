@@ -12,6 +12,7 @@ import Error500Page from "../../pages/Error500Page";
 import template from "./index.tmpl";
 import Route from "../../../utils/Router/Route";
 import Router from "../../../utils/Router";
+import { HTTPTransport } from "../../../utils/fetch";
 
 // export default class App extends Block {
 // 	__render() {
@@ -54,7 +55,7 @@ export default class App {
 			.use("/login", LoginPage)
 			.use("/register", RegisterPage)
 			.use("/profile", ProfilePage)
-			.use("/home", HomePage)
+			.use("/", HomePage)
 			.use("/error404", Error404Page)
 			.use("/error500", Error500Page)
 			.start();
