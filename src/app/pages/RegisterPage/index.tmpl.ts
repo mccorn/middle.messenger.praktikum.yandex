@@ -17,6 +17,10 @@ const template = `
 							<div class="line">
 								{{{ button }}}
 							</div>
+
+							<div>
+								<a href="/login">Есть аккаунт?</a>
+							</div>
 						</div>
 					</div>
 				</form>

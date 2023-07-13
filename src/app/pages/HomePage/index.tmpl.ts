@@ -2,6 +2,7 @@ const template = `
 <div class="page">
 	<div class="HomePage flex">
 		<aside class="col4 bg_light">
+			{{{ logout }}}
 			{{{ chatsList }}}
 		</aside>
 		<main class="col8 column">
@@ -16,6 +17,7 @@ const template = `
 				</div>
 				<div>
 					{{{ button }}}
+					
 				</div>
 			</form>
 		</main>

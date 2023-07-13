@@ -1,3 +1,4 @@
+import AuthAPI from "../../app/api/AuthAPI";
 import { someObject } from "../../const/types";
 import Block from "../Block";
 import Route from "./Route";
@@ -5,6 +6,7 @@ import Route from "./Route";
 class Router {
 	static __instance: Router;
 	private _rootQuery: unknown;
+	private _requiredAuth!: someObject;
 
 	routes: Route[] = [];
 	history: History | undefined;
@@ -17,12 +19,14 @@ class Router {
 
 		this.history = window.history;
 		Router.__instance = this;
+		this._requiredAuth = {};
 	}
 
-	use(pathname: string, block: typeof Block) {
+	use(pathname: string, block: typeof Block, needAuth?: boolean) {
 		const route = new Route(pathname, block, { rootQuery: this._rootQuery });
 		this.routes.push(route);
-		
+		this._requiredAuth[pathname] = !!needAuth;
+
 		return this;
 	}
 
@@ -36,33 +40,44 @@ class Router {
 	}
 
 	_onRoute(pathname: string) {
-		const route = this.getRoute(pathname);
-		if (!route) {
-			// this.go('/')
-			return;
-		}
+		// const hasAuth = this.hasAuth();
+		const authPromise = this.hasAuth();
 
-		console.log('_onRoute', pathname, this._currentRoute)
+		authPromise.then((response) => {
+			const route = this.getRoute(pathname);
+			if (!route) {
+				this.go('/error404');
+				return;
+			}
 
-		if (this._currentRoute) {
-			this._currentRoute.leave();
-		}
-
-		this._currentRoute = route;
-		route.render();
+			if (this._requiredAuth[pathname] && response?.status !== 200) {
+				this.go('/login');
+				return;
+			}
+	
+			if (this._currentRoute) {
+				this._currentRoute.leave();
+			}
+	
+			this._currentRoute = route;
+			route.render();
+		})
 	}
 
 	go(pathname: string) {
 		if (this.history) {
-			console.log('go', pathname);
 
-			this.history.pushState({pathname}, '', pathname);
+			this.history.pushState({ pathname }, '', pathname);
 			this._onRoute(pathname);
 		}
 	}
 
 	getRoute(pathname: string) {
 		return this.routes.find(route => route.match(pathname));
+	}
+
+	hasAuth() {
+		return AuthAPI.getAuthUser();
 	}
 }
 

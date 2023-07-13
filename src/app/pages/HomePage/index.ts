@@ -9,12 +9,13 @@ import Message from "../../components/Message";
 import { utils } from "../../../utils";
 import { someObject } from "../../../const/types";
 import { validate } from "../../../utils/validator";
+import AuthAPI from "../../api/AuthAPI";
 
 class HomePage extends Block {
 	render() {
-		const {currentChatIdx} = this.state;
-		const {data = {}} = this.props;
-		const {chats = []} = data;
+		const { currentChatIdx } = this.state;
+		const { data = {} } = this.props;
+		const { chats = [] } = data;
 
 		function findParentBySelector(target: HTMLElement | null, selector = "", count = 10) {
 			let i = 0;
@@ -33,7 +34,7 @@ class HomePage extends Block {
 
 		const handleChatsClick = (event: Event) => {
 			const parentNode = findParentBySelector(event.target as HTMLElement, ".chatInfo", 10);
-			
+
 			if (!parentNode) return;
 
 			const messagesNode = document.querySelector("#messages") as HTMLElement;
@@ -43,13 +44,13 @@ class HomePage extends Block {
 			const chatData = chats[currentChatIdx]
 
 			this.state.currentChatIdx = currentChatIdx;
-			
+
 			utils.clear(messagesNode)
 
 			if (chatData) {
 				chatData.messages.forEach((node: someObject) => {
-					const block = new Message("div", {data: node, classNames: node.me ? "me" : ""}).getContent() as HTMLElement;
-	
+					const block = new Message("div", { data: node, classNames: node.me ? "me" : "" }).getContent() as HTMLElement;
+
 					messagesNode?.appendChild(block)
 				})
 			}
@@ -57,7 +58,7 @@ class HomePage extends Block {
 
 		const handleSubmit = (event: Event) => {
 			event.preventDefault();
-			console.log(this.state, "validate success = " + validate("form", {message: this.state.message}));
+			console.log(this.state, "validate success = " + validate("form", { message: this.state.message }));
 		}
 		const handleFocusOut = (event: Event) => {
 			const target = event.target as HTMLInputElement;
@@ -70,18 +71,31 @@ class HomePage extends Block {
 		const buttonEvents = {
 			click: (event: Event) => handleSubmit(event),
 		}
+		const logoutEvents = {
+			click: function (event: Event) {
+				event.preventDefault();
+				// const promise1 = AuthAPI.getAuthUser();
+				// promise1.then(console.log);
 
-		const chatsList = new ChatsList("section", {chats, currentChatIdx, events: {click: handleChatsClick}});
+				const promise2 = AuthAPI.logout();
+				promise2.then(console.log);
+			},
+		}
+
+		const chatsList = new ChatsList("section", { chats, currentChatIdx, events: { click: handleChatsClick } });
 		const input = new Input("div", { value: "", name: "message", events: inputEvents });
 		const button = new Button("div", { label: "send", events: buttonEvents });
+		const logout = new Button("div", { label: "logout", events: logoutEvents });
 
 		this.children = {
+			logout,
 			chatsList,
 			input,
 			button,
+			
 		}
 
-		return this.compile(tmpl, {...this.props });
+		return this.compile(tmpl, { ...this.props });
 	}
 }
 

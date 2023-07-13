@@ -1,4 +1,4 @@
-export const BASE_URL = "ya-praktikum.tech/api/v2";
+export const BASE_URL = "https://ya-praktikum.tech/api/v2";
 
 export class BaseAPI {
 	// На случай, если забудете переопределить метод и используете его, — выстрелит ошибка

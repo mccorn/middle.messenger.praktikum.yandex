@@ -19,8 +19,8 @@ export default class App {
 		router
 			.use("/login", LoginPage)
 			.use("/register", RegisterPage)
-			.use("/profile", ProfilePage)
-			.use("/", HomePage)
+			.use("/profile", ProfilePage, true)
+			.use("/", HomePage, true)
 			.use("/error404", Error404Page)
 			.use("/error500", Error500Page)
 			.start();
