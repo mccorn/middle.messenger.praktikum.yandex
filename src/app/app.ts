@@ -1,12 +1,17 @@
 import App from "./blocks/App/index.js";
-import UserController from "./controllers/UserController.js";
 import registerUIPartials, { UI } from "./ui.js";
+
+import AuthAPI from "./api/AuthAPI.js";
+import { USERS_DATA } from "./data.js";
+import { utils } from "../utils/index.js";
 
 // const INIT_DATA = utils.GEN.getInitData();
 
 registerUIPartials(UI);
 
-const app = new App()
+export const app = new App();
+
+// const app = new App();
 
 function getNewUser(id: number | string) {
 	return {
@@ -14,22 +19,29 @@ function getNewUser(id: number | string) {
 		"second_name": `user${id}`,
 		"login": `user${id}login`,
 		"email": `user${id}@com.com`,
-		"password": `user${id}_P@ssw0rd`,
+		"password": `user${id}_Passw0rd`,
 		"phone": "+71234567890"
 	}
 }
 
-const currentUser = getNewUser(9);
-console.log('currentUser', currentUser)
+const currentUser = getNewUser(10);
+// utils.printObject(currentUser);
+// console.log('currentUser', currentUser)
+// console.log('login', currentUser.login)
+// console.log('password', currentUser.password)
 
-const userController = new UserController();
+const step = 500
 
-setTimeout(() => userController.logout(), 0)
+// setTimeout(() => AuthAPI.logout(), 1 * step)
 
-// setTimeout(() => userController.signup(currentUser), 1000)
+// setTimeout(() => AuthAPI.signup(currentUser), 2 * step)
 
-// setTimeout(() => userController.logout(), 2000)
+// setTimeout(() => AuthAPI.signin(currentUser), 2 * step)
 
-setTimeout(() => userController.signin(currentUser), 100)
+// setTimeout(() => AuthAPI.getAuthUser(), 3 * step)
 
-// setTimeout(() => userController.getAuthUser(), 0)
+// setTimeout(() => AuthAPI.logout(), 4 * step)
+
+// setTimeout(() => AuthAPI.signin(USERS_DATA.user1), 5 * step)
+
+// setTimeout(() => AuthAPI.getAuthUser(), 6 * step)

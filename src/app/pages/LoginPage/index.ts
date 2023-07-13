@@ -5,6 +5,29 @@ import Block from "../../../utils/Block";
 import InputWithLabel from "../../components/InputWithLabel";
 import Button from "../../components/Button";
 import { HANDLERS } from "../../../utils/handlers";
+import { validate } from "../../../utils/validator";
+import { someObject } from "../../../const/types";
+import AuthAPI from "../../api/AuthAPI";
+
+class UserLoginController {
+	login(data: someObject) {
+		const validateResult = validate("form", data)
+
+		if (!validateResult.success) {
+			console.log('validateResult incorrect', validateResult)
+			// throw new Error("Validate incorrect")
+		} else {
+			const authPromise = AuthAPI.signin(data)
+
+			authPromise.then((response) => {
+				if (response?.readyState === 4) {
+					window.location.href = '/'
+				}
+			})
+
+		}
+	}
+}
 
 export default class LoginPage extends Block {
 	componentDidMount() {
@@ -24,7 +47,17 @@ export default class LoginPage extends Block {
 			// input: () => HANDLERS.handleInputWithError(this.children.inputPassword),
 		};
 
-		const buttonEvents = { click: (event: Event) => HANDLERS.handleSubmit(event, this) }
+		const buttonEvents = {
+			click: (event: Event) => {
+				event.preventDefault();
+
+				const userLoginController = new UserLoginController();
+				userLoginController.login({
+					login: this.state.login,
+					password: this.state.password,
+				})
+			}
+		}
 
 		const inputLogin = new InputWithLabel("div", { value: "", name: "login", placeholder: "login", label: "login", inputEvents: inputLoginEvents });
 		const inputPassword = new InputWithLabel("div", { value: "", name: "password", placeholder: "password", label: "password", inputEvents: inputPasswordEvents });

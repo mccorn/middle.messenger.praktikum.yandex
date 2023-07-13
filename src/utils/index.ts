@@ -65,6 +65,11 @@ export const utils = {
 		}
 
 		return object;
+	},
+	printObject: function(obj: someObject = {}) {
+		for (const key in obj) {
+			console.log(key, obj[key])
+		}
 	}
 }
 

@@ -38,21 +38,25 @@ class Router {
 	_onRoute(pathname: string) {
 		const route = this.getRoute(pathname);
 		if (!route) {
-			this.go('/')
+			// this.go('/')
 			return;
 		}
+
+		console.log('_onRoute', pathname, this._currentRoute)
 
 		if (this._currentRoute) {
 			this._currentRoute.leave();
 		}
 
-		// route.render(route, pathname);
+		this._currentRoute = route;
 		route.render();
 	}
 
 	go(pathname: string) {
 		if (this.history) {
-			this.history.pushState({}, "", pathname);
+			console.log('go', pathname);
+
+			this.history.pushState({pathname}, '', pathname);
 			this._onRoute(pathname);
 		}
 	}

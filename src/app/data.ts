@@ -82,3 +82,36 @@ const user9 = {
 	phone: "+71234567890",
 	second_name: "user9",
 }
+
+const user10 = {
+	id: 1204237,
+	email: "user10@com.com",
+	first_name: "user10",
+	login: "user10login",
+	password: "user10_Passw0rd",
+	phone: "+71234567890",
+	second_name: "user10",
+}
+
+const user11 = {
+	avatar: null,
+	display_name: null,
+	email: "user11@com.com",
+	first_name: "User",
+	id: 1205002,
+	login: "user11login",
+	phone: "+71234567890",
+	second_name: "User",
+}
+
+export const USERS_DATA = {
+	user1,
+	user2,
+	user3,
+	user4,
+	user5,
+	user6,
+	user7,
+	user8,
+	user9,
+}
