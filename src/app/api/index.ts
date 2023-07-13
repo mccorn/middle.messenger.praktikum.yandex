@@ -1,5 +1,3 @@
-import { HTTPTransport } from "../../utils/fetch";
-
 export const BASE_URL = "ya-praktikum.tech/api/v2";
 
 export class BaseAPI {

@@ -1,10 +1,9 @@
+import { BASE_URL } from ".";
 import { HTTPTransport } from "../../utils/fetch";
 
-const url = 'https://ya-praktikum.tech/api/v2/auth'
+const url = BASE_URL + '/auth';
 const http = new HTTPTransport();
-const options = {
-	// mode: 'cors', // Работаем с CORS
-}
+const options = {};
 const headersJSON = {
 	'content-type': 'application/json', // Данные отправляем в формате JSON
 }
