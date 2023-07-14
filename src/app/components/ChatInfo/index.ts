@@ -2,16 +2,10 @@ import tmpl from "./index.tmpl";
 import "./styles.less";
 
 import Block from "../../../utils/Block";
+import { ChatData } from "../../../const/types";
 
 type ChatInfoProps = {
-	data: {
-		id: string | number,
-		avatarUrl: string,
-		name: string,
-		text: string,
-		date: string,
-		noreadMessagesCounter?: number,
-	}
+	data: ChatData
 }
 
 export default class ChatInfo extends Block {
@@ -20,6 +14,6 @@ export default class ChatInfo extends Block {
 	}
 
 	render() {
-		return this.compile(tmpl, this.props);
+		return this.compile(tmpl, {...this.props });
 	}
 }

@@ -104,6 +104,13 @@ const user11 = {
 	second_name: "User",
 }
 
+const chatsIds = [
+	16989,
+	16986,
+	16984,
+	16983,
+]
+
 export const USERS_DATA = {
 	user1,
 	user2,

@@ -16,7 +16,7 @@ type chatIdData = {
 }
 
 type titleData = {
-	chatId: string,
+	title: string,
 }
 
 type getUsersData = {
@@ -34,7 +34,7 @@ type updateAvatarData = {
 
 type addUsersData = {
 	chatId: number | string,
-	users: object[],
+	users: number[] | string[],
 }
 
 type deleteUsersData = addUsersData;

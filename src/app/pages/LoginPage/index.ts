@@ -17,7 +17,7 @@ class UserLoginController {
 			console.log('validateResult incorrect', validateResult)
 			// throw new Error("Validate incorrect")
 		} else {
-			const authPromise = AuthAPI.signin(data)
+			const authPromise = AuthAPI.login(data)
 
 			authPromise.then((response) => {
 				if (response?.readyState === 4) {

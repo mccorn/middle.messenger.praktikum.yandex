@@ -3,6 +3,18 @@ const template = `
 	<div class="HomePage flex">
 		<aside class="col4 bg_light">
 			{{{ logout }}}
+			<br/>
+			{{{ getChatsButton }}}
+			<br/>
+			{{{createChatButton}}}
+			<br/>
+			{{{getUsersButton}}}
+			<br/>
+			{{{addUsersButton}}}
+			<br/>
+			{{{deleteUsersButton}}}
+			<br/>
+
 			{{{ chatsList }}}
 		</aside>
 		<main class="col8 column">

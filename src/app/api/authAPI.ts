@@ -9,6 +9,11 @@ const headersJSON = {
 }
 
 class AuthAPI {
+	async login(data: object = {}) {
+		await this.logout();
+		return await this.signin(data);
+	}
+
 	signin(data: object = {}) {
 		const reqOptions = Object.assign(options,
 			{
