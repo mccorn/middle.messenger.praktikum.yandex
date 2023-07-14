@@ -10,7 +10,7 @@ class ProfilePageController {
 				Store.set('userData', JSON.parse(response.response))
 			}
 			
-			console.log('HomePageController setData', Store.getState())
+			console.log('ProfilePageController setData', Store.getState())
 		});
 	}
 }

@@ -9,7 +9,12 @@ const template = `
 						<h5>{{userData.display_name}}</h5>
 					</div>
 					<div class="col4">
-						{{{ inputAvatar }}}
+						<div class="avatar">
+							<img src="https://ya-praktikum.tech/api/v2/resources{{userData.avatar}}">
+							{{{ inputAvatar }}}
+						</div>
+						
+					
 					</div>
 				</div>
 

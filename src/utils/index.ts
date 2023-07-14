@@ -55,11 +55,12 @@ export const utils = {
 
 		for (let i = 0; i < pathArr.length; i++) {
 			const key = pathArr[i];
+			console.log('key', key, target[key])
 
 			if (i === pathArr.length - 1) {
 				target[key] = value;
 			} else {
-				target[key] = {};
+				if (!target[key]) target[key] = {};
 				target = target[key] as Indexed;
 			}
 		}
