@@ -6,7 +6,7 @@ const template = `
 				<div class="row article">
 					<div class="col8">
 						<h2>Profile Page</h2>
-						<h5>{data.display_name}</h5>
+						<h5>{{userData.display_name}}</h5>
 					</div>
 					<div class="col4">
 						{{{ inputAvatar }}}

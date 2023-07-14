@@ -8,8 +8,11 @@ import { HANDLERS } from "../../../utils/handlers";
 import InputFile from "../../components/InputFile";
 import UserAPI from "../../api/UserAPI";
 import Store from "../../../utils/Store";
+import { connect } from "../../../utils";
+import { Indexed } from "../../../const/types";
+import ProfilePageController from "../../controllers/ProfilePageController";
 
-export default class ProfilePage extends Block {
+class ProfilePage extends Block {
 	componentDidMount() {
 		this.state = {
 			avatar: "",
@@ -25,6 +28,13 @@ export default class ProfilePage extends Block {
 	}
 
 	render() {
+		let { userData } = this.props;
+
+		if (!userData) {
+			ProfilePageController.setData();
+			userData = {};
+		}
+
 		const inputAvatarEvents = {
 			change: (event: Event) => {
 				const file = event.target.files[0];
@@ -84,9 +94,11 @@ export default class ProfilePage extends Block {
 
 				const promise = UserAPI.update({login, display_name, first_name, second_name, email, phone});
 				promise.then((response) => {
-					Store.set('userData', JSON.parse(response.response))
+					if (response.status === 200) {
+						Store.set('userData', JSON.parse(response.response))
+					}
 
-					console.log('inputAvatarEvents setData', Store.getState())
+					console.log('buttonEvents setData', Store.getState())
 				})
 			},
 		}
@@ -102,12 +114,12 @@ export default class ProfilePage extends Block {
 
 		const inputAvatar = new InputFile("div", { value: "", name: "avatar", events: inputAvatarEvents });
 
-		const inputLogin = new InputLazy("div", { value: "", name: "login", inputEvents: inputLoginEvents });
-		const inputDisplayName = new InputLazy("div", { value: "", name: "display_name", inputEvents: inputPasswordEvents });
-		const inputFirstName = new InputLazy("div", { value: "", name: "first_name", inputEvents: inputFirstNameEvents });
-		const inputSecondName = new InputLazy("div", { value: "", name: "second_name", inputEvents: inputSecondNameEvents });
-		const inputEmail = new InputLazy("div", { value: "", name: "email", inputEvents: inputEmailEvents });
-		const inputPhone = new InputLazy("div", { value: "", name: "phone", inputEvents: inputPhoneEvents });
+		const inputLogin = new InputLazy("div", { value: userData.login, name: "login", inputEvents: inputLoginEvents });
+		const inputDisplayName = new InputLazy("div", { value: userData.display_name, name: "display_name", inputEvents: inputPasswordEvents });
+		const inputFirstName = new InputLazy("div", { value: userData.first_name, name: "first_name", inputEvents: inputFirstNameEvents });
+		const inputSecondName = new InputLazy("div", { value: userData.second_name, name: "second_name", inputEvents: inputSecondNameEvents });
+		const inputEmail = new InputLazy("div", { value: userData.email, name: "email", inputEvents: inputEmailEvents });
+		const inputPhone = new InputLazy("div", { value: userData.phone, name: "phone", inputEvents: inputPhoneEvents });
 
 		const button = new Button("div", { label: "Save", events: buttonEvents });
 
@@ -137,3 +149,9 @@ export default class ProfilePage extends Block {
 		return this.compile(tmpl, this.props);
 	}
 }
+
+const mapStateToProps = (state: Indexed) => ({
+	userData: state.userData,
+})
+
+export default connect(ProfilePage, mapStateToProps)

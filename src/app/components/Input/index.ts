@@ -7,6 +7,7 @@ import { eventsObject } from "../../../const/types";
 export interface InputProps {
 	name: string,
 	value: string,
+	type?: string,
 	placeholder?: string,
 	events?: eventsObject,
 }
