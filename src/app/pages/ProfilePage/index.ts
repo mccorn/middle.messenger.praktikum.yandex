@@ -39,14 +39,12 @@ class ProfilePage extends Block {
 			change: (event: Event) => {
 				const file = event.target.files[0];
 				const form = new FormData();
-				// form.append('file', file);
-				form.set('file', file);
-
-				console.log(file, event);
+				
+				form.set('avatar', file);
 
 				const promise = UserAPI.updateAvatar(form);
 				promise.then((response) => {
-					Store.set('avatar', response.response)
+					Store.set('userData.avatar', JSON.parse(response.response).avatar)
 
 					console.log('inputAvatarEvents setData', Store.getState())
 				})
