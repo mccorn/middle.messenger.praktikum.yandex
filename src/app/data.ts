@@ -102,6 +102,7 @@ const user11 = {
 	login: "user11login",
 	phone: "+71234567890",
 	second_name: "User",
+	password: "user11_Passw0rd",
 }
 
 const chatsIds = [

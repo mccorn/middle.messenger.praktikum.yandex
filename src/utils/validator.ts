@@ -128,7 +128,11 @@ const REGEXPS = {
 const VALIDATORS: someObject = {
 	login: validateLogin,
 	name: validateName,
+
 	password: validatePassword,
+	newPassword: validatePassword,
+	oldPassword: validatePassword,
+
 	email: validateEmail,
 	phone: validatePhone,
 	message: validateMessage,

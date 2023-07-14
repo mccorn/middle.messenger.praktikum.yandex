@@ -22,6 +22,10 @@ const template = `
 					{{{ inputPhone }}}
 				</div>
 
+				<div class="column column_align_center section">
+					{{{ button }}}
+				</div>
+				
 				<div class="column withGap article" >
 					<h2>Password</h2>
 
@@ -30,7 +34,7 @@ const template = `
 				</div>
 
 				<div class="column column_align_center">
-					{{{ button }}}
+					{{{ buttonChangePassword }}}
 				</div>
 			</form>
 		</main>

@@ -28,9 +28,13 @@ export default class ProfilePage extends Block {
 		const inputAvatarEvents = {
 			change: (event: Event) => {
 				const file = event.target.files[0];
+				const form = new FormData();
+				// form.append('file', file);
+				form.set('file', file);
+
 				console.log(file, event);
 
-				const promise = UserAPI.updateAvatar(file);
+				const promise = UserAPI.updateAvatar(form);
 				promise.then((response) => {
 					Store.set('avatar', response.response)
 
@@ -73,7 +77,28 @@ export default class ProfilePage extends Block {
 			// input: () => HANDLERS.handleInputWithError(this.children.inputPhone),
 		};
 
-		const buttonEvents = { click: (event: Event) => HANDLERS.handleSubmit(event, this) }
+		const buttonEvents = {
+			click: (event: Event) => {
+				event.preventDefault();
+				const {login, display_name, first_name, second_name, email, phone} = this.state;
+
+				const promise = UserAPI.update({login, display_name, first_name, second_name, email, phone});
+				promise.then((response) => {
+					Store.set('userData', JSON.parse(response.response))
+
+					console.log('inputAvatarEvents setData', Store.getState())
+				})
+			},
+		}
+		const buttonChangePasswordEvents = { 
+			click: (event: Event) => {
+				event.preventDefault();
+				const {newPassword, oldPassword} = this.state;
+
+				console.log(newPassword, oldPassword)
+				UserAPI.updatePassword({newPassword, oldPassword}).then(console.log);
+			},
+		}
 
 		const inputAvatar = new InputFile("div", { value: "", name: "avatar", events: inputAvatarEvents });
 
@@ -84,10 +109,12 @@ export default class ProfilePage extends Block {
 		const inputEmail = new InputLazy("div", { value: "", name: "email", inputEvents: inputEmailEvents });
 		const inputPhone = new InputLazy("div", { value: "", name: "phone", inputEvents: inputPhoneEvents });
 
-		const inputNewPassword = new InputLazy("div", { value: "", name: "newPassword", inputEvents: inputNewPasswordEvents });
-		const inputOldPassword = new InputLazy("div", { value: "", name: "oldPassword", inputEvents: inputOldPasswordEvents });
-
 		const button = new Button("div", { label: "Save", events: buttonEvents });
+
+		const inputNewPassword = new InputLazy("div", { value: "", name: "newPassword", type: "password", inputEvents: inputNewPasswordEvents });
+		const inputOldPassword = new InputLazy("div", { value: "", name: "oldPassword", type: "password", inputEvents: inputOldPasswordEvents });
+
+		const buttonChangePassword = new Button("div", { label: "ChangePassword", events: buttonChangePasswordEvents });
 
 		this.children = {
 			inputAvatar,
@@ -99,10 +126,12 @@ export default class ProfilePage extends Block {
 			inputEmail,
 			inputPhone,
 
+			button,
+
 			inputNewPassword,
 			inputOldPassword,
 
-			button,
+			buttonChangePassword,
 		}
 
 		return this.compile(tmpl, this.props);

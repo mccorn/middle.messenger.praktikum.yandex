@@ -24,15 +24,7 @@ class UserAPI {
 	}
 
 	updateAvatar(data: any) {
-		const form = new FormData();
-		form.set('file', data);
-
-		const reqOptions = Object.assign(options,
-			{
-				headers: headersFormData,
-				data: form,
-			}
-		)
+		const reqOptions = Object.assign({}, {data}, options)
 
 		return http.put(url + '/profile/avatar', reqOptions);
 	}
@@ -40,7 +32,7 @@ class UserAPI {
 	updatePassword(data: object = {}) {
 		const reqOptions = Object.assign(options,
 			{
-				headers: headersFormData,
+				headers: headersJSON,
 				data: JSON.stringify(data)
 			}
 		)
