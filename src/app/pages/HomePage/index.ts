@@ -11,8 +11,7 @@ import { ChatData, Indexed, someObject } from "../../../const/types";
 import { validate } from "../../../utils/validator";
 import AuthAPI from "../../api/AuthAPI";
 import ChatAPI from "../../api/ChatAPI";
-import Store from "../../../utils/Store";
-import HomePageController from "../../controllers/HomePageControllers";
+import HomePageController from "../../controllers/HomePageController";
 
 let counter = 0;
 

@@ -5,6 +5,9 @@ import Block from "../../../utils/Block";
 import InputLazy from "../../components/InputLazy";
 import Button from "../../components/Button";
 import { HANDLERS } from "../../../utils/handlers";
+import InputFile from "../../components/InputFile";
+import UserAPI from "../../api/UserAPI";
+import Store from "../../../utils/Store";
 
 export default class ProfilePage extends Block {
 	componentDidMount() {
@@ -23,7 +26,17 @@ export default class ProfilePage extends Block {
 
 	render() {
 		const inputAvatarEvents = {
-			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputAvatar),
+			change: (event: Event) => {
+				const file = event.target.files[0];
+				console.log(file, event);
+
+				const promise = UserAPI.updateAvatar(file);
+				promise.then((response) => {
+					Store.set('avatar', response.response)
+
+					console.log('inputAvatarEvents setData', Store.getState())
+				})
+			},
 			// input: () => HANDLERS.handleInputWithError(this.children.inputLogin),
 		};
 		const inputLoginEvents = {
@@ -59,11 +72,11 @@ export default class ProfilePage extends Block {
 			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputOldPassword),
 			// input: () => HANDLERS.handleInputWithError(this.children.inputPhone),
 		};
-		
+
 		const buttonEvents = { click: (event: Event) => HANDLERS.handleSubmit(event, this) }
 
-		const inputAvatar = new InputLazy("div", { value: "", name: "avatar", inputEvents: inputAvatarEvents });
-		
+		const inputAvatar = new InputFile("div", { value: "", name: "avatar", events: inputAvatarEvents });
+
 		const inputLogin = new InputLazy("div", { value: "", name: "login", inputEvents: inputLoginEvents });
 		const inputDisplayName = new InputLazy("div", { value: "", name: "display_name", inputEvents: inputPasswordEvents });
 		const inputFirstName = new InputLazy("div", { value: "", name: "first_name", inputEvents: inputFirstNameEvents });
@@ -88,7 +101,7 @@ export default class ProfilePage extends Block {
 
 			inputNewPassword,
 			inputOldPassword,
-			
+
 			button,
 		}
 

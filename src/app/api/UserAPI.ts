@@ -23,11 +23,14 @@ class UserAPI {
 		return http.put(url + '/profile', reqOptions);
 	}
 
-	updateAvatar(data: object = {}) {
+	updateAvatar(data: any) {
+		const form = new FormData();
+		form.set('file', data);
+
 		const reqOptions = Object.assign(options,
 			{
 				headers: headersFormData,
-				data: data,
+				data: form,
 			}
 		)
 
