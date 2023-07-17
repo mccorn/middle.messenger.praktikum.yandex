@@ -3,15 +3,14 @@ import AuthAPI from "../api/AuthAPI";
 import ChatAPI from "../api/ChatAPI";
 
 class ProfilePageController {
-	setData() {
+	async setData() {
 		const promise = AuthAPI.getAuthUser();
-		promise.then((response) => {
-			if (response.status === 200) {
-				Store.set('userData', JSON.parse(response.response))
-			}
-			
-			console.log('ProfilePageController setData', Store.getState())
-		});
+		const response = await promise;
+		const data = JSON.parse(response.response);
+		if (response.status === 200) {
+			Store.set('userData', data);
+		}
+		console.log('ProfilePageController setData', Store.getState());
 	}
 }
 

@@ -66,6 +66,12 @@ class AuthAPI {
 		return http.post(url, reqOptions);
 	}
 
+	getToken(id: string | number) {
+		const reqOptions = Object.assign({}, options)
+
+		return http.post(url + `/token/${id}`, reqOptions);
+	}
+
 	getUsers(data: getUsersData) {
 		const reqOptions = Object.assign(options,
 			{

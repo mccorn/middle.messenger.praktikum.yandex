@@ -55,8 +55,7 @@ export const utils = {
 
 		for (let i = 0; i < pathArr.length; i++) {
 			const key = pathArr[i];
-			console.log('key', key, target[key])
-
+			
 			if (i === pathArr.length - 1) {
 				target[key] = value;
 			} else {
@@ -70,6 +69,16 @@ export const utils = {
 	printObject: function(obj: someObject = {}) {
 		for (const key in obj) {
 			console.log(key, obj[key])
+		}
+	},
+	getNewUser: function(id: number | string) {
+		return {
+			"first_name": `user${id}`,
+			"second_name": `user${id}`,
+			"login": `user${id}login`,
+			"email": `user${id}@com.com`,
+			"password": `user${id}_Passw0rd`,
+			"phone": "+71234567890"
 		}
 	}
 }

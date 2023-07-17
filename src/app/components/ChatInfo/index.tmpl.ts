@@ -11,20 +11,25 @@ export default `
 				<span>{{cutTitle}}</span>
 			{{/if}}
 		</div>
+		
 		<div class="chatInfo__main stretch">
 			<div class="chatInfo__title">
-				{{title}}
+				<b>{{title}}</b>
 			</div>
 			<div class="chatInfo__body">
-				{{last_message}}
+				{{last_message.content}}
 			</div>
 		</div>
+
 		<div class="chatInfo__aside">
 			<div class="chatInfo__date">
-				{{lastMessage.date}}
+				{{#formattedTime last_message.time }}
+				{{/formattedTime}}
 			</div>
 			<div class="chatInfo__tip">
-				{{unread_count}}
+				{{#if unread_count}} 
+					{{unread_count}}
+				{{/if}}
 			</div>
 		</div>
 	{{/with}}

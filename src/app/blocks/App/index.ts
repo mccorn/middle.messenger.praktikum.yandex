@@ -9,11 +9,13 @@ import Error500Page from "../../pages/Error500Page";
 
 import Router from "../../../utils/Router";
 import AuthAPI from "../../api/AuthAPI";
+import ProfilePageController from "../../controllers/ProfilePageController";
 
 window.authAPI = AuthAPI;
 
 export default class App {
 	constructor() {
+		ProfilePageController.setData(); // TODO: переименуй или перенеси
 		const router = new Router();
 		
 		router
