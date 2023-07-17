@@ -2,11 +2,13 @@ const template = `<div class="messageWrapper">
 {{#with data}}
 	<div class="message {{../classNames}}" >
 		<div class="message__body">
-			{{text}}
+			{{content}}
 		</div>
 		
 		<div class="message__info">
-			{{date}}
+			{{#formattedTime time}}
+			{{/formattedTime}}
+
 			{{#if isEdited}}
 				VV
 			{{/if}}

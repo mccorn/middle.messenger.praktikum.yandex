@@ -105,6 +105,30 @@ const user11 = {
 	password: "user11_Passw0rd",
 }
 
+const user12 = {
+	avatar: null,
+	display_name: null,
+	email: "user12@google.com",
+	first_name: "User",
+	id: 1224599,
+	login: "user12login",
+	phone: "+7123456789",
+	second_name: "User",
+	password: "user12_Passw0rd",
+}
+
+const user13 = {
+	avatar: null,
+	display_name: null,
+	email: "user13@google.com",
+	first_name: "User",
+	id: 1224602,
+	login: "user13login",
+	phone: "+7123456789",
+	second_name: "User",
+	password: "user13_Passw0rd",
+}
+
 const chatsIds = [
 	16989,
 	16986,

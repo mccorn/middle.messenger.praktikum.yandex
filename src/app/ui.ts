@@ -19,8 +19,6 @@ const registerUIPartials = (UI: someObject) => {
 const locale = "ru-Ru"
 
 Handlebars.registerHelper("formattedTime", function(time) {
-	console.log('formattedTime', time);
-
 	const date = new Date(time);
 	const now = new Date();
 

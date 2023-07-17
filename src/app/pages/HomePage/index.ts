@@ -25,9 +25,8 @@ class HomePage extends Block {
 	}
 
 	render() {
-		const { chats } = this.props;
+		const { chats, userData } = this.props;
 		const { currentChatIdx } = this.state;
-
 
 		if (chats) this.restructuringData(chats as ChatData[]); else HomePageController.setData();
 
@@ -54,16 +53,19 @@ class HomePage extends Block {
 			const messagesNode = document.querySelector("#messages") as HTMLElement;
 			const id = parentNode.getAttribute("data-id");
 
-			const currentChatIdx = chats.findIndex((node: someObject) => node.id === id)
+			const currentChatIdx = chats.findIndex((node: someObject) => node.id.toString() === id)
 			const chatData = chats[currentChatIdx]
 
 			this.state.currentChatIdx = currentChatIdx;
 
 			utils.clear(messagesNode)
 
+			console.log('chatData', chatData, userData)
+
 			if (chatData) {
+				// chatData.messages = [];
 				chatData.messages.forEach((node: someObject) => {
-					const block = new Message("div", { data: node, classNames: node.me ? "me" : "" }).getContent() as HTMLElement;
+					const block = new Message("div", { data: node, classNames: node.user_id === userData.id ? "me" : "" }).getContent() as HTMLElement;
 
 					messagesNode?.appendChild(block)
 				})
@@ -98,7 +100,7 @@ class HomePage extends Block {
 		}
 		const createChatButtonEvents = {
 			click: function () {
-				const newTitle = 'title' + counter++;
+				const newTitle = 'user13chatTitle' + counter++;
 
 				const promise = ChatAPI.create({ title: newTitle });
 				promise.then(console.log);
@@ -161,6 +163,7 @@ class HomePage extends Block {
 }
 
 const mapStateToProps = (state: Indexed) => ({
+	userData: state.userData,
 	chats: state.chats,
 })
 
