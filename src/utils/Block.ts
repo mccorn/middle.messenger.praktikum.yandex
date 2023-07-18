@@ -3,8 +3,9 @@ import { v4 as makeUUID } from "uuid";
 import EventBus, { IEventBus } from "./EventBus";
 import { someObject } from "../const/types";
 import IBlock from "./BlockInterface";
+import { utils } from ".";
 
-enum EVENTS_ENUM {
+export enum EVENTS_ENUM {
 	INIT = "init",
 	FLOW_CDM = "flow:component-did-mount",
 	FLOW_CDU = "flow:component-did-update",
@@ -136,7 +137,7 @@ abstract class Block implements IBlock {
 	}
 
 	componentDidUpdate(oldProps: someObject, newProps: someObject) {
-		return oldProps !== newProps;
+		return !utils.isEqual(oldProps, newProps);
 	}
 
 	setProps(nextProps: someObject): void {

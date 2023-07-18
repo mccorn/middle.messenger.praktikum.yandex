@@ -1,7 +1,7 @@
 import tmpl from "./index.tmpl";
 import "./styles.less";
 
-import Block from "../../../utils/Block";
+import Block, { EVENTS_ENUM } from "../../../utils/Block";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import ChatsList from "../../blocks/ChatsList";
@@ -28,7 +28,11 @@ class HomePage extends Block {
 		const { chats, userData } = this.props;
 		const { currentChatIdx } = this.state;
 
-		if (chats) this.restructuringData(chats as ChatData[]); else HomePageController.setData();
+		if (chats) {
+			this.restructuringData(chats as ChatData[]);
+		} else {
+			HomePageController.setData();
+		}
 
 		function findParentBySelector(target: HTMLElement | null, selector = "", count = 10) {
 			let i = 0;
@@ -53,7 +57,10 @@ class HomePage extends Block {
 			const messagesNode = document.querySelector("#messages") as HTMLElement;
 			const id = parentNode.getAttribute("data-id");
 
-			const currentChatIdx = chats.findIndex((node: someObject) => node.id.toString() === id)
+			const currentChatIdx = chats.findIndex((node: someObject) => node.id.toString() === id);
+
+			if (currentChatIdx === this.state.currentChatIdx) return;
+			
 			const chatData = chats[currentChatIdx]
 
 			this.state.currentChatIdx = currentChatIdx;
@@ -62,8 +69,9 @@ class HomePage extends Block {
 
 			console.log('chatData', chatData, userData)
 
-			if (chatData) {
+			if (chatData && Array.isArray(chatData.messages)) {
 				// chatData.messages = [];
+				this.state.currentChatData = chatData;
 				chatData.messages.forEach((node: someObject) => {
 					const block = new Message("div", { data: node, classNames: node.user_id === userData.id ? "me" : "" }).getContent() as HTMLElement;
 
@@ -74,8 +82,14 @@ class HomePage extends Block {
 
 		const handleSubmit = (event: Event) => {
 			event.preventDefault();
-			console.log(this.state, "validate success = " + validate("form", { message: this.state.message }));
+			const {currentChatIdx, message} = this.state;
+			const chatData = chats[currentChatIdx];
+
+			chatData.socket.sendMessage(message);
+
+			console.log('handleSubmit', chatData, this.state);
 		}
+
 		const handleFocusOut = (event: Event) => {
 			const target = event.target as HTMLInputElement;
 
@@ -96,7 +110,8 @@ class HomePage extends Block {
 			},
 		}
 		const getChatsButtonEvents = {
-			click: () => HomePageController.setData(),
+			// click: () => HomePageController.setData(),
+			click: () => null,
 		}
 		const createChatButtonEvents = {
 			click: function () {
@@ -119,8 +134,8 @@ class HomePage extends Block {
 		const addUsersButtonEvents = {
 			click: function () {
 				const promise = ChatAPI.addUsers({
-					chatId: 16986,
-					users: [1204237, 1203661]
+					chatId: 17752,
+					users: [1224599]
 				});
 				promise.then(console.log);
 			},
@@ -128,8 +143,8 @@ class HomePage extends Block {
 		const deleteUsersButtonEvents = {
 			click: function () {
 				const promise = ChatAPI.deleteUsers({
-					chatId: 16986,
-					users: [1204237]
+					chatId: 17752,
+					users: [1224599]
 				});
 				promise.then(console.log);
 			},
