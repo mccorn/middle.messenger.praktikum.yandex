@@ -1,13 +1,13 @@
+import { Response } from "../../const/types";
 import Store from "../../utils/Store";
 import AuthAPI from "../api/AuthAPI";
-import ChatAPI from "../api/ChatAPI";
 
 class ProfilePageController {
 	setData() {
 		const promise = AuthAPI.getAuthUser();
 		return promise.then((response) => {
-			const data = JSON.parse(response.response)
-			if (response.status === 200) {
+			const data = JSON.parse((response as Response).response)
+			if ((response as Response).status === 200) {
 				Store.set('userData', data)
 			}
 			

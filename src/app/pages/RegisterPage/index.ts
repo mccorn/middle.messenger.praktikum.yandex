@@ -6,7 +6,7 @@ import Button from "../../components/Button";
 import InputLazy from "../../components/InputLazy";
 import { HANDLERS } from "../../../utils/handlers";
 import AuthAPI from "../../api/AuthAPI";
-import { someObject } from "../../../const/types";
+import { Response, someObject } from "../../../const/types";
 
 class UserSignUpController {
 	signup(data: someObject) {
@@ -15,7 +15,7 @@ class UserSignUpController {
 		authPromise.then((response: unknown) => {
 			console.log('signup', response)
 
-			if (response?.readyState === 4) {
+			if ((response as Response)?.readyState === 4) {
 				window.location.href = '/'
 			}
 		}).then(data => {

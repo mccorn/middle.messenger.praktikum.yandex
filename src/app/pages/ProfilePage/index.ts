@@ -9,7 +9,7 @@ import InputFile from "../../components/InputFile";
 import UserAPI from "../../api/UserAPI";
 import Store from "../../../utils/Store";
 import { connect } from "../../../utils";
-import { Indexed } from "../../../const/types";
+import { Indexed, Response } from "../../../const/types";
 import ProfilePageController from "../../controllers/ProfilePageController";
 
 class ProfilePage extends Block {
@@ -37,14 +37,15 @@ class ProfilePage extends Block {
 
 		const inputAvatarEvents = {
 			change: (event: Event) => {
-				const file = event.target.files[0];
+				const target = event.target as HTMLInputElement;
+				const file = (target.files as FileList)[0];
 				const form = new FormData();
 				
 				form.set('avatar', file);
 
 				const promise = UserAPI.updateAvatar(form);
 				promise.then((response) => {
-					Store.set('userData.avatar', JSON.parse(response.response).avatar)
+					Store.set('userData.avatar', JSON.parse((response as Response).response).avatar)
 
 					console.log('inputAvatarEvents setData', Store.getState())
 				})
@@ -92,8 +93,8 @@ class ProfilePage extends Block {
 
 				const promise = UserAPI.update({login, display_name, first_name, second_name, email, phone});
 				promise.then((response) => {
-					if (response.status === 200) {
-						Store.set('userData', JSON.parse(response.response))
+					if ((response as Response).status === 200) {
+						Store.set('userData', JSON.parse((response as Response).response))
 					}
 
 					console.log('buttonEvents setData', Store.getState())

@@ -1,5 +1,5 @@
 import AuthAPI from "../../app/api/AuthAPI";
-import { someObject } from "../../const/types";
+import { Response, someObject } from "../../const/types";
 import Block from "../Block";
 import Route from "./Route";
 
@@ -50,7 +50,7 @@ class Router {
 				return;
 			}
 
-			if (this._requiredAuth[pathname] && response?.status !== 200) {
+			if (this._requiredAuth[pathname] && (response as Response)?.status !== 200) {
 				this.go('/login');
 				return;
 			}

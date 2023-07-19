@@ -8,7 +8,7 @@ export type META = {
 
 // Нельзя создавать экземпляр данного класса
 interface IBlock {
-	_element: HTMLElement | null,
+	_element: HTMLElement | DocumentFragment | null,
 	_id: string,
 	_isMounted: boolean,
 	_meta: META,
@@ -122,7 +122,7 @@ interface IBlock {
 	// // Переопределяется пользователем. Необходимо вернуть разметку
 	// render() { }
 
-	getContent: () => HTMLElement | null,
+	getContent: () => HTMLElement | DocumentFragment | null,
 
 	// emit(event: string, ...args: any) {
 	// 	this.eventBus().emit(event, ...args);

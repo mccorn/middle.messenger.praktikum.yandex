@@ -18,10 +18,10 @@ type META = {
 }
 
 // Нельзя создавать экземпляр данного класса
-abstract class Block implements IBlock {
+class Block implements IBlock {
 	static EVENTS = EVENTS_ENUM;
 
-	_element: HTMLElement | null = null;
+	_element: HTMLElement | DocumentFragment | null = null;
 	_id = "";
 	_isMounted = false;
 	_meta: META;
@@ -162,7 +162,7 @@ abstract class Block implements IBlock {
 		this._removeEvents();
 		
 		if (this._element) {
-			this._element.innerHTML = "";
+			if (this._element instanceof HTMLElement) this._element.innerHTML = "";
 			this._element.appendChild(block);
 		}
 
@@ -172,7 +172,7 @@ abstract class Block implements IBlock {
 	// Переопределяется пользователем. Необходимо вернуть разметку
 	render() { return this.compile('', {}); }
 
-	getContent(): HTMLElement | null {
+	getContent(): HTMLElement | DocumentFragment | null {
 		return this.element;
 	}
 
@@ -236,11 +236,11 @@ abstract class Block implements IBlock {
 	}
 
 	show() {
-		if (this._element) this._element.style.display = "block";
+		if (this._element instanceof HTMLElement) this._element.style.display = "block";
 	}
 
 	hide() {
-		if (this._element) this._element.style.display = "none";
+		if (this._element instanceof HTMLElement) this._element.style.display = "none";
 	}
 }
 

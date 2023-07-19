@@ -91,7 +91,6 @@ class WSTransport extends EventBus {
 
 		socket.addEventListener('error', event => {
 			this.emit(WSTransportEvents.error, event);
-			console.log('Ошибка', event.message);
 		});
 
 	}

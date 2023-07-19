@@ -6,7 +6,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import ChatsList from "../../blocks/ChatsList";
 import { connect, utils } from "../../../utils";
-import { ChatData, Indexed, someObject } from "../../../const/types";
+import { ChatData, Indexed, Response, someObject } from "../../../const/types";
 import { validate } from "../../../utils/validator";
 import AuthAPI from "../../api/AuthAPI";
 import ChatAPI from "../../api/ChatAPI";
@@ -121,7 +121,7 @@ class HomePage extends Block {
 				ChatAPI.getUsers({
 					chatId: chatId || currentChatData.id,
 				}).then(response => {
-					console.log(JSON.parse(response.response))
+					console.log(JSON.parse((response as Response).response))
 				});
 			},
 		}

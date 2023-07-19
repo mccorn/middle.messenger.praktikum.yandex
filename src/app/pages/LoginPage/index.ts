@@ -6,7 +6,7 @@ import InputWithLabel from "../../components/InputWithLabel";
 import Button from "../../components/Button";
 import { HANDLERS } from "../../../utils/handlers";
 import { validate } from "../../../utils/validator";
-import { someObject } from "../../../const/types";
+import { Response, someObject } from "../../../const/types";
 import AuthAPI from "../../api/AuthAPI";
 
 class UserLoginController {
@@ -20,7 +20,7 @@ class UserLoginController {
 			const authPromise = AuthAPI.login(data)
 
 			authPromise.then((response) => {
-				if (response?.readyState === 4) {
+				if ((response as Response)?.readyState === 4) {
 					window.location.href = '/'
 				}
 			})

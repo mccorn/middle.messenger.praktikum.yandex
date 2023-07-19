@@ -17,3 +17,13 @@ export type ChatData = {
 	unread_count?: number,
 	cutTitle?: string | number,
 }
+
+export type UserDataType = {
+	id: string | number,
+}
+
+export type Response = {
+	response: any,
+	status: number,
+	readyState: number,
+}

@@ -129,7 +129,7 @@ const user13 = {
 	password: "user13_Passw0rd",
 }
 
-const chatsIds = [
+export const chatsIds = [
 	16989,
 	16986,
 	16984,
@@ -146,4 +146,8 @@ export const USERS_DATA = {
 	user7,
 	user8,
 	user9,
+	user10,
+	user11,
+	user12,
+	user13
 }

@@ -1,12 +1,15 @@
-import { someObject } from "../../const/types";
+import { Response, UserDataType, someObject } from "../../const/types";
 import Store from "../../utils/Store";
 import { ChatsTransport, WSTransportEvents } from "../../utils/WSTransport";
 import ChatAPI from "../api/ChatAPI";
 
+
+
 class HomePageController {
 	async getDataPromise() {
 		const promise = ChatAPI.request();
-		const response = await promise;
+		const response = await promise as Response;
+
 		const data = JSON.parse(response.response);
 
 		if (response.status === 200) {
@@ -20,10 +23,10 @@ class HomePageController {
 
 	setData() {
 		const promise = ChatAPI.request();
-		const {userData} = Store.getState();
+		const {userData} = Store.getState() as {userData: UserDataType};
 		
 		promise.then((response) => {
-			const data = JSON.parse(response.response)
+			const data = JSON.parse((response as Response).response)
 			Store.set('chats', data)
 
 			console.log('HomePageController setData', Store.getState())
@@ -33,13 +36,13 @@ class HomePageController {
 				this
 					.getTokenPromise(node.id)
 					.then(response => {
-						node.token = JSON.parse(response.response).token;
+						node.token = JSON.parse((response as Response).response).token;
 
 						if (userData && userData.id && !node.transport) {
 							node.transport = new ChatsTransport(`/${userData.id}/${node.id}/${node.token}`);
 							node.transport.connect();
 
-							node.transport.on(WSTransportEvents.message, data => {
+							node.transport.on(WSTransportEvents.message, (data: someObject[]) => {
 
 								if (!data[0].type || data[0].type === 'message') {
 									if (Array.isArray(data) && node.messages) {
