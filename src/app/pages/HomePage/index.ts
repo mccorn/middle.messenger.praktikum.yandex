@@ -12,8 +12,7 @@ import AuthAPI from "../../api/AuthAPI";
 import ChatAPI from "../../api/ChatAPI";
 import HomePageController from "../../controllers/HomePageController";
 import MessagesList from "../../blocks/MessagesList";
-
-let counter = 0;
+import Store from "../../../utils/Store";
 
 class HomePage extends Block {
 	restructuringData(chats: ChatData[]) {
@@ -69,7 +68,7 @@ class HomePage extends Block {
 
 			this.state.currentChatData = chatData;
 
-			this.setState({state: this.state})
+			Store.set('currentChatData', chatData)
 		}
 
 		const handleSubmit = (event: Event) => {
@@ -107,10 +106,14 @@ class HomePage extends Block {
 		}
 		const createChatButtonEvents = {
 			click: function () {
-				const newTitle = 'user13chatTitle' + counter++;
+				const newTitle = prompt('Введите имя нового чата: ');
 
-				const promise = ChatAPI.create({ title: newTitle });
-				promise.then(console.log);
+				console.log('newTitle', newTitle)
+
+				if (!newTitle || !(newTitle.trim())) return;
+
+				const promise = ChatAPI.create({ title: newTitle.toString() });
+				promise.then(() => HomePageController.setData());
 			},
 		}
 		const getUsersButtonEvents = {

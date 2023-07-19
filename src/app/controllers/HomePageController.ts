@@ -35,7 +35,7 @@ class HomePageController {
 					.then(response => {
 						node.token = JSON.parse(response.response).token;
 
-						if (userData && userData.id) {
+						if (userData && userData.id && !node.transport) {
 							node.transport = new ChatsTransport(`/${userData.id}/${node.id}/${node.token}`);
 							node.transport.connect();
 
