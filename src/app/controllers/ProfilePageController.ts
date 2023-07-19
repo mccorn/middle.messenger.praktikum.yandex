@@ -5,7 +5,7 @@ import AuthAPI from "../api/AuthAPI";
 class ProfilePageController {
 	setData() {
 		const promise = AuthAPI.getAuthUser();
-		return promise.then((response) => {
+		return promise.then((response: Response | unknown) => {
 			const data = JSON.parse((response as Response).response)
 			if ((response as Response).status === 200) {
 				Store.set('userData', data)

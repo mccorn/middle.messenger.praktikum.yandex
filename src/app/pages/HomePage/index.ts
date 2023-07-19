@@ -120,7 +120,7 @@ class HomePage extends Block {
 
 				ChatAPI.getUsers({
 					chatId: chatId || currentChatData.id,
-				}).then(response => {
+				}).then((response: Response | unknown) => {
 					console.log(JSON.parse((response as Response).response))
 				});
 			},

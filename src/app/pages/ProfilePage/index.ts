@@ -44,7 +44,7 @@ class ProfilePage extends Block {
 				form.set('avatar', file);
 
 				const promise = UserAPI.updateAvatar(form);
-				promise.then((response) => {
+				promise.then((response: Response | unknown) => {
 					Store.set('userData.avatar', JSON.parse((response as Response).response).avatar)
 
 					console.log('inputAvatarEvents setData', Store.getState())
@@ -92,7 +92,7 @@ class ProfilePage extends Block {
 				const {login, display_name, first_name, second_name, email, phone} = this.state;
 
 				const promise = UserAPI.update({login, display_name, first_name, second_name, email, phone});
-				promise.then((response) => {
+				promise.then((response: Response | unknown) => {
 					if ((response as Response).status === 200) {
 						Store.set('userData', JSON.parse((response as Response).response))
 					}

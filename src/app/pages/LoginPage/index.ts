@@ -19,7 +19,7 @@ class UserLoginController {
 		} else {
 			const authPromise = AuthAPI.login(data)
 
-			authPromise.then((response) => {
+			authPromise.then((response: Response | unknown) => {
 				if ((response as Response)?.readyState === 4) {
 					window.location.href = '/'
 				}

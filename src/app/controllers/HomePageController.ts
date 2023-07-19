@@ -25,7 +25,7 @@ class HomePageController {
 		const promise = ChatAPI.request();
 		const {userData} = Store.getState() as {userData: UserDataType};
 		
-		promise.then((response) => {
+		promise.then((response: Response | unknown) => {
 			const data = JSON.parse((response as Response).response)
 			Store.set('chats', data)
 
@@ -35,7 +35,7 @@ class HomePageController {
 			data.forEach((node: someObject) => {
 				this
 					.getTokenPromise(node.id)
-					.then(response => {
+					.then((response: Response | unknown) => {
 						node.token = JSON.parse((response as Response).response).token;
 
 						if (userData && userData.id && !node.transport) {

@@ -12,7 +12,7 @@ class UserSignUpController {
 	signup(data: someObject) {
 		const authPromise = AuthAPI.signup(data)
 
-		authPromise.then((response: unknown) => {
+		authPromise.then((response: Response | unknown) => {
 			console.log('signup', response)
 
 			if ((response as Response)?.readyState === 4) {

@@ -43,7 +43,7 @@ class Router {
 		// const hasAuth = this.hasAuth();
 		const authPromise = this.hasAuth();
 
-		authPromise.then((response) => {
+		authPromise.then((response: Response | unknown) => {
 			const route = this.getRoute(pathname);
 			if (!route) {
 				this.go('/error404');
