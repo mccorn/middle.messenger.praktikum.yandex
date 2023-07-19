@@ -100,10 +100,6 @@ class HomePage extends Block {
 				promise.then(console.log);
 			},
 		}
-		const getChatsButtonEvents = {
-			// click: () => HomePageController.setData(),
-			click: () => null,
-		}
 		const createChatButtonEvents = {
 			click: function () {
 				const newTitle = prompt('Введите имя нового чата: ');
@@ -118,28 +114,39 @@ class HomePage extends Block {
 		}
 		const getUsersButtonEvents = {
 			click: function () {
-				const promise = ChatAPI.getUsers({
-					chatId: 16986,
-				});
-				promise.then(response => {
+				const chatId = prompt('Введите id чата (при пустом вводе будут получены пользователи активного чата): ');
+
+				if (!chatId && !currentChatData) return;
+
+				ChatAPI.getUsers({
+					chatId: chatId || currentChatData.id,
+				}).then(response => {
 					console.log(JSON.parse(response.response))
 				});
 			},
 		}
 		const addUsersButtonEvents = {
 			click: function () {
+				const userId = prompt('Введите id пользователя (пользователь будет добавлен в активный чат): ');
+
+				if (!userId || !currentChatData) return;
+
 				const promise = ChatAPI.addUsers({
-					chatId: 17752,
-					users: [1224599]
+					chatId: currentChatData.id,
+					users: [userId]
 				});
 				promise.then(console.log);
 			},
 		}
 		const deleteUsersButtonEvents = {
 			click: function () {
+				const userId = prompt('Введите id пользователя (пользователь будет удален из активного чата): ');
+
+				if (!userId || !currentChatData) return;
+
 				const promise = ChatAPI.deleteUsers({
-					chatId: 17752,
-					users: [1224599]
+					chatId: currentChatData.id,
+					users: [userId]
 				});
 				promise.then(console.log);
 			},
@@ -150,7 +157,6 @@ class HomePage extends Block {
 		const input = new Input("div", { value: "", name: "message", events: inputEvents });
 		const button = new Button("div", { label: "send", events: buttonEvents });
 		const logout = new Button("div", { label: "logout", events: logoutEvents });
-		const getChatsButton = new Button("div", { label: "getChatsButton", events: getChatsButtonEvents });
 		const createChatButton = new Button("div", { label: "createChatButton", events: createChatButtonEvents });
 		const getUsersButton = new Button("div", { label: "getUsersButton", events: getUsersButtonEvents });
 		const addUsersButton = new Button("div", { label: "addUserButton", events: addUsersButtonEvents });
@@ -158,7 +164,7 @@ class HomePage extends Block {
 
 		this.children = {
 			logout,
-			getChatsButton,
+
 			createChatButton,
 			getUsersButton,
 			addUsersButton,
