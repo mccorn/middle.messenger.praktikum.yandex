@@ -5,7 +5,7 @@ import Block from "../../../utils/Block";
 import Button from "../../components/Button";
 import InputLazy from "../../components/InputLazy";
 import { HANDLERS } from "../../../utils/handlers";
-import AuthAPI from "../../api/AuthAPI";
+import AuthAPI from "../../api/AuthorizationAPI";
 import { Response, someObject } from "../../../const/types";
 
 class UserSignUpController {

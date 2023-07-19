@@ -39,7 +39,7 @@ type addUsersData = {
 
 type deleteUsersData = addUsersData;
 
-class AuthAPI {
+class ChatAPI {
 	request() {
 		return http.get(url);
 	}
@@ -125,4 +125,4 @@ class AuthAPI {
 	}
 }
 
-export default new AuthAPI();
+export default new ChatAPI();

@@ -8,7 +8,7 @@ import ChatsList from "../../blocks/ChatsList";
 import { connect, utils } from "../../../utils";
 import { ChatData, Indexed, Response, someObject } from "../../../const/types";
 import { validate } from "../../../utils/validator";
-import AuthAPI from "../../api/AuthAPI";
+import AuthAPI from "../../api/AuthorizationAPI";
 import ChatAPI from "../../api/ChatAPI";
 import HomePageController from "../../controllers/HomePageController";
 import MessagesList from "../../blocks/MessagesList";

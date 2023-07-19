@@ -7,7 +7,7 @@ import Button from "../../components/Button";
 import { HANDLERS } from "../../../utils/handlers";
 import { validate } from "../../../utils/validator";
 import { Response, someObject } from "../../../const/types";
-import AuthAPI from "../../api/AuthAPI";
+import AuthAPI from "../../api/AuthorizationAPI";
 
 class UserLoginController {
 	login(data: someObject) {

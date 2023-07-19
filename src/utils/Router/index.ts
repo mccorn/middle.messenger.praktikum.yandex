@@ -1,4 +1,4 @@
-import AuthAPI from "../../app/api/AuthAPI";
+import AuthAPI from "../../app/api/AuthorizationAPI";
 import { Response, someObject } from "../../const/types";
 import Block from "../Block";
 import Route from "./Route";

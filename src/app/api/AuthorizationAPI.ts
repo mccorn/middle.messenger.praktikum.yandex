@@ -8,7 +8,7 @@ const headersJSON = {
 	'content-type': 'application/json', // Данные отправляем в формате JSON
 }
 
-class AuthAPI {
+class AuthorizationAPI {
 	async login(data: object = {}) {
 		await this.logout();
 		return await this.signin(data);
@@ -47,4 +47,4 @@ class AuthAPI {
 	}
 }
 
-export default new AuthAPI();
+export default new AuthorizationAPI();

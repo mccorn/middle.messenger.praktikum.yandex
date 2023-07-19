@@ -1,6 +1,6 @@
 import { Response } from "../../const/types";
 import Store from "../../utils/Store";
-import AuthAPI from "../api/AuthAPI";
+import AuthAPI from "../api/AuthorizationAPI";
 
 class ProfilePageController {
 	setData() {
