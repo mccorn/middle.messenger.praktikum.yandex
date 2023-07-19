@@ -1,65 +1,4 @@
-import { someObject } from "../const/types";
 import EventBus from "./EventBus";
-
-export class Socket {
-	constructor(options: someObject) {
-		const { userId, chatId, tokenValue } = options;
-		const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${tokenValue}`);
-
-		const ping = () => socket.send(JSON.stringify({
-			content: '',
-			type: 'message',
-		}));
-
-		function sendMessage(message: string) {
-			socket.send(JSON.stringify({ type: 'message', content: message }))
-		}
-
-		socket.addEventListener('open', () => {
-			console.log('Соединение установлено');
-
-			// socket.send(JSON.stringify({
-			// 	content: userId + ':Моё первое сообщение миру!',
-			// 	type: 'message',
-			// }));
-
-			socket.send(JSON.stringify({
-				content: 0,
-				"type": "get old",
-			}));
-
-			socket.sendMessage = sendMessage;
-			// setInterval(ping, 100000); // TODO: Раскоментировать в проде
-		});
-
-		socket.addEventListener('close', event => {
-			if (event.wasClean) {
-				console.log('Соединение закрыто чисто');
-			} else {
-				console.log('Обрыв соединения');
-			}
-
-			console.log(`Код: ${event.code} | Причина: ${event.reason}`);
-		});
-
-		socket.addEventListener('message', event => {
-			const objData = JSON.parse(event.data);
-
-			if (Array.isArray(objData)) {
-				if (socket.setData) socket.setData(objData)
-			} else {
-				if (socket.push) socket.push(objData)
-			}
-
-		});
-
-		socket.addEventListener('error', event => {
-			console.log('Ошибка', event.message);
-		});
-
-		return socket;
-	}
-}
 
 export enum WSTransportEvents {
 	message = "WSTransportEvents-message",
@@ -67,6 +6,7 @@ export enum WSTransportEvents {
 	close = "WSTransportEvents-close",
 	open = "WSTransportEvents-open",
 }
+
 
 class WSTransport extends EventBus {
 	private pingIntervalTimer: number | undefined;
@@ -79,7 +19,7 @@ class WSTransport extends EventBus {
 	}
 
 	setupPing() {
-		this.pingIntervalTimer = setInterval(this.ping, 100000);
+		this.pingIntervalTimer = setInterval(this.ping.bind(this), 10000);
 	}
 
 	removePing() {
@@ -103,6 +43,10 @@ class WSTransport extends EventBus {
 	}
 
 	getOld() {
+		if (!this.socket) {
+			throw new Error('Socket is not connected');
+		}
+
 		this.send({ content: 0, "type": "get old" });
 	}
 
@@ -125,6 +69,7 @@ class WSTransport extends EventBus {
 		socket.addEventListener('open', () => {
 			console.log('Соединение установлено');			
 			this.emit(WSTransportEvents.open);
+			this.getOld();
 		});
 
 		socket.addEventListener('close', event => {
@@ -149,6 +94,15 @@ class WSTransport extends EventBus {
 			console.log('Ошибка', event.message);
 		});
 
+	}
+}
+
+const DEFAULT_WS_URL = 'wss://ya-praktikum.tech/ws';
+const CHATS_WS_URL = DEFAULT_WS_URL + '/chats';
+
+export class ChatsTransport extends WSTransport {
+	constructor(url: string) {
+		super(CHATS_WS_URL + url)
 	}
 }
 

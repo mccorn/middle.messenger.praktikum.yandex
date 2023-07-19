@@ -1,6 +1,6 @@
 import { someObject } from "../../const/types";
 import Store from "../../utils/Store";
-import { Socket } from "../../utils/WSTransport";
+import { ChatsTransport, WSTransportEvents } from "../../utils/WSTransport";
 import ChatAPI from "../api/ChatAPI";
 
 class HomePageController {
@@ -20,7 +20,7 @@ class HomePageController {
 
 	setData() {
 		const promise = ChatAPI.request();
-		const {userData = {}} = Store.getState();
+		const {userData} = Store.getState();
 		
 		promise.then((response) => {
 			const data = JSON.parse(response.response)
@@ -34,11 +34,28 @@ class HomePageController {
 					.getTokenPromise(node.id)
 					.then(response => {
 						node.token = JSON.parse(response.response).token;
-						node.socket = new Socket({userId: userData.id, chatId: node.id, tokenValue: node.token});
-						node.socket.setData = (data: someObject) => {if (data) node.messages = data};
-						node.socket.push = (data: someObject) => {if (data && node.messages) node.messages.push(data)};
 
-						console.log(node)
+						if (userData && userData.id) {
+							node.transport = new ChatsTransport(`/${userData.id}/${node.id}/${node.token}`);
+							node.transport.connect();
+
+							node.transport.on(WSTransportEvents.message, data => {
+
+								if (!data[0].type || data[0].type === 'message') {
+									if (Array.isArray(data) && node.messages) {
+										if (!node.messages) {
+											node.messages = data[0];
+										} else {
+											node.messages = data.concat(node.messages)
+										}
+									} else {
+										if (!node.messages) node.messages = data[0]; else node.messages.push(data[0])
+									}
+
+									Store.set('currentChatData.messages', node.messages);
+								}
+							})
+						}
 				
 						return node
 					})
@@ -49,11 +66,6 @@ class HomePageController {
 	getTokenPromise(id: string | number) {
 		return ChatAPI.getToken(id);
 	}
-
-	getSocket(data: someObject) {		
-		return new Socket(data);
-	}
-
 }
 
 export default new HomePageController();

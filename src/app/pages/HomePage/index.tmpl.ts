@@ -19,9 +19,7 @@ const template = `
 		</aside>
 		<main class="col8 column">
 			<div id="messages" class="stretch bg_default HomePage__body">
-				{{#each messagesNodes}}
-					{{>message data=this }}
-				{{/each}}
+				{{{ messagesList }}}
 			</div>
 			<form class="flex">
 				<div class="stretch">

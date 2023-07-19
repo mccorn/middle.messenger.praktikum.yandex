@@ -1,17 +1,17 @@
 import tmpl from "./index.tmpl";
 import "./styles.less";
 
-import Block, { EVENTS_ENUM } from "../../../utils/Block";
+import Block from "../../../utils/Block";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import ChatsList from "../../blocks/ChatsList";
-import Message from "../../components/Message";
 import { connect, utils } from "../../../utils";
 import { ChatData, Indexed, someObject } from "../../../const/types";
 import { validate } from "../../../utils/validator";
 import AuthAPI from "../../api/AuthAPI";
 import ChatAPI from "../../api/ChatAPI";
 import HomePageController from "../../controllers/HomePageController";
+import MessagesList from "../../blocks/MessagesList";
 
 let counter = 0;
 
@@ -26,7 +26,7 @@ class HomePage extends Block {
 
 	render() {
 		const { chats, userData } = this.props;
-		const { currentChatIdx } = this.state;
+		const { currentChatIdx, currentChatData } = this.state;
 
 		if (chats) {
 			this.restructuringData(chats as ChatData[]);
@@ -67,17 +67,9 @@ class HomePage extends Block {
 
 			utils.clear(messagesNode)
 
-			console.log('chatData', chatData, userData)
+			this.state.currentChatData = chatData;
 
-			if (chatData && Array.isArray(chatData.messages)) {
-				// chatData.messages = [];
-				this.state.currentChatData = chatData;
-				chatData.messages.forEach((node: someObject) => {
-					const block = new Message("div", { data: node, classNames: node.user_id === userData.id ? "me" : "" }).getContent() as HTMLElement;
-
-					messagesNode?.appendChild(block)
-				})
-			}
+			this.setState({state: this.state})
 		}
 
 		const handleSubmit = (event: Event) => {
@@ -85,7 +77,7 @@ class HomePage extends Block {
 			const {currentChatIdx, message} = this.state;
 			const chatData = chats[currentChatIdx];
 
-			chatData.socket.sendMessage(message);
+			chatData.transport.sendMessage(message);
 
 			console.log('handleSubmit', chatData, this.state);
 		}
@@ -151,6 +143,7 @@ class HomePage extends Block {
 		}
 
 		const chatsList = new ChatsList("section", { chats, currentChatIdx, events: { click: handleChatsClick } });
+		const messagesList = new MessagesList("fragment", { data: currentChatData, currentChatIdx, me: userData.id });
 		const input = new Input("div", { value: "", name: "message", events: inputEvents });
 		const button = new Button("div", { label: "send", events: buttonEvents });
 		const logout = new Button("div", { label: "logout", events: logoutEvents });
@@ -169,6 +162,9 @@ class HomePage extends Block {
 			deleteUsersButton,
 
 			chatsList,
+
+			messagesList,
+
 			input,
 			button,
 		}

@@ -148,6 +148,10 @@ abstract class Block implements IBlock {
 		Object.assign(this.props, nextProps);
 	}
 
+	setState(nextState: someObject): void {
+		this.setProps({state: nextState});
+	}
+
 	get element() {
 		return this._element;
 	}
@@ -204,9 +208,14 @@ abstract class Block implements IBlock {
 	}
 
 	_createDocumentElement(tagName: string) {
-		// Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
-		const element = document.createElement(tagName);
-		element.setAttribute("data-id", this._id || "");
+		let element; 
+		
+		if (tagName === 'fragment') {
+			element = document.createDocumentFragment(); 
+		} else {
+			element = document.createElement(tagName);
+			element.setAttribute("data-id", this._id || "");
+		}
 		return element;
 	}
 
