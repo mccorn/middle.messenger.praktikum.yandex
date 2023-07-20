@@ -13,6 +13,7 @@ import ChatAPI from "../../api/ChatAPI";
 import HomePageController from "../../controllers/HomePageController";
 import MessagesList from "../../blocks/MessagesList";
 import Store from "../../../utils/Store";
+import ProfileInfo from "../../components/ProfileInfo";
 
 class HomePage extends Block {
 	restructuringData(chats: ChatData[]) {
@@ -153,6 +154,7 @@ class HomePage extends Block {
 		}
 
 		const chatsList = new ChatsList("section", { chats, currentChatIdx, events: { click: handleChatsClick } });
+		const profileInfo = new ProfileInfo("section", { data: userData });
 		const messagesList = new MessagesList("fragment", { data: currentChatData, currentChatIdx, me: userData.id });
 		const input = new Input("div", { value: "", name: "message", events: inputEvents });
 		const button = new Button("div", { label: "send", events: buttonEvents });
@@ -171,6 +173,8 @@ class HomePage extends Block {
 			deleteUsersButton,
 
 			chatsList,
+
+			profileInfo,
 
 			messagesList,
 
