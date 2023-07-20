@@ -15,7 +15,21 @@ const ERROR_MESSAGES = {
 	notCapitalLetters: 'not capital letters',
 }
 
-export function validate(type: string, value: any) {
+export const VALIDATORS_TYPES = {
+	login: 'login',
+	name: 'name',
+
+	password: 'password',
+	newPassword: 'password',
+	oldPassword: 'password',
+
+	email: 'email',
+	phone: 'phone',
+	message: 'message',
+	default: 'name',
+}
+
+export function validate(type: string, value: unknown) {
 	const validator = VALIDATORS[type] || VALIDATORS.default;
 
 	return validator(value)

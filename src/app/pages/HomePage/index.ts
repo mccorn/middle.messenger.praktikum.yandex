@@ -7,7 +7,7 @@ import Button from "../../components/Button";
 import ChatsList from "../../blocks/ChatsList";
 import { connect, utils } from "../../../utils";
 import { ChatData, Indexed, Response, someObject } from "../../../const/types";
-import { validate } from "../../../utils/validator";
+import { VALIDATORS_TYPES, validate } from "../../../utils/validator";
 import AuthAPI from "../../api/AuthorizationAPI";
 import ChatAPI from "../../api/ChatAPI";
 import HomePageController from "../../controllers/HomePageController";
@@ -20,7 +20,7 @@ class HomePage extends Block {
 		chats.forEach((node: ChatData) => {
 			const cutTitle = node.title.toString().slice(0, 2);
 			node.cutTitle = cutTitle;
-			return {...node }
+			return { ...node }
 		})
 	}
 
@@ -60,7 +60,7 @@ class HomePage extends Block {
 			const currentChatIdx = chats.findIndex((node: someObject) => node.id.toString() === id);
 
 			if (currentChatIdx === this.state.currentChatIdx) return;
-			
+
 			const chatData = chats[currentChatIdx]
 
 			this.state.currentChatIdx = currentChatIdx;
@@ -74,10 +74,14 @@ class HomePage extends Block {
 
 		const handleSubmit = (event: Event) => {
 			event.preventDefault();
-			const {currentChatIdx, message} = this.state;
+			const { currentChatIdx, message } = this.state;
 			const chatData = chats[currentChatIdx];
 
-			chatData.transport.sendMessage(message);
+			const validateResult = validate("message", message);
+
+			if (validateResult.success) {
+				chatData.transport.sendMessage(message);
+			}
 
 			console.log('handleSubmit', chatData, this.state);
 		}
@@ -89,7 +93,21 @@ class HomePage extends Block {
 			console.log("handleFocusOut: " + target.name, "validate success = " + validate(target.name, target.value));
 		}
 
-		const inputEvents = { focusout: handleFocusOut };
+		const inputEvents = {
+			focusout: handleFocusOut,
+			input: (event: InputEvent) => {
+				const {button} = this.children;
+				const target = event.target as HTMLInputElement;
+				const validateResult = validate(VALIDATORS_TYPES.message, target.value);
+
+				if (validateResult.success) {
+					button.enable();
+				} else {
+					button.disable();
+				}
+				console.log('inputEvents_change', target.value, validateResult.success)
+			}
+		};
 		const buttonEvents = {
 			click: (event: Event) => handleSubmit(event),
 		}
@@ -157,7 +175,7 @@ class HomePage extends Block {
 		const profileInfo = new ProfileInfo("section", { data: userData });
 		const messagesList = new MessagesList("fragment", { data: currentChatData, currentChatIdx, me: userData.id });
 		const input = new Input("div", { value: "", name: "message", events: inputEvents });
-		const button = new Button("div", { label: "send", events: buttonEvents });
+		const button = new Button("div", { label: "send", disabled: true, events: buttonEvents });
 		const logout = new Button("div", { label: "logout", events: logoutEvents });
 		const createChatButton = new Button("div", { label: "createChatButton", events: createChatButtonEvents });
 		const getUsersButton = new Button("div", { label: "getUsersButton", events: getUsersButtonEvents });
