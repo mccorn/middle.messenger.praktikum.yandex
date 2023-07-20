@@ -95,7 +95,7 @@ class HomePage extends Block {
 			const target = event.target as HTMLInputElement;
 
 			if (target) this.state[target.name] = target.value
-			console.log("handleFocusOut: " + target.name, "validate success = " + validate(target.name, target.value));
+			// console.log("handleFocusOut: " + target.name, "validate success = " + validate(target.name, target.value));
 		}
 
 		const inputEvents = {
