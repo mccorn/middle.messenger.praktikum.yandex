@@ -19,10 +19,10 @@ export default class App {
 		const router = new Router();
 		
 		router
-			.use("/login", LoginPage)
-			.use("/register", RegisterPage)
-			.use("/profile", ProfilePage, true)
-			.use("/", HomePage, true)
+			.use("/", LoginPage)
+			.use("/sign-up", RegisterPage)
+			.use("/settings", ProfilePage, true)
+			.use("/messenger", HomePage, true)
 			.use("/error404", Error404Page)
 			.use("/error500", Error500Page)
 			.start();

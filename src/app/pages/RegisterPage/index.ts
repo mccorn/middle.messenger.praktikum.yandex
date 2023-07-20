@@ -6,16 +6,16 @@ import Button from "../../components/Button";
 import InputLazy from "../../components/InputLazy";
 import { HANDLERS } from "../../../utils/handlers";
 import AuthAPI from "../../api/AuthorizationAPI";
-import { Response, someObject } from "../../../const/types";
+import { TResponse, someObject } from "../../../const/types";
 
 class UserSignUpController {
 	signup(data: someObject) {
 		const authPromise = AuthAPI.signup(data)
 
-		authPromise.then((response: Response | unknown) => {
+		authPromise.then((response: TResponse | unknown) => {
 			console.log('signup', response)
 
-			if ((response as Response)?.readyState === 4) {
+			if ((response as TResponse)?.readyState === 4) {
 				window.location.href = '/'
 			}
 		}).then(data => {

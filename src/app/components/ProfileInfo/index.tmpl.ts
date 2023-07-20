@@ -1,7 +1,7 @@
 import "./styles.less";
 
 export default `
-<a href="/profile">
+<a href="/settings">
 	<div class="profileInfo flex">
 		{{#with data}}
 			<div class="profileInfo__avatar {{#if ../avatarUrl}}empty{{/if}}">

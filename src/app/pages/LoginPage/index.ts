@@ -21,7 +21,7 @@ class UserLoginController {
 
 			authPromise.then((response: Response | unknown) => {
 				if ((response as Response)?.readyState === 4) {
-					window.location.href = '/'
+					window.location.href = '/messenger'
 				}
 			})
 

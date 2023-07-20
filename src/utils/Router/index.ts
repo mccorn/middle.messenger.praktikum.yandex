@@ -51,7 +51,7 @@ class Router {
 			}
 
 			if (this._requiredAuth[pathname] && (response as Response)?.status !== 200) {
-				this.go('/login');
+				this.go('/');
 				return;
 			}
 	

@@ -117,11 +117,11 @@ class HomePage extends Block {
 			click: (event: Event) => handleSubmit(event),
 		}
 		const logoutEvents = {
-			click: function (event: Event) {
+			click: (event: Event) => {
 				event.preventDefault();
 
 				const promise = AuthAPI.logout();
-				promise.then(console.log);
+				promise.then(response => (response as TResponse).status === 200 ? window.location.href = "" : null);
 			},
 		}
 		const createChatButtonEvents = {
