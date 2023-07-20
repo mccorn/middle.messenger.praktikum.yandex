@@ -1,3 +1,4 @@
+import { ERRORS_TYPES } from "../const/errorsTypes";
 import EventBus from "./EventBus";
 
 export enum WSTransportEvents {
@@ -86,7 +87,11 @@ class WSTransport extends EventBus {
 		});
 
 		socket.addEventListener('message', event => {
-			this.emit(WSTransportEvents.message, JSON.parse(event.data));
+			try {
+				this.emit(WSTransportEvents.message, JSON.parse(event.data));
+			} catch (error) {
+				throw new Error(ERRORS_TYPES.JSON_parse)
+			}
 		});
 
 		socket.addEventListener('error', event => {

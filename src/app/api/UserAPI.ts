@@ -23,7 +23,7 @@ class UserAPI {
 		return http.put(url + '/profile', reqOptions);
 	}
 
-	updateAvatar(data: any) {
+	updateAvatar(data: unknown) {
 		const reqOptions = Object.assign({}, {data}, options)
 
 		return http.put(url + '/profile/avatar', reqOptions);

@@ -22,8 +22,8 @@ export type UserDataType = {
 	id: string | number,
 }
 
-export type Response = {
-	response: any,
+export type TResponse = {
+	response: unknown | string,
 	status: number,
 	readyState: number,
 }

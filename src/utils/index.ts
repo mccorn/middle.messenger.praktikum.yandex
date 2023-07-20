@@ -1,4 +1,5 @@
-import { Indexed, someObject } from "../const/types";
+import { ERRORS_TYPES } from "../const/errorsTypes";
+import { Indexed, TResponse, someObject } from "../const/types";
 import Block from "./Block";
 import IBlock from "./BlockInterface";
 import Store, { StoreEvents } from "./Store";
@@ -69,6 +70,15 @@ export const utils = {
 	printObject: function(obj: someObject = {}) {
 		for (const key in obj) {
 			console.log(key, obj[key])
+		}
+	},
+	safeGetData: function (response: someObject | TResponse | string | unknown) {
+		try {
+			const data = JSON.parse(response && typeof response === 'object' ? response.response : response);
+	
+			return data
+		} catch {
+			throw new Error(ERRORS_TYPES.JSON_parse)
 		}
 	},
 	getNewUser: function(id: number | string) {
