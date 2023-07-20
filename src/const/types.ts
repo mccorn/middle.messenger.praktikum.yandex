@@ -9,13 +9,14 @@ export type Indexed<T = unknown> = {
 
 export type ChatData = {
 	id: string | number,
-	avatarUrl: string,
+	avatar: string,
 	title: string,
 	last_message: string,
 	date: string,
 
 	unread_count?: number,
 	cutTitle?: string | number,
+	restructuring?: boolean;
 }
 
 export type UserDataType = {

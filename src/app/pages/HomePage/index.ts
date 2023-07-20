@@ -14,12 +14,17 @@ import HomePageController from "../../controllers/HomePageController";
 import MessagesList from "../../blocks/MessagesList";
 import Store from "../../../utils/Store";
 import ProfileInfo from "../../components/ProfileInfo";
+import { RESOURCES_URL } from "../../api";
 
 class HomePage extends Block {
 	restructuringData(chats: ChatData[]) {
 		chats.forEach((node: ChatData) => {
+			if (node.restructuring) return;
+
 			const cutTitle = node.title.toString().slice(0, 2);
 			node.cutTitle = cutTitle;
+			node.avatar = node.avatar && RESOURCES_URL + node.avatar;
+			node.restructuring = true;
 			return { ...node }
 		})
 	}
