@@ -11,21 +11,22 @@ import Store from "../../../utils/Store";
 import { connect, utils } from "../../../utils";
 import { Indexed, TResponse } from "../../../const/types";
 import ProfilePageController from "../../controllers/ProfilePageController";
+import { validate } from "../../../utils/validator";
 
 class ProfilePage extends Block {
-	componentDidMount() {
-		this.state = {
-			avatar: "",
-			login: "",
-			display_name: "",
-			first_name: "",
-			second_name: "",
-			email: "",
-			phone: "",
-			newPassword: "",
-			oldPassword: "",
-		};
-	}
+	// componentDidMount() {
+	// 	this.state = {
+	// 		avatar: undefined,
+	// 		login: undefined,
+	// 		display_name: undefined,
+	// 		first_name: undefined,
+	// 		second_name: undefined,
+	// 		email: undefined,
+	// 		phone: undefined,
+	// 		newPassword: undefined,
+	// 		oldPassword: undefined,
+	// 	};
+	// }
 
 	render() {
 		let { userData } = this.props;
@@ -33,6 +34,8 @@ class ProfilePage extends Block {
 		if (!userData) {
 			ProfilePageController.setData();
 			userData = {};
+		} else if (!this.state) {
+			this.state = userData;
 		}
 
 		const inputAvatarEvents = {
@@ -89,9 +92,8 @@ class ProfilePage extends Block {
 		const buttonEvents = {
 			click: (event: Event) => {
 				event.preventDefault();
-				const {login, display_name, first_name, second_name, email, phone} = this.state;
 
-				const promise = UserAPI.update({login, display_name, first_name, second_name, email, phone});
+				const promise = UserAPI.update(Object.assign(userData, this.state));
 				promise.then((response: TResponse | unknown) => {
 					if ((response as TResponse).status === 200) {
 						Store.set('userData', utils.safeGetData(response))
