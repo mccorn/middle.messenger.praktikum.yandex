@@ -1,4 +1,5 @@
-import { Response } from "../../const/types";
+import { TResponse } from "../../const/types";
+import { utils } from "../../utils";
 import Store from "../../utils/Store";
 import AuthAPI from "../api/AuthorizationAPI";
 
@@ -6,8 +7,8 @@ class ProfilePageController {
 	setData() {
 		const promise = AuthAPI.getAuthUser();
 		return promise.then((response: Response | unknown) => {
-			const data = JSON.parse((response as Response).response)
-			if ((response as Response).status === 200) {
+			const data = utils.safeGetData(response);
+			if ((response as TResponse).status === 200) {
 				Store.set('userData', data)
 			}
 			

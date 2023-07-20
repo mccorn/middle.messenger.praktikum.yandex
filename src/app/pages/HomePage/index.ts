@@ -6,7 +6,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import ChatsList from "../../blocks/ChatsList";
 import { connect, utils } from "../../../utils";
-import { ChatData, Indexed, Response, someObject } from "../../../const/types";
+import { ChatData, Indexed, TResponse, someObject } from "../../../const/types";
 import { VALIDATORS_TYPES, validate } from "../../../utils/validator";
 import AuthAPI from "../../api/AuthorizationAPI";
 import ChatAPI from "../../api/ChatAPI";
@@ -139,8 +139,8 @@ class HomePage extends Block {
 
 				ChatAPI.getUsers({
 					chatId: chatId || currentChatData.id,
-				}).then((response: Response | unknown) => {
-					console.log(JSON.parse((response as Response).response))
+				}).then((response: TResponse | unknown) => {
+					console.log(utils.safeGetData(response));
 				});
 			},
 		}
