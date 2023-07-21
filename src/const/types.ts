@@ -1,5 +1,5 @@
 export type someObject = { [key: string]: any };
-export type someFunction = (...args: any) => any;
+export type someFunction = (...args: any) => unknown;
 
 export type eventsObject = { [key: string]: someFunction };
 

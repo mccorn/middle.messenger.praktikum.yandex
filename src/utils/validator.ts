@@ -35,7 +35,7 @@ export function validate(type: string, value: unknown) {
 	return validator(value)
 }
 
-function validateLogin(value: any): statusObject {
+function validateLogin(value: unknown): statusObject {
 	if (!value)
 		return { success: false, message: ERROR_MESSAGES.empty };
 
@@ -54,7 +54,10 @@ function validateLogin(value: any): statusObject {
 	return { success: true };
 }
 
-function validateName(value: any): statusObject {
+function validateName(value: unknown): statusObject {
+	if (typeof value !== 'string') 
+		return { success: false, message: ERROR_MESSAGES.incorrect };
+
 	if (!value)
 		return { success: false, message: ERROR_MESSAGES.empty };
 
@@ -64,7 +67,7 @@ function validateName(value: any): statusObject {
 	return { success: true };
 }
 
-function validatePassword(value: any): statusObject {
+function validatePassword(value: unknown): statusObject {
 	if (!value)
 		return { success: false, message: ERROR_MESSAGES.empty };
 
@@ -86,7 +89,7 @@ function validatePassword(value: any): statusObject {
 	return { success: true };
 }
 
-function validateEmail(value: any): statusObject {
+function validateEmail(value: unknown): statusObject {
 	if (!value)
 		return { success: false, message: ERROR_MESSAGES.empty };
 
@@ -99,7 +102,7 @@ function validateEmail(value: any): statusObject {
 	return { success: true };
 }
 
-function validatePhone(value: any): statusObject {
+function validatePhone(value: unknown): statusObject {
 	if (!value)
 		return { success: false, message: ERROR_MESSAGES.empty };
 
@@ -112,7 +115,7 @@ function validatePhone(value: any): statusObject {
 	return { success: true };
 }
 
-function validateMessage(value: any): statusObject {
+function validateMessage(value: unknown): statusObject {
 	if (typeof value !== "string")
 		return { success: false, message: ERROR_MESSAGES.incorrect };
 
