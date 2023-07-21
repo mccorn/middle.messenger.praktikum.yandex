@@ -51,7 +51,7 @@ class ProfilePage extends Block {
 					Store.set('userData.avatar', utils.safeGetData(response).avatar)
 
 					console.log('inputAvatarEvents setData', Store.getState())
-				})
+				}).catch(console.warn)
 			},
 			// input: () => HANDLERS.handleInputWithError(this.children.inputLogin),
 		};
@@ -100,7 +100,7 @@ class ProfilePage extends Block {
 					}
 
 					console.log('buttonEvents setData', Store.getState())
-				})
+				}).catch(console.warn)
 			},
 		}
 		const buttonChangePasswordEvents = { 
@@ -109,7 +109,7 @@ class ProfilePage extends Block {
 				const {newPassword, oldPassword} = this.state;
 
 				console.log(newPassword, oldPassword)
-				UserAPI.updatePassword({newPassword, oldPassword}).then(console.log);
+				UserAPI.updatePassword({newPassword, oldPassword}).then(console.log).catch(console.warn);
 			},
 		}
 

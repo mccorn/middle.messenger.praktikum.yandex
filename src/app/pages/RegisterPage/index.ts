@@ -21,7 +21,7 @@ class UserSignUpController {
 		}).then(data => {
 			// state = Object.assign({}, data);
 			console.log('state', data)
-		})
+		}).catch(console.warn)
 	}
 }
 

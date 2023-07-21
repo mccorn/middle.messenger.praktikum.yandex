@@ -23,7 +23,7 @@ class UserLoginController {
 				if ((response as Response)?.readyState === 4) {
 					window.location.href = '/messenger'
 				}
-			})
+			}).catch(console.warn)
 
 		}
 	}

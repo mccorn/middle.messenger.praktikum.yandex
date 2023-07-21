@@ -121,7 +121,7 @@ class HomePage extends Block {
 				event.preventDefault();
 
 				const promise = AuthAPI.logout();
-				promise.then(response => (response as TResponse).status === 200 ? window.location.href = "" : null);
+				promise.then(response => (response as TResponse).status === 200 ? window.location.href = "" : null).catch(console.warn);
 			},
 		}
 		const createChatButtonEvents = {
@@ -133,7 +133,7 @@ class HomePage extends Block {
 				if (!newTitle || !(newTitle.trim())) return;
 
 				const promise = ChatAPI.create({ title: newTitle.toString() });
-				promise.then(() => HomePageController.setData());
+				promise.then(() => HomePageController.setData()).catch(console.warn);
 			},
 		}
 		const getUsersButtonEvents = {
@@ -146,7 +146,7 @@ class HomePage extends Block {
 					chatId: chatId || currentChatData.id,
 				}).then((response: TResponse | unknown) => {
 					console.log(utils.safeGetData(response));
-				});
+				}).catch(console.warn);
 			},
 		}
 		const addUsersButtonEvents = {
@@ -159,7 +159,7 @@ class HomePage extends Block {
 					chatId: currentChatData.id,
 					users: [userId]
 				});
-				promise.then(console.log);
+				promise.then(console.log).catch(console.warn);
 			},
 		}
 		const deleteUsersButtonEvents = {
@@ -172,7 +172,7 @@ class HomePage extends Block {
 					chatId: currentChatData.id,
 					users: [userId]
 				});
-				promise.then(console.log);
+				promise.then(console.log).catch(console.warn);
 			},
 		}
 

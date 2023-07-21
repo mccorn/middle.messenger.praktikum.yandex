@@ -14,7 +14,7 @@ class ProfilePageController {
 			}
 
 			console.log('ProfilePageController setData', Store.getState())
-		});
+		}).catch(console.warn);
 	}
 }
 

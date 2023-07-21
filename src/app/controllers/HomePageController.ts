@@ -56,9 +56,9 @@ class HomePageController {
 						}
 				
 						return node
-					})
+					}).catch(console.warn)
 			})
-		});
+		}).catch(console.warn);
 	}
 
 	getTokenPromise(id: string | number) {

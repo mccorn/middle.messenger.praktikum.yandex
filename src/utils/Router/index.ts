@@ -61,7 +61,7 @@ class Router {
 	
 			this._currentRoute = route;
 			route.render();
-		})
+		}).catch(console.warn)
 	}
 
 	go(pathname: string) {
