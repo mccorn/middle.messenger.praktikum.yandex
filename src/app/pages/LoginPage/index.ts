@@ -6,7 +6,7 @@ import InputWithLabel from "../../components/InputWithLabel";
 import Button from "../../components/Button";
 import { HANDLERS } from "../../../utils/handlers";
 import { validate } from "../../../utils/validator";
-import { Response, someObject } from "../../../const/types";
+import { TResponse, someObject } from "../../../const/types";
 import AuthAPI from "../../api/AuthorizationAPI";
 
 class UserLoginController {
@@ -19,8 +19,8 @@ class UserLoginController {
 		} else {
 			const authPromise = AuthAPI.login(data)
 
-			authPromise.then((response: Response | unknown) => {
-				if ((response as Response)?.readyState === 4) {
+			authPromise.then((response: TResponse | unknown) => {
+				if ((response as TResponse)?.readyState === 4) {
 					window.location.href = '/messenger'
 				}
 			}).catch(console.warn)

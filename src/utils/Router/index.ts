@@ -1,5 +1,5 @@
 import AuthAPI from "../../app/api/AuthorizationAPI";
-import { Response, someObject } from "../../const/types";
+import { TResponse, someObject } from "../../const/types";
 import Block from "../Block";
 import Route from "./Route";
 
@@ -43,14 +43,14 @@ class Router {
 		// const hasAuth = this.hasAuth();
 		const authPromise = this.hasAuth();
 
-		authPromise.then((response: Response | unknown) => {
+		authPromise.then((response: TResponse | unknown) => {
 			const route = this.getRoute(pathname);
 			if (!route) {
 				this.go('/error404');
 				return;
 			}
 
-			if (this._requiredAuth[pathname] && (response as Response)?.status !== 200) {
+			if (this._requiredAuth[pathname] && (response as TResponse)?.status !== 200) {
 				this.go('/');
 				return;
 			}

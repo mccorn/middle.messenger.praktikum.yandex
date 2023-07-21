@@ -72,9 +72,9 @@ export const utils = {
 			console.log(key, obj[key])
 		}
 	},
-	safeGetData: function (response: someObject | TResponse | string | unknown) {
+	safeGetData: function (response: someObject | any) {
 		try {
-			const data = JSON.parse(response && typeof response === 'object' ? response.response : response);
+			const data = JSON.parse(response && typeof response === 'object' ? (response as TResponse).response : response.toString());
 	
 			return data
 		} catch {

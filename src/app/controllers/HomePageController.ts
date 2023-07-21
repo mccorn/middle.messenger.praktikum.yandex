@@ -1,4 +1,4 @@
-import { Response, UserDataType, someObject } from "../../const/types";
+import { TResponse, UserDataType, someObject } from "../../const/types";
 import { utils } from "../../utils";
 import Store from "../../utils/Store";
 import { ChatsTransport, WSTransportEvents } from "../../utils/WSTransport";
@@ -7,7 +7,7 @@ import ChatAPI from "../api/ChatAPI";
 class HomePageController {
 	async getDataPromise() {
 		const promise = ChatAPI.request();
-		const response = await promise as Response;
+		const response = await promise as TResponse;
 
 		const data = utils.safeGetData(response);
 		if (response.status === 200) {
@@ -21,7 +21,7 @@ class HomePageController {
 		const promise = ChatAPI.request();
 		const {userData} = Store.getState() as {userData: UserDataType};
 		
-		promise.then((response: Response | unknown) => {
+		promise.then((response: TResponse | unknown) => {
 			const data = utils.safeGetData(response)
 			Store.set('chats', data)
 
@@ -30,7 +30,7 @@ class HomePageController {
 			data.forEach((node: someObject) => {
 				this
 					.getTokenPromise(node.id)
-					.then((response: Response | unknown) => {
+					.then((response: TResponse | unknown) => {
 						node.token = utils.safeGetData(response).token;
 
 						if (userData && userData.id && !node.transport) {

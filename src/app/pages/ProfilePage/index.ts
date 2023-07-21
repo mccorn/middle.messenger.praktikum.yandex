@@ -11,23 +11,8 @@ import Store from "../../../utils/Store";
 import { connect, utils } from "../../../utils";
 import { Indexed, TResponse } from "../../../const/types";
 import ProfilePageController from "../../controllers/ProfilePageController";
-import { validate } from "../../../utils/validator";
 
 class ProfilePage extends Block {
-	// componentDidMount() {
-	// 	this.state = {
-	// 		avatar: undefined,
-	// 		login: undefined,
-	// 		display_name: undefined,
-	// 		first_name: undefined,
-	// 		second_name: undefined,
-	// 		email: undefined,
-	// 		phone: undefined,
-	// 		newPassword: undefined,
-	// 		oldPassword: undefined,
-	// 	};
-	// }
-
 	render() {
 		let { userData } = this.props;
 
