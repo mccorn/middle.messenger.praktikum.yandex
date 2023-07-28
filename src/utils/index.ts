@@ -1,7 +1,7 @@
 import { ERRORS_TYPES } from "../const/errorsTypes";
 import { Indexed, TResponse, someObject } from "../const/types";
-import Block from "./Block";
-import IBlock from "./BlockInterface";
+import Block from "./Component";
+import IBlock from "./Component/ComponentInterface";
 import Store, { StoreEvents } from "./Store";
 import { GENERATORS } from "./generators";
 

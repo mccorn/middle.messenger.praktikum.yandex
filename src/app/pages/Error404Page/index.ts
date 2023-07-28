@@ -1,7 +1,7 @@
 import tmpl from "./index.tmpl";
 import "./styles.less";
 
-import Block from "../../../utils/Block";
+import Block from "../../../utils/Component";
 import Button from "../../components/Button";
 
 export default class Error404Page extends Block {

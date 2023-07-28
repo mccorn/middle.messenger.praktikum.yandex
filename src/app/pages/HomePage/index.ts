@@ -1,7 +1,7 @@
 import tmpl from "./index.tmpl";
 import "./styles.less";
 
-import Block from "../../../utils/Block";
+import Block from "../../../utils/Component";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import ChatsList from "../../blocks/ChatsList";

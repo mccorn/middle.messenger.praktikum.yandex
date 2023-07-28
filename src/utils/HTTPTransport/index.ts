@@ -1,4 +1,4 @@
-import { someObject } from "../const/types";
+import { someObject } from "../../const/types";
 
 const METHODS = {
 	GET: "GET",

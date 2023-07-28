@@ -1,7 +1,7 @@
 import template from "./index.tmpl";
 import "./styles.less";
 
-import Block from "../../../utils/Block";
+import Block from "../../../utils/Component";
 import { Indexed, UserDataType } from "../../../const/types";
 import { RESOURCES_URL } from "../../api";
 import { connect } from "../../../utils";

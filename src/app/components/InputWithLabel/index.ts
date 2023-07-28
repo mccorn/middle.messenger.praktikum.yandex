@@ -1,7 +1,7 @@
 import tmpl from "./index.tmpl";
 import "./styles.less";
 
-import Block from "../../../utils/Block";
+import Block from "../../../utils/Component";
 import Input, {InputProps} from "../Input";
 import { eventsObject } from "../../../const/types";
 

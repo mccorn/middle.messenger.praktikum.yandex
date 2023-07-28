@@ -1,5 +1,5 @@
 import { someObject } from "../const/types";
-import IBlock from "./BlockInterface";
+import IBlock from "./Component/ComponentInterface";
 import { validate } from "./validator";
 
 export const HANDLERS = {

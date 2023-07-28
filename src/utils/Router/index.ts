@@ -1,6 +1,6 @@
 import AuthAPI from "../../app/api/AuthorizationAPI";
 import { TResponse, someObject } from "../../const/types";
-import Block from "../Block";
+import Block from "../Component";
 import Route from "./Route";
 
 class Router {

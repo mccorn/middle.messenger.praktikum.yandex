@@ -1,5 +1,5 @@
-import { IEventBus } from "./EventBus";
-import { someObject } from "../const/types";
+import { IEventBus } from "../EventBus";
+import { someObject } from "../../const/types";
 
 export type META = {
 	tagName: string,
@@ -7,7 +7,7 @@ export type META = {
 }
 
 // Нельзя создавать экземпляр данного класса
-interface IBlock {
+interface IComponent {
 	_element: HTMLElement | DocumentFragment | null,
 	_id: string,
 	_isMounted: boolean,
@@ -28,4 +28,4 @@ interface IBlock {
 	hide: () => void,
 }
 
-export default IBlock;
+export default IComponent;

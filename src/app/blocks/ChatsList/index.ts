@@ -1,7 +1,7 @@
 import "./styles.less";
 
 import tmpl from "./index.tmpl";
-import Block from "../../../utils/Block";
+import Block from "../../../utils/Component";
 
 export default class ChatsList extends Block {
 	render() {

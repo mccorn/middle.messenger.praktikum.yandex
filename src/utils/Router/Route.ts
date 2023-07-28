@@ -1,20 +1,20 @@
 import { someObject } from '../../const/types';
 import {utils} from '../../utils';
-import Block from '../Block';
-import IBlock from '../BlockInterface';
+import Block from '../Component';
+import IComponent from '../Component/ComponentInterface';
 
 const {render, isEqual} = utils;
 
 export default class Route {
 	protected _pathname = "";
 	protected _blockClass = null as unknown as typeof Block;
-	protected _block: IBlock;
+	protected _block: IComponent;
 	protected _props = {};
 
   constructor(pathname: string, view: typeof Block, props: someObject) {
     this._pathname = pathname;
     this._blockClass = view;
-    this._block = null as unknown as IBlock;
+    this._block = null as unknown as IComponent;
     this._props = props;
   }
 
