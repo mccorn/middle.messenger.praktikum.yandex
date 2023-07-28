@@ -11,3 +11,7 @@ export default class Error404Page extends Block {
 		return this.compile(tmpl, this.props);
 	}
 }
+
+const a = 5;
+
+a = 6;
