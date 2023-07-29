@@ -74,5 +74,5 @@
 
 - Перименован Block => Component
 - Добавлены тесты (Mocha, Chai)
-- precommit
+- precommit (Husky)
 - Проведен аудит зависимостей

@@ -1,11 +1,6 @@
-import { someObject } from "../../const/types";
+import { XHR_METHODS_TYPES, someObject } from "../../const/types";
 
-const METHODS = {
-	GET: "GET",
-	PUT: "PUT",
-	POST: "POST",
-	DELETE: "DELETE",
-};
+const METHODS = XHR_METHODS_TYPES;
 
 function queryStringify(data: someObject) {
 	let result = "";
@@ -39,7 +34,7 @@ export class HTTPTransport {
 	request = (url: string, options: someObject = { method: METHODS.GET }, timeout = 5000) => {
 		const { method, data, headers = {} } = options;
 
-		setTimeout(() => null, timeout);
+		timeout;
 
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();

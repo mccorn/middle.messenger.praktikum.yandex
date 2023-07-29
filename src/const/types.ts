@@ -28,3 +28,10 @@ export type TResponse = {
 	status: number,
 	readyState: number,
 }
+
+export enum XHR_METHODS_TYPES {
+	GET = "GET",
+	PUT = "PUT",
+	POST = "POST",
+	DELETE = "DELETE",
+}
