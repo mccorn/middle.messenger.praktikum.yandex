@@ -4,14 +4,14 @@
 [domain_home]: https://frabjous-gnome-6c6c2c.netlify.app/messenger
 [domain_login]: https://frabjous-gnome-6c6c2c.netlify.app/
 [domain_register]: https://frabjous-gnome-6c6c2c.netlify.app/sign-up
-[domain_profile]: https://frabjous-gnome-6c6c2c.netlify.app/profile
+[domain_profile]: https://frabjous-gnome-6c6c2c.netlify.app/settings
 [domain_error404]: https://frabjous-gnome-6c6c2c.netlify.app/error404
 [domain_error500]: https://frabjous-gnome-6c6c2c.netlify.app/error500
 
 [local_home]: http://localhost:5173/messenger
 [local_login]: http://localhost:5173/
 [local_register]: http://localhost:5173/sign-up
-[local_profile]: http://localhost:5173/profile
+[local_profile]: http://localhost:5173/settings
 [local_error404]: http://localhost:5173/error404
 [local_error500]: http://localhost:5173/error500
 
