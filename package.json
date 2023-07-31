@@ -52,5 +52,11 @@
 		"hooks": {
 			"pre-commit": "npm-run-all test lint:esNoFix lint:style"
 		}
-	}
+	},
+	"lint-staged": {
+    "**/*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
 }

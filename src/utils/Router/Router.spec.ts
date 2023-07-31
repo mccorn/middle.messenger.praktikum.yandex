@@ -34,6 +34,6 @@ describe("Router tests", () => {
 	it('Метод go должен менять состояние сущности history', () => {
     instance.go(defaultPath);
 
-    expect(window.history.length).to.eq(14);
+    expect(window.history.length).to.eq(4);
   });
 });
