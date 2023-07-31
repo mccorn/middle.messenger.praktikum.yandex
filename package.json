@@ -50,7 +50,7 @@
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "npm run test lint:esNoFix lint:style"
+			"pre-commit": "npm-run-all test lint:esNoFix lint:style"
 		}
 	}
 }

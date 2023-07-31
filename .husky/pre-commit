@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npm test llint:esNoFix lint:style
+npm-run-all test llint:esNoFix lint:style
