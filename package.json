@@ -8,13 +8,15 @@
 	},
 	"scripts": {
 		"lint:es": "eslint . --fix",
+		"lint:esNoFix": "eslint",
 		"lint:style": "stylelint ./src styles.less",
 		"dev": "vite",
 		"prebuild": "tsc --noEmit",
 		"build": "vite build",
 		"preview": "vite preview",
 		"start": "vite build && node server",
-		"test": "mocha"
+		"test": "mocha",
+		"prepare": "husky install"
 	},
 	"devDependencies": {
 		"@types/chai": "^4.3.5",
@@ -48,7 +50,7 @@
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "npm run test lint:es lint:style"
+			"pre-commit": "npm run test lint:esNoFix lint:style"
 		}
 	}
 }
