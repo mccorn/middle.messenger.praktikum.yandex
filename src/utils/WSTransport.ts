@@ -10,7 +10,7 @@ export enum WSTransportEvents {
 
 
 class WSTransport extends EventBus {
-	private pingIntervalTimer: number | undefined;
+	private pingIntervalTimer: unknown;
 	public url: string;
 	public socket: WebSocket | undefined;
 
@@ -24,7 +24,7 @@ class WSTransport extends EventBus {
 	}
 
 	removePing() {
-		if (this.pingIntervalTimer) clearInterval(this.pingIntervalTimer)
+		if (this.pingIntervalTimer) clearInterval(this.pingIntervalTimer as number)
 	}
 
 	ping() {

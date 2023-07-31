@@ -3,7 +3,7 @@ import Router from ".";
 import Route from "./Route";
 import Component from "../Component";
 
-describe.only("Router tests", () => {
+describe("Router tests", () => {
 	let instance: Router;
 	const defaultPath = '/';
 
