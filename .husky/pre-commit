@@ -2,5 +2,5 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 npm test
-npm llint:esNoFix
-npm lint:style
+npm run lint:esNoFix
+npm run lint:style
