@@ -5,7 +5,7 @@ import { connect } from "..";
 import Store from "../Store";
 import { Indexed } from "../../const/types";
 
-describe.only("Component tests", () => {
+describe("Component tests", () => {
 	let instance: Component;
 	let spyMethod: SinonSpy;
 
