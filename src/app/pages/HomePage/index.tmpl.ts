@@ -3,8 +3,6 @@ const template = `
 	<div class="HomePage flex">
 		<aside class="col4 column bg_light">
 			<div class="stretch">
-				{{{ logout }}}
-				<br/>
 				{{{ getChatsButton }}}
 				<br/>
 				{{{createChatButton}}}
