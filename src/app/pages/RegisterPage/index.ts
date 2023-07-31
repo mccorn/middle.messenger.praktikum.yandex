@@ -5,6 +5,25 @@ import Block from "../../../utils/Block";
 import Button from "../../components/Button";
 import InputLazy from "../../components/InputLazy";
 import { HANDLERS } from "../../../utils/handlers";
+import AuthAPI from "../../api/AuthorizationAPI";
+import { TResponse, someObject } from "../../../const/types";
+
+class UserSignUpController {
+	signup(data: someObject) {
+		const authPromise = AuthAPI.signup(data)
+
+		authPromise.then((response: TResponse | unknown) => {
+			console.log('signup', response)
+
+			if ((response as TResponse)?.readyState === 4) {
+				window.location.href = '/'
+			}
+		}).then(data => {
+			// state = Object.assign({}, data);
+			console.log('state', data)
+		}).catch(console.warn)
+	}
+}
 
 export default class RegisterPage extends Block {
 	componentDidMount() {
@@ -44,7 +63,15 @@ export default class RegisterPage extends Block {
 			// input: () => HANDLERS.handleInputWithError(this.children.inputPhone),
 		};
 
-		const buttonEvents = { click: (event: Event) => HANDLERS.handleSubmit(event, this) }
+		const buttonEvents = {
+			click: (event: Event) => {
+				event.preventDefault();
+				const { login, password, first_name, second_name, email, phone } = this.state;
+
+				const userLoginController = new UserSignUpController();
+				userLoginController.signup({ login, password, first_name, second_name, email, phone })
+			}
+		}
 
 		const inputLogin = new InputLazy("div", { value: "", name: "login", inputEvents: inputLoginEvents });
 		const inputPassword = new InputLazy("div", { value: "", name: "password", inputEvents: inputPasswordEvents });

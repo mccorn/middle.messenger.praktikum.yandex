@@ -4,22 +4,32 @@ export default `
 <div class="chatInfo flex" data-id="{{data.id}}">
 	{{#with data}}
 		<div class="chatInfo__avatar">
-			<img src={{avatarUrl}} />
+			{{#if avatar}}
+				<img src={{avatar}} />
+				
+			{{else}}
+				<span>{{cutTitle}}</span>
+			{{/if}}
 		</div>
+		
 		<div class="chatInfo__main stretch">
 			<div class="chatInfo__title">
-				{{name}}
+				<b>{{title}}</b>
 			</div>
 			<div class="chatInfo__body">
-				{{lastMessage.text}}
+				{{last_message.content}}
 			</div>
 		</div>
+
 		<div class="chatInfo__aside">
 			<div class="chatInfo__date">
-				{{lastMessage.date}}
+				{{#formattedTime last_message.time }}
+				{{/formattedTime}}
 			</div>
 			<div class="chatInfo__tip">
-				{{noreadMessagesCounter}}
+				{{#if unread_count}} 
+					{{unread_count}}
+				{{/if}}
 			</div>
 		</div>
 	{{/with}}

@@ -3,8 +3,9 @@ import { v4 as makeUUID } from "uuid";
 import EventBus, { IEventBus } from "./EventBus";
 import { someObject } from "../const/types";
 import IBlock from "./BlockInterface";
+import { utils } from ".";
 
-enum EVENTS_ENUM {
+export enum EVENTS_ENUM {
 	INIT = "init",
 	FLOW_CDM = "flow:component-did-mount",
 	FLOW_CDU = "flow:component-did-update",
@@ -20,7 +21,7 @@ type META = {
 class Block implements IBlock {
 	static EVENTS = EVENTS_ENUM;
 
-	_element: HTMLElement | null = null;
+	_element: HTMLElement | DocumentFragment | null = null;
 	_id = "";
 	_isMounted = false;
 	_meta: META;
@@ -71,6 +72,7 @@ class Block implements IBlock {
 		const propsAndStubs = { ...props };
 
 		Object.entries(this.children).forEach(([key, child]) => {
+			if (!child) return;
 			propsAndStubs[key] = `<div data-id="${child.id}"></div>`
 		});
 
@@ -79,7 +81,9 @@ class Block implements IBlock {
 		fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
 
 		Object.values(this.children).forEach(child => {
-			const content = fragment.content as any as HTMLElement;
+			if (!child) return;
+
+			const content = fragment.content as unknown as HTMLElement;
 			const stub = content.querySelector(`[data-id="${child.id}"]`);
 
 			if (stub && child) stub.replaceWith(child.getContent());
@@ -114,6 +118,7 @@ class Block implements IBlock {
 		this.componentDidMount(oldProps);
 
 		Object.values(this.children).forEach(child => {
+			if (!child) return;
 			child.dispatchComponentDidMount();
 		});
 	}
@@ -132,7 +137,7 @@ class Block implements IBlock {
 	}
 
 	componentDidUpdate(oldProps: someObject, newProps: someObject) {
-		return oldProps !== newProps;
+		return !utils.isEqual(oldProps, newProps);
 	}
 
 	setProps(nextProps: someObject): void {
@@ -143,17 +148,21 @@ class Block implements IBlock {
 		Object.assign(this.props, nextProps);
 	}
 
+	setState(nextState: someObject): void {
+		this.setProps({state: nextState});
+	}
+
 	get element() {
 		return this._element;
 	}
 
 	_render() {
-		const block = this.render() as any as DocumentFragment;
+		const block = this.render() as unknown as DocumentFragment;
 
 		this._removeEvents();
 		
 		if (this._element) {
-			this._element.innerHTML = "";
+			if (this._element instanceof HTMLElement) this._element.innerHTML = "";
 			this._element.appendChild(block);
 		}
 
@@ -163,10 +172,11 @@ class Block implements IBlock {
 	// Переопределяется пользователем. Необходимо вернуть разметку
 	render() { return this.compile('', {}); }
 
-	getContent(): HTMLElement | null {
+	getContent(): HTMLElement | DocumentFragment | null {
 		return this.element;
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	emit(event: EVENTS_ENUM, ...args: any) {
 		this.eventBus().emit(event, ...args);
 	}
@@ -198,9 +208,14 @@ class Block implements IBlock {
 	}
 
 	_createDocumentElement(tagName: string) {
-		// Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
-		const element = document.createElement(tagName);
-		element.setAttribute("data-id", this._id || "");
+		let element; 
+		
+		if (tagName === 'fragment') {
+			element = document.createDocumentFragment(); 
+		} else {
+			element = document.createElement(tagName);
+			element.setAttribute("data-id", this._id || "");
+		}
 		return element;
 	}
 
@@ -221,11 +236,11 @@ class Block implements IBlock {
 	}
 
 	show() {
-		if (this._element) this._element.style.display = "block";
+		if (this._element instanceof HTMLElement) this._element.style.display = "block";
 	}
 
 	hide() {
-		if (this._element) this._element.style.display = "none";
+		if (this._element instanceof HTMLElement) this._element.style.display = "none";
 	}
 }
 

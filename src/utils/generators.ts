@@ -12,22 +12,22 @@ const AVATARS = [
 ]
 
 export const GENERATORS = {
-	getRndElement: (arr: any[]): any => {
+	getRndElement: (arr: unknown[]): unknown => {
 		const idx = GENERATORS.getRndInt(0, arr.length - 1);
 		return arr[idx]
 	},
 	getRndInt: (min = 0, max = 1): number => Math.round(Math.random() * (max - min) + min),
 	getArrayString: (length = 3) => Object.keys(new Array(length).fill(1)),
-	getArrayNumbers: (length = 3) => GENERATORS.getArray(length, (a: any): number => Number.parseFloat(a)),
+	getArrayNumbers: (length = 3) => GENERATORS.getArray(length, (a: unknown): number => Number.parseFloat(a as string)),
 	getArray: (length = 3, callback: someFunction) => GENERATORS.getArrayString(length).map(callback),
-	getDataMessage: (i: any, idx?: number) => ({
+	getDataMessage: (i: unknown, idx?: number) => ({
 		"text": Math.random() > 0.5 ? GENERATORS.getRndElement(TEXTS) : `text_${i}_${idx}`,
 		"date": (new Date()).toLocaleTimeString("ru-Ru", { hour: "2-digit", minute: "2-digit" }),
 		"me": Math.random() > 0.5,
 		"isEdited": Math.random() > 0.5,
 		"isRead": Math.random() > 0.5,
 	}),
-	getDataChat: (i: any, idx: number) => ({
+	getDataChat: (i: unknown, idx: number) => ({
 		"id": `Chat_${i}_${idx}`,
 		"avatarUrl": GENERATORS.getRndElement(AVATARS),
 		"name": "Chat Name " + idx,

@@ -1,0 +1,40 @@
+@size: 60px;
+.profileInfo {
+	color: initial;
+	min-height: @size;
+
+	.link {
+		opacity: 0;
+		transition: all 0.3s ease-in-out;
+	}
+
+	&:hover {
+		.link {
+			opacity: 1;
+			text-decoration: underline;
+		}
+	}
+
+	&__avatar {
+		height: @size * 0.8;
+		width: @size * 0.8;
+		overflow: hidden;
+		display: flex;
+
+		margin: @size * 0.1;
+		align-items: center;
+		justify-content: center;
+		
+		border-radius: 50%;
+		background: url("../../../assets/icons/profile.png") center center no-repeat;
+
+		&.empty {
+			border: 2px solid #FFF;
+			background-image: none;
+		}
+
+		img {
+			width: 80%;
+		}
+	}
+}

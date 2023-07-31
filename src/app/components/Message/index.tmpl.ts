@@ -1,15 +1,19 @@
 const template = `<div class="messageWrapper">
 {{#with data}}
-	<div class="message {{../classNames}}" >
+	<div class="message {{classNames}}" >
 		<div class="message__body">
-			{{text}}
+			{{user_id}}: {{content}}
 		</div>
 		
 		<div class="message__info">
-			{{date}}
-			{{#if isEdited}}
-				VV
-			{{/if}}
+			{{#formattedTime time}}
+			{{/formattedTime}}
+
+			<div class="message__is-read">
+				{{#if is_read}}
+					VV
+				{{/if}}
+			</div>
 		</div>
 		
 	</div>

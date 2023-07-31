@@ -5,25 +5,39 @@ import Block from "../../../utils/Block";
 import InputLazy from "../../components/InputLazy";
 import Button from "../../components/Button";
 import { HANDLERS } from "../../../utils/handlers";
+import InputFile from "../../components/InputFile";
+import UserAPI from "../../api/UserAPI";
+import Store from "../../../utils/Store";
+import { connect, utils } from "../../../utils";
+import { Indexed, TResponse } from "../../../const/types";
+import ProfilePageController from "../../controllers/ProfilePageController";
 
-export default class ProfilePage extends Block {
-	componentDidMount() {
-		this.state = {
-			avatar: "",
-			login: "",
-			display_name: "",
-			first_name: "",
-			second_name: "",
-			email: "",
-			phone: "",
-			newPassword: "",
-			oldPassword: "",
-		};
-	}
-
+class ProfilePage extends Block {
 	render() {
+		let { userData } = this.props;
+
+		if (!userData) {
+			ProfilePageController.setData();
+			userData = {};
+		} else if (!this.state) {
+			this.state = userData;
+		}
+
 		const inputAvatarEvents = {
-			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputAvatar),
+			change: (event: Event) => {
+				const target = event.target as HTMLInputElement;
+				const file = (target.files as FileList)[0];
+				const form = new FormData();
+				
+				form.set('avatar', file);
+
+				const promise = UserAPI.updateAvatar(form);
+				promise.then((response: Response | unknown) => {
+					Store.set('userData.avatar', utils.safeGetData(response).avatar)
+
+					console.log('inputAvatarEvents setData', Store.getState())
+				}).catch(console.warn)
+			},
 			// input: () => HANDLERS.handleInputWithError(this.children.inputLogin),
 		};
 		const inputLoginEvents = {
@@ -59,22 +73,46 @@ export default class ProfilePage extends Block {
 			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputOldPassword),
 			// input: () => HANDLERS.handleInputWithError(this.children.inputPhone),
 		};
-		
-		const buttonEvents = { click: (event: Event) => HANDLERS.handleSubmit(event, this) }
 
-		const inputAvatar = new InputLazy("div", { value: "", name: "avatar", inputEvents: inputAvatarEvents });
-		
-		const inputLogin = new InputLazy("div", { value: "", name: "login", inputEvents: inputLoginEvents });
-		const inputDisplayName = new InputLazy("div", { value: "", name: "display_name", inputEvents: inputPasswordEvents });
-		const inputFirstName = new InputLazy("div", { value: "", name: "first_name", inputEvents: inputFirstNameEvents });
-		const inputSecondName = new InputLazy("div", { value: "", name: "second_name", inputEvents: inputSecondNameEvents });
-		const inputEmail = new InputLazy("div", { value: "", name: "email", inputEvents: inputEmailEvents });
-		const inputPhone = new InputLazy("div", { value: "", name: "phone", inputEvents: inputPhoneEvents });
+		const buttonEvents = {
+			click: (event: Event) => {
+				event.preventDefault();
 
-		const inputNewPassword = new InputLazy("div", { value: "", name: "newPassword", inputEvents: inputNewPasswordEvents });
-		const inputOldPassword = new InputLazy("div", { value: "", name: "oldPassword", inputEvents: inputOldPasswordEvents });
+				const promise = UserAPI.update(Object.assign(userData, this.state));
+				promise.then((response: TResponse | unknown) => {
+					if ((response as TResponse).status === 200) {
+						Store.set('userData', utils.safeGetData(response))
+					}
+
+					console.log('buttonEvents setData', Store.getState())
+				}).catch(console.warn)
+			},
+		}
+		const buttonChangePasswordEvents = { 
+			click: (event: Event) => {
+				event.preventDefault();
+				const {newPassword, oldPassword} = this.state;
+
+				console.log(newPassword, oldPassword)
+				UserAPI.updatePassword({newPassword, oldPassword}).then(console.log).catch(console.warn);
+			},
+		}
+
+		const inputAvatar = new InputFile("div", { value: "", name: "avatar", events: inputAvatarEvents });
+
+		const inputLogin = new InputLazy("div", { value: userData.login, name: "login", inputEvents: inputLoginEvents });
+		const inputDisplayName = new InputLazy("div", { value: userData.display_name, name: "display_name", inputEvents: inputPasswordEvents });
+		const inputFirstName = new InputLazy("div", { value: userData.first_name, name: "first_name", inputEvents: inputFirstNameEvents });
+		const inputSecondName = new InputLazy("div", { value: userData.second_name, name: "second_name", inputEvents: inputSecondNameEvents });
+		const inputEmail = new InputLazy("div", { value: userData.email, name: "email", inputEvents: inputEmailEvents });
+		const inputPhone = new InputLazy("div", { value: userData.phone, name: "phone", inputEvents: inputPhoneEvents });
 
 		const button = new Button("div", { label: "Save", events: buttonEvents });
+
+		const inputNewPassword = new InputLazy("div", { value: "", name: "newPassword", type: "password", inputEvents: inputNewPasswordEvents });
+		const inputOldPassword = new InputLazy("div", { value: "", name: "oldPassword", type: "password", inputEvents: inputOldPasswordEvents });
+
+		const buttonChangePassword = new Button("div", { label: "ChangePassword", events: buttonChangePasswordEvents });
 
 		this.children = {
 			inputAvatar,
@@ -86,12 +124,20 @@ export default class ProfilePage extends Block {
 			inputEmail,
 			inputPhone,
 
+			button,
+
 			inputNewPassword,
 			inputOldPassword,
-			
-			button,
+
+			buttonChangePassword,
 		}
 
 		return this.compile(tmpl, this.props);
 	}
 }
+
+const mapStateToProps = (state: Indexed) => ({
+	userData: state.userData,
+})
+
+export default connect(ProfilePage, mapStateToProps)

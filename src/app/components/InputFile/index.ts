@@ -7,12 +7,11 @@ import { eventsObject } from "../../../const/types";
 export interface InputProps {
 	name: string,
 	value: string,
-	type?: string,
 	placeholder?: string,
 	events?: eventsObject,
 }
 
-export default class Input extends Block {
+export default class InputFile extends Block {
 	constructor(tagName: string, props: InputProps) {
 		super(tagName, props);
 	}
