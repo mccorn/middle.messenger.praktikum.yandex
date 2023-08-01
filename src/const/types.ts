@@ -21,10 +21,18 @@ export type ChatData = {
 
 export type UserDataType = {
 	id: string | number,
+	avatar?: string,
 }
 
 export type TResponse = {
 	response: unknown | string,
 	status: number,
 	readyState: number,
+}
+
+export enum XHR_METHODS_TYPES {
+	GET = "GET",
+	PUT = "PUT",
+	POST = "POST",
+	DELETE = "DELETE",
 }

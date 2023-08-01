@@ -9,6 +9,7 @@
 		"dist/",
 		"src/assets/*",
 		"**/*.ts",
+		"**/*.png",
 		"**/*.js"
 	],
 	"overrides": [

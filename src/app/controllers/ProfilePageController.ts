@@ -12,8 +12,6 @@ class ProfilePageController {
 			if ((response as TResponse).status === 200) {
 				Store.set('userData', data)
 			}
-
-			console.log('ProfilePageController setData', Store.getState())
 		}).catch(console.warn);
 	}
 }

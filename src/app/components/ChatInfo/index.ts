@@ -1,7 +1,7 @@
 import tmpl from "./index.tmpl";
 import "./styles.less";
 
-import Block from "../../../utils/Block";
+import Block from "../../../utils/Component";
 import { ChatData } from "../../../const/types";
 
 type ChatInfoProps = {
@@ -14,6 +14,6 @@ export default class ChatInfo extends Block {
 	}
 
 	render() {
-		return this.compile(tmpl, {...this.props });
+		return this.compile(tmpl, this.props);
 	}
 }

@@ -1,5 +1,5 @@
 import { BASE_URL } from ".";
-import { HTTPTransport } from "../../utils/fetch";
+import { HTTPTransport } from "../../utils/HTTPTransport";
 
 const url = BASE_URL + '/user'
 const http = new HTTPTransport();

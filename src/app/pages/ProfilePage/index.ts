@@ -1,7 +1,7 @@
 import tmpl from "./index.tmpl";
 import "./styles.less";
 
-import Block from "../../../utils/Block";
+import Block from "../../../utils/Component";
 import InputLazy from "../../components/InputLazy";
 import Button from "../../components/Button";
 import { HANDLERS } from "../../../utils/handlers";
@@ -38,40 +38,31 @@ class ProfilePage extends Block {
 					console.log('inputAvatarEvents setData', Store.getState())
 				}).catch(console.warn)
 			},
-			// input: () => HANDLERS.handleInputWithError(this.children.inputLogin),
 		};
 		const inputLoginEvents = {
 			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputLogin),
-			// input: () => HANDLERS.handleInputWithError(this.children.inputLogin),
 		};
 		const inputPasswordEvents = {
 			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputPassword),
-			// input: () => HANDLERS.handleInputWithError(this.children.inputPassword),
 		};
 		const inputFirstNameEvents = {
 			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputFirstName),
-			// input: () => HANDLERS.handleInputWithError(this.children.inputFirstName),
 		};
 		const inputSecondNameEvents = {
 			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputSecondName),
-			// input: () => HANDLERS.handleInputWithError(this.children.inputSecondName),
 		};
 		const inputEmailEvents = {
 			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputEmail),
-			// input: () => HANDLERS.handleInputWithError(this.children.inputEmail),
 		};
 		const inputPhoneEvents = {
 			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputPhone),
-			// input: () => HANDLERS.handleInputWithError(this.children.inputPhone),
 		};
 
 		const inputNewPasswordEvents = {
 			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputNewPassword),
-			// input: () => HANDLERS.handleInputWithError(this.children.inputEmail),
 		};
 		const inputOldPasswordEvents = {
 			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputOldPassword),
-			// input: () => HANDLERS.handleInputWithError(this.children.inputPhone),
 		};
 
 		const buttonEvents = {

@@ -1,7 +1,7 @@
 import tmpl from "./index.tmpl";
 import "./styles.less";
 
-import Block from "../../../utils/Block";
+import Block from "../../../utils/Component";
 import InputWithLabel from "../../components/InputWithLabel";
 import Button from "../../components/Button";
 import { HANDLERS } from "../../../utils/handlers";
@@ -40,11 +40,9 @@ export default class LoginPage extends Block {
 	render() {
 		const inputLoginEvents = {
 			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputLogin),
-			// input: () => HANDLERS.handleInputWithError(this.children.inputLogin)
 		};
 		const inputPasswordEvents = {
 			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputPassword),
-			// input: () => HANDLERS.handleInputWithError(this.children.inputPassword),
 		};
 
 		const buttonEvents = {

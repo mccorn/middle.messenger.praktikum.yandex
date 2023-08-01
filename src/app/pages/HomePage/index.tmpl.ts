@@ -3,8 +3,6 @@ const template = `
 	<div class="HomePage flex">
 		<aside class="col4 column bg_light">
 			<div class="stretch">
-				{{{ logout }}}
-				<br/>
 				{{{ getChatsButton }}}
 				<br/>
 				{{{createChatButton}}}
@@ -40,9 +38,5 @@ const template = `
 	</div>
 </div>
 `
-// {{>message data=this}}
-// 	<div data-id={{@key}}> {{this.text}} </div>
-
-// {{>inputArea value="" placeholder="Type message..." name="message" className="active" }}
 
 export default template;

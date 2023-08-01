@@ -8,10 +8,7 @@ import Error404Page from "../../pages/Error404Page";
 import Error500Page from "../../pages/Error500Page";
 
 import Router from "../../../utils/Router";
-// import AuthAPI from "../../api/AuthAPI";
 import ProfilePageController from "../../controllers/ProfilePageController";
-
-// window.authAPI = AuthAPI;
 
 export default class App {
 	constructor() {

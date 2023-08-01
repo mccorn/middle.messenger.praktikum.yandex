@@ -40,4 +40,24 @@ Handlebars.registerHelper("formattedTime", function(time) {
   return new Handlebars.SafeString('<div class="date">' + date.toLocaleString(locale, options as never) + "</div>");
 });
 
+Handlebars.registerHelper('if_eq', function(a, b, opts) {
+	if (!this) return;
+	
+	if (a == b) {
+			return opts.fn(this);
+	} else {
+			return opts.inverse(this);
+	}
+});
+
+Handlebars.registerHelper('not', function(a, opts) {
+	if (!this) return;
+	
+	if (!a) {
+			return opts.fn(this);
+	} else {
+			return opts.inverse(this);
+	}
+});
+
 export default registerUIPartials

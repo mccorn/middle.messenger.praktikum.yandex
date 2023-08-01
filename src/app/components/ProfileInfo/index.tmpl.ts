@@ -1,10 +1,10 @@
 import "./styles.less";
 
 export default `
-<a href="/settings">
+
 	<div class="profileInfo flex">
 		{{#with data}}
-			<div class="profileInfo__avatar {{#if ../avatarUrl}}empty{{/if}}">
+			<div class="profileInfo__avatar {{#not ../avatarUrl}}empty{{/not}}">
 				{{#if ../avatarUrl}}
 					<img src={{../avatarUrl}} />
 				{{/if}}
@@ -23,12 +23,20 @@ export default `
 				</div>
 			</div>
 
+		
+
 			<div class="profileInfo__aside">
-				<span class="profileInfo__link link">
-					К профилю >>
-				</span>
+				<a href="/settings">
+					<span class="profileInfo__link link">
+						К профилю >>
+					</span>
+				</a>
+
+				{{{ ../logoutIcon }}}
 			</div>
 		{{/with}}
+
+		
 	</div>
-</a>
+
 `

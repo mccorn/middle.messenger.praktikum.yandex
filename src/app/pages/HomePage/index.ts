@@ -1,14 +1,14 @@
 import tmpl from "./index.tmpl";
 import "./styles.less";
 
-import Block from "../../../utils/Block";
+import Block from "../../../utils/Component";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import ChatsList from "../../blocks/ChatsList";
 import { connect, utils } from "../../../utils";
 import { ChatData, Indexed, TResponse, someObject } from "../../../const/types";
 import { VALIDATORS_TYPES, validate } from "../../../utils/validator";
-import AuthAPI from "../../api/AuthorizationAPI";
+
 import ChatAPI from "../../api/ChatAPI";
 import HomePageController from "../../controllers/HomePageController";
 import MessagesList from "../../blocks/MessagesList";
@@ -87,15 +87,12 @@ class HomePage extends Block {
 			if (validateResult.success) {
 				chatData.transport.sendMessage(message);
 			}
-
-			console.log('handleSubmit', chatData, this.state);
 		}
 
 		const handleFocusOut = (event: Event) => {
 			const target = event.target as HTMLInputElement;
 
 			if (target) this.state[target.name] = target.value
-			// console.log("handleFocusOut: " + target.name, "validate success = " + validate(target.name, target.value));
 		}
 
 		const inputEvents = {
@@ -110,25 +107,14 @@ class HomePage extends Block {
 				} else {
 					button.disable();
 				}
-				console.log('inputEvents_change', target.value, validateResult.success)
 			}
 		};
 		const buttonEvents = {
 			click: (event: Event) => handleSubmit(event),
 		}
-		const logoutEvents = {
-			click: (event: Event) => {
-				event.preventDefault();
-
-				const promise = AuthAPI.logout();
-				promise.then(response => (response as TResponse).status === 200 ? window.location.href = "" : null).catch(console.warn);
-			},
-		}
 		const createChatButtonEvents = {
 			click: function () {
 				const newTitle = prompt('Введите имя нового чата: ');
-
-				console.log('newTitle', newTitle)
 
 				if (!newTitle || !(newTitle.trim())) return;
 
@@ -181,15 +167,13 @@ class HomePage extends Block {
 		const messagesList = new MessagesList("fragment", { data: currentChatData, currentChatIdx, me: userData.id });
 		const input = new Input("div", { value: "", name: "message", events: inputEvents });
 		const button = new Button("div", { label: "send", disabled: true, events: buttonEvents });
-		const logout = new Button("div", { label: "logout", events: logoutEvents });
+
 		const createChatButton = new Button("div", { label: "createChatButton", events: createChatButtonEvents });
 		const getUsersButton = new Button("div", { label: "getUsersButton", events: getUsersButtonEvents });
 		const addUsersButton = new Button("div", { label: "addUserButton", events: addUsersButtonEvents });
 		const deleteUsersButton = new Button("div", { label: "deleteUsersButton", events: deleteUsersButtonEvents });
 
 		this.children = {
-			logout,
-
 			createChatButton,
 			getUsersButton,
 			addUsersButton,

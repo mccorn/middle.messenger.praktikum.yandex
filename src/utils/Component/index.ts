@@ -1,9 +1,9 @@
 import Handlebars from "handlebars"
 import { v4 as makeUUID } from "uuid";
-import EventBus, { IEventBus } from "./EventBus";
-import { someObject } from "../const/types";
-import IBlock from "./BlockInterface";
-import { utils } from ".";
+import EventBus, { IEventBus } from "../EventBus";
+import { someObject } from "../../const/types";
+import IComponent from "./ComponentInterface";
+import { utils } from "..";
 
 export enum EVENTS_ENUM {
 	INIT = "init",
@@ -18,7 +18,7 @@ type META = {
 }
 
 // Нельзя создавать экземпляр данного класса
-class Block implements IBlock {
+class Component implements IComponent {
 	static EVENTS = EVENTS_ENUM;
 
 	_element: HTMLElement | DocumentFragment | null = null;
@@ -58,7 +58,7 @@ class Block implements IBlock {
 		const props: someObject = {};
 
 		Object.entries(propsAndChildren).forEach(([key, value]) => {
-			if (value instanceof Block) {
+			if (value instanceof Component) {
 				children[key] = value;
 			} else {
 				props[key] = value;
@@ -244,4 +244,4 @@ class Block implements IBlock {
 	}
 }
 
-export default Block;
+export default Component;

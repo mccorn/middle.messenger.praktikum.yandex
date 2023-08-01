@@ -1,7 +1,7 @@
 import "./styles.less";
 
 import tmpl from "./index.tmpl";
-import Block from "../../../utils/Block";
+import Block from "../../../utils/Component";
 import { Indexed, someObject } from "../../../const/types";
 import { connect } from "../../../utils";
 import Store from "../../../utils/Store";

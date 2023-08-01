@@ -19,7 +19,7 @@ const template = `
 						</div>
 						
 						<div>
-							<a href="/register">Нет профиля?</a>
+							<a href="/sign-up">Нет профиля?</a>
 						</div>
 					</div>
 				</div>
