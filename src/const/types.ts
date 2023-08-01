@@ -21,6 +21,7 @@ export type ChatData = {
 
 export type UserDataType = {
 	id: string | number,
+	avatar?: string,
 }
 
 export type TResponse = {

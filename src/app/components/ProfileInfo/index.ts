@@ -13,6 +13,10 @@ type ProfileInfoProps = {
 }
 
 class ProfileInfo extends Block {
+	getAvatarUrl(data: UserDataType) {
+		return data.avatar ? RESOURCES_URL + data.avatar : null
+	}
+
 	render() {
 		const logoutEvents = {
 			click: (event: Event) => {
@@ -29,7 +33,7 @@ class ProfileInfo extends Block {
 			logoutIcon
 		}
 		
-		return this.compile(template, {...this.props as ProfileInfoProps, avatarUrl: RESOURCES_URL + this.props.data.avatar});
+		return this.compile(template, {...this.props as ProfileInfoProps, avatarUrl: this.getAvatarUrl(this.props.data)});
 	}
 }
 

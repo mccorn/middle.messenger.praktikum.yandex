@@ -38,9 +38,5 @@ const template = `
 	</div>
 </div>
 `
-// {{>message data=this}}
-// 	<div data-id={{@key}}> {{this.text}} </div>
-
-// {{>inputArea value="" placeholder="Type message..." name="message" className="active" }}
 
 export default template;

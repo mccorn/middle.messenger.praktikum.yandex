@@ -87,15 +87,12 @@ class HomePage extends Block {
 			if (validateResult.success) {
 				chatData.transport.sendMessage(message);
 			}
-
-			console.log('handleSubmit', chatData, this.state);
 		}
 
 		const handleFocusOut = (event: Event) => {
 			const target = event.target as HTMLInputElement;
 
 			if (target) this.state[target.name] = target.value
-			// console.log("handleFocusOut: " + target.name, "validate success = " + validate(target.name, target.value));
 		}
 
 		const inputEvents = {
@@ -110,7 +107,6 @@ class HomePage extends Block {
 				} else {
 					button.disable();
 				}
-				console.log('inputEvents_change', target.value, validateResult.success)
 			}
 		};
 		const buttonEvents = {
@@ -119,8 +115,6 @@ class HomePage extends Block {
 		const createChatButtonEvents = {
 			click: function () {
 				const newTitle = prompt('Введите имя нового чата: ');
-
-				console.log('newTitle', newTitle)
 
 				if (!newTitle || !(newTitle.trim())) return;
 

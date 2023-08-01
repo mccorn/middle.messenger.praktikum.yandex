@@ -1,12 +1,6 @@
 @import "../../../styles/colors.less";
 
 .profilePage {
-	// .link {
-	// 	display: block;
-	// 	position: absolute;
-	// 	margin-top: -24px;
-	// }
-
 	label {
 		position: relative;
 		color: @bg_color_default;
@@ -59,6 +53,11 @@
 	align-items: center;
 	justify-content: center;
 	overflow: hidden;
+
+	&.empty {
+		background: url("../../../assets/icons/profile.png") center center no-repeat;
+		background-size: contain;
+	}
 
 	& img {
 		width: 80%;

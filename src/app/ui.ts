@@ -50,4 +50,14 @@ Handlebars.registerHelper('if_eq', function(a, b, opts) {
 	}
 });
 
+Handlebars.registerHelper('not', function(a, opts) {
+	if (!this) return;
+	
+	if (!a) {
+			return opts.fn(this);
+	} else {
+			return opts.inverse(this);
+	}
+});
+
 export default registerUIPartials

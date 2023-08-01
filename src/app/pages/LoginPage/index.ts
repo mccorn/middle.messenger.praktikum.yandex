@@ -40,11 +40,9 @@ export default class LoginPage extends Block {
 	render() {
 		const inputLoginEvents = {
 			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputLogin),
-			// input: () => HANDLERS.handleInputWithError(this.children.inputLogin)
 		};
 		const inputPasswordEvents = {
 			focusout: (event: Event) => HANDLERS.handleFocusOut(event, this, this.children.inputPassword),
-			// input: () => HANDLERS.handleInputWithError(this.children.inputPassword),
 		};
 
 		const buttonEvents = {

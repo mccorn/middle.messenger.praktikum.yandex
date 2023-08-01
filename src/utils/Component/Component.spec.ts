@@ -11,32 +11,16 @@ describe("Component tests", () => {
 
 	const sandbox = createSandbox();
 
-	// constructor
-	// compile
-	// init
-	// componentDidMount
-	// dispatchComponentDidMount
-	// componentDidUpdate
-	// setProps
-	// setState
-	// element
-	// render
-	// getContent
-	// emit
-
 	beforeEach(() => {
-		// class TestComponent extends Component {}
-		// instance = new Component('span', {});
+		class TestComponent extends Component {}
 
-		// instance = connect(TestComponent, () => ({}))
 		const mapStateToProps = (state: Indexed) => ({
 			userId: state.userId,
 		})
 
-		const TestComponentWithStore = connect(Component, mapStateToProps)
+		const TestComponentWithStore = connect(TestComponent, mapStateToProps)
 
 		instance = new TestComponentWithStore('span', {});
-		// console.log(instanceWithStore)
 	})
 
 	afterEach(() => {

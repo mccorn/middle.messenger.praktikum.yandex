@@ -4,7 +4,7 @@ export default `
 
 	<div class="profileInfo flex">
 		{{#with data}}
-			<div class="profileInfo__avatar {{#if ../avatarUrl}}empty{{/if}}">
+			<div class="profileInfo__avatar {{#not ../avatarUrl}}empty{{/not}}">
 				{{#if ../avatarUrl}}
 					<img src={{../avatarUrl}} />
 				{{/if}}
