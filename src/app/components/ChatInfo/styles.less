@@ -1,6 +1,7 @@
 @size: 60px;
 .chatInfo {
 	min-height: @size;
+	
 	&__avatar {
 		height: @size * 0.8;
 		width: @size * 0.8;
@@ -13,6 +14,14 @@
 		img {
 			width: 80%;
 			border-radius: 50%;
+		}
+	}
+
+	&.active {
+		background-color: #fff;
+
+		& .chatInfo__avatar {
+			background-color: #e2e2e2;
 		}
 	}
 }

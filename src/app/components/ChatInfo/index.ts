@@ -14,6 +14,6 @@ export default class ChatInfo extends Block {
 	}
 
 	render() {
-		return this.compile(tmpl, {...this.props });
+		return this.compile(tmpl, this.props);
 	}
 }

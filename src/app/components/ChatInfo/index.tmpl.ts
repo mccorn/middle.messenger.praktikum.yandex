@@ -1,7 +1,7 @@
 import "./styles.less";
 
 export default `
-<div class="chatInfo flex" data-id="{{data.id}}">
+<div class="chatInfo flex{{#if_eq data-idx cur-idx}} active{{/if_eq}}" data-id="{{data.id}}">
 	{{#with data}}
 		<div class="chatInfo__avatar">
 			{{#if avatar}}
